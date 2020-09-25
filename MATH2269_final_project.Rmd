@@ -47,6 +47,15 @@ library(hrbrthemes)
 library(here)
 library(GGally)
 
+# OR (this allows us to install packages as we go, kind of like a cheap docker image)
+
+required_pkgs <- c(
+  'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor',
+  'girdExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
+)
+
+lock_n_load_libraries(required_pkgs)
+
 ```
 
 ```{r Source Functions, message=FALSE, warning=FALSE, include=FALSE}
