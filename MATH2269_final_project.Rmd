@@ -51,7 +51,7 @@ library(GGally)
 
 required_pkgs <- c(
   'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor',
-  'girdExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
+  'gridExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
 )
 
 lock_n_load_libraries(required_pkgs)
