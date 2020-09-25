@@ -113,7 +113,9 @@ lock_n_load_libraries <- function(required_packages, dependencies = T) {
   missing_packages <- required_packages[!(required_packages %in% installed.packages()[, "Package"])]
   
   if (length(missing_packages)) {
-    install.packages(missing_packages, dependencies = dependencies)
+    for (missing_package in missing_packages) {
+      try(install.packages(missing_packages, dependencies = dependencies))
+    }
   }
   
   print(sapply(required_packages, require, character.only = TRUE))
