@@ -45,6 +45,7 @@ library(rjags)
 library(ks)
 library(hrbrthemes)
 library(here)
+library(GGally)
 
 ```
 
@@ -108,7 +109,7 @@ data_cleaned %>%  head() %>% format_table(p_caption = "Inspecting the first six 
 ```
 
 
-### Data Preprocessing ??
+
 ### Missing values
 
 
@@ -123,6 +124,14 @@ data_cleaned %>%
 
 ```
 
+### Data Preprocessing
+
+```{r Data Preprocessing, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Remove incomplete rows
+data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
+
+```
 ### Summary statistics
 
 
@@ -138,6 +147,8 @@ data_cleaned %>%
 
 
 ```{r Univariate distribution, fig.cap = "A univartiate look at the distribution of all the variables found in the Melbourne sale price data.", echo=FALSE, message=FALSE, warning=FALSE}
+
+
 
 # plot1 <- ggplot(data_cleaned, aes(x = sale_price_100k)) +  
 #   geom_histogram() + 
@@ -191,7 +202,7 @@ data_cleaned %>%
 #   multi_row_margin + 
 #   assignment_plot_theme
 
-grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, ncol=2)
+# grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, ncol=2)
 
 
 ```
@@ -201,6 +212,20 @@ grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, ncol=2)
 
 
 ```{r, fig.cap = "Density plot of the Melbourne sale prices", echo=FALSE, message=FALSE, warning=FALSE}
+
+dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
+  geom_density(fill = 'orange', alpha = 0.3, col = 'orange') +
+  theme_bw() +
+  labs(
+    title = 'Figure 1.1: PM10 Distribution',
+    y = 'Density',
+    x = 'PM10',
+    caption = 'MATH2269 - Assignment 3: Toumpas E, Steinke P, Holt S'
+  ) +
+  theme(
+     plot.caption = element_text(face = 'italic', color = '#999999')
+  )
+
 
 # ggplot(data_cleaned, aes(x = sale_price_100k)) + 
 #   geom_density() + 
@@ -215,6 +240,17 @@ grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, ncol=2)
 
 
 ```{r, fig.cap = "Bivariate plots of dependant vs independant variables", echo=FALSE, message=FALSE, warning=FALSE}
+
+# This covers uniform descriptive?
+
+# Visualisation Matrix
+visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
+                               temperature,  roll_temp,
+                               wd, ws, weekdays,
+                               pm10, yn80), 
+                        aes(colour = factor(yn80)))
+
+visual_matrix
 
 # plot1 <- ggplot(data_cleaned, aes(x = area, y = sale_price_100k, colour = property_type)) + 
 #   geom_point() + 
