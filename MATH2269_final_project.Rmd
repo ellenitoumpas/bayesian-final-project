@@ -1,0 +1,305 @@
+---
+title: MATH2269 Semester 2 2020 - Final Project
+
+# to produce blinded version set to 1
+blinded: 0
+
+authors: 
+- name: Sam Holt, Phil Steinke, Elleni Toumpas
+  affiliation: RMIT
+  
+abstract: |
+  Insert Abstract
+  
+keywords:
+- JAGS
+- multiple linear regression analysis
+- prediction
+
+bibliography: bibliography.bib
+output: rticles::asa_article
+fig_caption: yes
+keep_tex: yes
+header-includes:
+ \usepackage{float}
+ \floatplacement{figure}{H}
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'H')
+```
+
+```{r Packages, message=FALSE, warning=FALSE, include=FALSE}
+
+graphics.off() # This closes all of R's graphics windows.
+options(scipen = 999)
+
+library(vroom)
+library(dplyr)
+library(lubridate)
+library(purrr)
+library(janitor)
+library(ggplot2)
+library(gridExtra)
+library(rjags)
+library(ks)
+library(hrbrthemes)
+library(here)
+
+```
+
+```{r Source Functions, message=FALSE, warning=FALSE, include=FALSE}
+
+source(paste0(here(),'/functions/functions_generic.R'))
+source(paste0(here(),'/functions/functions_bayesian.R'))
+source(paste0(here(),'/functions/DBDA2E-utilities.R'))
+
+```
+
+
+# Introduction
+
+
+```{r Import data, message=FALSE, warning=FALSE, include=FALSE}
+
+data <- vroom::vroom(paste0(here(),'/data/hour_extra_Brooklyn_2016_18.csv'))
+
+data_cleaned <- data %>% 
+  janitor::clean_names() 
+
+```
+
+
+
+```{r}
+
+data_cleaned %>%  select(pm10, pm10a, yn80, yn50, yn60)
+
+```
+
+
+```{r}
+
+data_cleaned %>%  select(-c(pm10, pm10a, yn80, yn50, yn60))
+
+```
+
+
+
+
+# Analysis 
+
+## A descriptive look
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+data.frame(columns = integer(), rows = integer()) %>% 
+  add_row(columns = dim(data_cleaned)[2], rows = dim(data_cleaned)[1]) %>% 
+  format_table(p_caption = "Dimenions")
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+data_cleaned %>%  head() %>% format_table(p_caption = "Inspecting the first six rows of the data.")
+
+```
+
+
+### Data Preprocessing ??
+### Missing values
+
+
+```{r Missing values, echo=FALSE, message=FALSE, warning=FALSE}
+
+data_cleaned %>% 
+  is.na() %>% 
+  colSums() %>% 
+  as.data.frame() %>% 
+  `colnames<-`(c("missing")) %>% 
+  format_table(p_caption = "Checking data for missing values.") 
+
+```
+
+### Summary statistics
+
+
+```{r Summary Statistics, echo=FALSE, message=FALSE, warning=FALSE}
+
+data_cleaned %>% 
+  summary() %>% 
+  format_table(p_caption="A look at the basic summary statistics for each variable in the data set.", width = FALSE)
+
+```
+
+### Univariate distribution
+
+
+```{r Univariate distribution, fig.cap = "A univartiate look at the distribution of all the variables found in the Melbourne sale price data.", echo=FALSE, message=FALSE, warning=FALSE}
+
+# plot1 <- ggplot(data_cleaned, aes(x = sale_price_100k)) +  
+#   geom_histogram() + 
+#   labs(x = "Sale price in AU$100,000 units", 
+#        y = "Frequency") +
+#   theme_minimal() +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# plot2 <- ggplot(data_cleaned, aes(x = area)) +  
+#   geom_histogram() + 
+#   labs(x = bquote("Area in" ~ m^2), 
+#        y = "Frequency") + 
+#   theme_minimal() +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# bedroom_frequency <- data_cleaned %>% select(bedrooms) %>% group_by(bedrooms) %>% summarise(count = n())
+# plot3 <- ggplot(bedroom_frequency, aes(x = bedrooms, y = count)) +  
+#   geom_bar(stat = "identity") + 
+#   labs(x = "Number of bedrooms", 
+#        y = "Frequency") + 
+#   theme_minimal() +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# bathroom_frequency <- data_cleaned %>% select(bathrooms) %>% group_by(bathrooms) %>% summarise(count = n())
+# plot4 <- ggplot(bathroom_frequency, aes(x = bathrooms, y = count)) +  
+#   geom_bar(stat = "identity") + 
+#   labs(x = "Number of bathrooms", 
+#        y = "Frequency") + 
+#   theme_minimal() +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# car_parks_frequency <- data_cleaned %>% select(car_parks) %>% group_by(car_parks) %>% summarise(count = n())
+# plot5 <- ggplot(car_parks_frequency, aes(x = car_parks, y = count)) +  
+#   geom_bar(stat = "identity") + 
+#   labs(x = "Number of car parks", 
+#        y = "Frequency") + 
+#   theme_minimal()  +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# property_type_frequency <- data_cleaned %>% select(property_type) %>% group_by(property_type) %>% summarise(count = n())
+# plot6 <- ggplot(property_type_frequency, aes(x = property_type, y = count)) + 
+#   geom_bar(stat = "identity") + 
+#   labs(x = "Property type", 
+#        y = "Frequency") + 
+#   theme_minimal() + 
+#   multi_row_margin + 
+#   assignment_plot_theme
+
+grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, ncol=2)
+
+
+```
+
+### Likelihood
+
+
+
+```{r, fig.cap = "Density plot of the Melbourne sale prices", echo=FALSE, message=FALSE, warning=FALSE}
+
+# ggplot(data_cleaned, aes(x = sale_price_100k)) + 
+#   geom_density() + 
+#   labs(x = "Sale price in AU$100,000 units", 
+#        y = "density") + 
+#   theme_minimal() + 
+#   assignment_plot_theme
+
+```
+
+### Dependant vs independant bivariate visualisation
+
+
+```{r, fig.cap = "Bivariate plots of dependant vs independant variables", echo=FALSE, message=FALSE, warning=FALSE}
+
+# plot1 <- ggplot(data_cleaned, aes(x = area, y = sale_price_100k, colour = property_type)) + 
+#   geom_point() + 
+#   theme_minimal() + 
+#   theme(legend.position = "none") +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# plot2 <- ggplot(data_cleaned, aes(x = bedrooms, y = sale_price_100k, colour = property_type)) +  
+#   geom_point() + 
+#   theme_minimal() + 
+#   theme(legend.position = "none") +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# plot3 <- ggplot(data_cleaned, aes(x = bathrooms, y = sale_price_100k, colour = property_type)) +  
+#   geom_point() + 
+#   theme_minimal() + 
+#   theme(legend.position = "none") +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# plot4 <- ggplot(data_cleaned, aes(x = car_parks, y = sale_price_100k, colour = property_type)) +  
+#   geom_point() + 
+#   theme_minimal() + 
+#   theme(legend.position = "right") +
+#   multi_row_margin + 
+#   assignment_plot_theme
+# 
+# grid.arrange(plot1, plot2, plot3, plot4,  ncol=2)
+
+```
+
+
+### Correlation matrix of predictors
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+# data_cleaned$property_type <- as.numeric(as.factor(data_cleaned$property_type))
+# y <- data_cleaned$sale_price_100k
+# x <- as.matrix(data_cleaned[,c("area","bedrooms","bathrooms","car_parks", "property_type")])
+# 
+# round(cor(x),3) %>% 
+#   as.data.frame() %>% 
+#   format_table(p_caption="Correlation matrix between independant variables.", width = FALSE)
+
+```
+
+
+## Subsampling
+### Subsample size trials
+### Subsample selection trials
+
+## Mathematical model
+## Prior specification
+## Model
+
+
+## Experiments to improve model efficiency
+### Isolated experiments on adapt steps
+### Isolated experiments on burn in steps
+### Isolated experiments on thinning steps
+### Isolated experiments on number of saved steps
+### Isolated experiments with initial values
+
+
+
+## Model fine-tuning
+## Prior sensitivity analysis
+## Posterior Inferences
+## Results
+
+## Prediction
+
+# Conclusion 
+
+
+
+
+# Reference 
+
+
+
+
+# Appendix
+
+
