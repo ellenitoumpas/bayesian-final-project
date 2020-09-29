@@ -285,7 +285,7 @@ It is therefore sufficient to simply remove these records from the dataset.
 
 ```{r}
 
-#### INSERT SAM'S CODE TO REMOVE MISSING VALUES
+data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
 
 ```
 
@@ -402,12 +402,18 @@ par(mar=c(5.1,4.1,2.1,2.1))
 
 ```{r, fig.cap = "Density plot of the Melbourne sale prices", echo=FALSE, message=FALSE, warning=FALSE}
 
-# ggplot(data_cleaned, aes(x = sale_price_100k)) + 
-#   geom_density() + 
-#   labs(x = "Sale price in AU$100,000 units", 
-#        y = "density") + 
-#   theme_minimal() + 
-#   assignment_plot_theme
+dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
+  geom_density(fill = 'orange', alpha = 0.3, col = 'orange') +
+  theme_bw() +
+  labs(
+    title = 'Figure 1.1: PM10 Distribution',
+    y = 'Density',
+    x = 'PM10',
+    caption = 'MATH2269 - Assignment 3: Toumpas E, Steinke P, Holt S'
+  ) +
+  theme(
+     plot.caption = element_text(face = 'italic', color = '#999999')
+  )
 
 ```
 
@@ -417,35 +423,11 @@ par(mar=c(5.1,4.1,2.1,2.1))
 
 ```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
 
-# plot1 <- ggplot(data_cleaned, aes(x = area, y = sale_price_100k, colour = property_type)) + 
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "none") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# plot2 <- ggplot(data_cleaned, aes(x = bedrooms, y = sale_price_100k, colour = property_type)) +  
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "none") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# plot3 <- ggplot(data_cleaned, aes(x = bathrooms, y = sale_price_100k, colour = property_type)) +  
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "none") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# plot4 <- ggplot(data_cleaned, aes(x = car_parks, y = sale_price_100k, colour = property_type)) +  
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "right") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# grid.arrange(plot1, plot2, plot3, plot4,  ncol=2)
+# Visualisation Matrix
+
+visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day, temperature,  roll_temp, wd, ws, weekdays, pm10, yn80), 
+                        aes(colour = factor(yn80)))
+visual_matrix
 
 ```
 
