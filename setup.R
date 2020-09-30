@@ -9,4 +9,6 @@ if (!requireNamespace("here"))
 library('here')
 source(here('functions', 'install_packages.R'))
 
+install_packages()
+
 # TODO: "lintr"
