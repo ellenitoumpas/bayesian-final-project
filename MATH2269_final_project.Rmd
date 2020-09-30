@@ -45,6 +45,16 @@ library(rjags)
 library(ks)
 library(hrbrthemes)
 library(here)
+library(GGally)
+
+# OR (this allows us to install packages as we go, kind of like a cheap docker image)
+
+required_pkgs <- c(
+  'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor',
+  'gridExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
+)
+
+lock_n_load_libraries(required_pkgs)
 
 ```
 
@@ -180,6 +190,15 @@ We can see from the frequency of the target variables that there is a severely i
 
 
 
+
+
+
+Inspecing the missing records, we can see that all missing values occur in the end part of the dataset with no records including a positive target class.
+
+
+
+### Data Preprocessing
+
 #### Outliers
 
 
@@ -254,8 +273,9 @@ data.frame(column = character(), nrows = integer()) %>%
 
 ```
 
+#### Missing values
 
-### Missing values
+
 
 Checking the missing values we can see that there are 23 rolling temperate missing records.
 
@@ -270,8 +290,6 @@ data_cleaned %>%
 
 ```
 
-Inspecing the missing records, we can see that all missing values occur in the end part of the dataset with no records including a positive target class.
-
 ```{r message=FALSE, warning=FALSE}
 
 data_cleaned %>% 
@@ -284,7 +302,7 @@ data_cleaned %>%
 It is therefore sufficient to simply remove these records from the dataset.
 
 ```{r}
-
+# Remove incomplete rows
 data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
 
 ```
@@ -296,8 +314,6 @@ data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
 #### Do we need to create any new features from the data set?
 
 ```
-
-
 
 
 #### Categorical Features
@@ -413,8 +429,10 @@ dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
   ) +
   theme(
      plot.caption = element_text(face = 'italic', color = '#999999')
-  )
-
+  ) + 
+  
+   assignment_plot_theme
+ 
 ```
 
 
@@ -423,10 +441,16 @@ dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
 
 ```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
 
-# Visualisation Matrix
 
-visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day, temperature,  roll_temp, wd, ws, weekdays, pm10, yn80), 
+# This covers uniform descriptive?
+
+# Visualisation Matrix
+visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
+                               temperature,  roll_temp,
+                               wd, ws, weekdays,
+                               pm10, yn80), 
                         aes(colour = factor(yn80)))
+
 visual_matrix
 
 ```

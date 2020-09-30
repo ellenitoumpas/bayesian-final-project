@@ -285,3 +285,21 @@ earth.dist <- function (long1, lat1, long2, lat2){
   d <- R * c
   return(d)
 }
+
+# install unloaded packages then libary the lot
+lock_n_load_libraries <- function(required_packages, dependencies = T) {
+  
+  missing_packages <- required_packages[!(required_packages %in% installed.packages()[, "Package"])]
+  
+  if (length(missing_packages)) {
+    for (missing_package in missing_packages) {
+      try(install.packages(missing_packages, dependencies = dependencies))
+    }
+  }
+  
+  print(sapply(required_packages, require, character.only = TRUE))
+  
+}
+
+
+
