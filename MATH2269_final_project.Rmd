@@ -29,6 +29,15 @@ header-includes:
 knitr::opts_chunk$set(fig.pos = 'H')
 ```
 
+
+```{r Source Functions, message=FALSE, warning=FALSE, include=FALSE}
+
+source(paste0(here(),'/functions/functions_generic.R'))
+source(paste0(here(),'/functions/functions_bayesian.R'))
+source(paste0(here(),'/functions/DBDA2E-utilities.R'))
+
+```
+
 ```{r Packages, message=FALSE, warning=FALSE, include=FALSE}
 
 graphics.off() # This closes all of R's graphics windows.
@@ -58,13 +67,6 @@ lock_n_load_libraries(required_pkgs)
 
 ```
 
-```{r Source Functions, message=FALSE, warning=FALSE, include=FALSE}
-
-source(paste0(here(),'/functions/functions_generic.R'))
-source(paste0(here(),'/functions/functions_bayesian.R'))
-source(paste0(here(),'/functions/DBDA2E-utilities.R'))
-
-```
 
 
 # Introduction
@@ -144,6 +146,7 @@ sapply(data_cleaned, class) %>%
   as.data.frame() %>%
   `colnames<-`(c("class")) %>% 
   format_table(p_caption = "Data types")
+
 ```
 
 
@@ -179,19 +182,14 @@ Before moving on to the outlier, impossible value and missing values check phase
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-data_cleaned %>% 
-  group_by(yn80) %>% 
-  summarise(count = n()) %>% 
-  format_table(p_caption = "The frequency of different levels in the target variable.")
+# data_cleaned %>% 
+#   group_by(pm10) %>% 
+#   summarise(count = n()) %>% 
+#   format_table(p_caption = "The frequency of different levels in the target variable.")
 
 ```
 
 We can see from the frequency of the target variables that there is a severely imbalanced dataset. If the decision had to be made on how to resolve issues in records containing a positive target class, it is advisable not to remove these records.
-
-
-
-
-
 
 Inspecing the missing records, we can see that all missing values occur in the end part of the dataset with no records including a positive target class.
 
@@ -302,6 +300,7 @@ data_cleaned %>%
 It is therefore sufficient to simply remove these records from the dataset.
 
 ```{r}
+
 # Remove incomplete rows
 data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
 
@@ -354,6 +353,17 @@ for (col in colnames(data_cleaned)){
 
 #### Do we need to encode categorical variables?
 
+## Make sure we have these columns in or captured in the dataset....
+# Rain 3 day
+# Temperature
+# WD
+# WS
+# day of the week
+# week day/ work day/ public holiday/ weekends
+# 24 hour clock hour
+# change wind direction into degrees from north
+
+
 ```
   
 
@@ -375,7 +385,7 @@ results_df %>%  format_table(p_caption = "Exploratory dataset")
 #### Univariate distribution
 
 
-```{r Univariate distribution, fig.cap = "A univariate look at the distribution of all the variables found in the Air dataset.", fig.height = 35, message=FALSE, warning=FALSE, fig.width=12}
+```{r Univariate distribution, fig.cap = "A univariate look at the distribution of all the variables found in the Air dataset.", fig.height = 10, message=FALSE, warning=FALSE, fig.width=4}
 
 plots <- list()
 
@@ -416,13 +426,13 @@ par(mar=c(5.1,4.1,2.1,2.1))
 ### Likelihood
 
 
-```{r, fig.cap = "Density plot of the Melbourne sale prices", echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.cap = "PM10 Distribution", echo=FALSE, message=FALSE, warning=FALSE}
 
 dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
   geom_density(fill = 'orange', alpha = 0.3, col = 'orange') +
   theme_bw() +
   labs(
-    title = 'Figure 1.1: PM10 Distribution',
+    title = 'PM10 Distribution',
     y = 'Density',
     x = 'PM10',
     caption = 'MATH2269 - Assignment 3: Toumpas E, Steinke P, Holt S'
@@ -432,6 +442,8 @@ dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
   ) + 
   
    assignment_plot_theme
+
+dens_plot
  
 ```
 
@@ -461,13 +473,9 @@ visual_matrix
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-# data_cleaned$property_type <- as.numeric(as.factor(data_cleaned$property_type))
-# y <- data_cleaned$sale_price_100k
-# x <- as.matrix(data_cleaned[,c("area","bedrooms","bathrooms","car_parks", "property_type")])
-# 
-# round(cor(x),3) %>% 
-#   as.data.frame() %>% 
-#   format_table(p_caption="Correlation matrix between independant variables.", width = FALSE)
+### Insert correlation heat map
+### test old and newly created features and subset columns to desired ones for final analysis
+
 
 ```
 
