@@ -54,12 +54,11 @@ library(rjags)
 library(ks)
 library(hrbrthemes)
 library(here)
-library(GGally)
 
 # OR (this allows us to install packages as we go, kind of like a cheap docker image)
 
 required_pkgs <- c(
-  'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor',
+  'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor', 'tsibble',
   'gridExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
 )
 
@@ -363,6 +362,30 @@ for (col in colnames(data_cleaned)){
 # 24 hour clock hour
 # change wind direction into degrees from north
 
+holidays <- tsibble::holiday_aus(unique(data_cleaned$years), state = 'VIC')
+
+data_cleaned <- data_cleaned %>% 
+  mutate(
+    deg_from_north = case_when(
+      wd > 180 ~ abs(wd - 360),
+      TRUE ~ wd
+    ),
+    pre_peak_hour = case_when(
+      hour > 4 & hour < 9 ~ T,
+      hour > 14 & hour < 17 ~ T,
+      T ~ F
+    ),
+    working_days = case_when(
+      weekdays == T ~ T,
+      date_day %in% holidays$date ~ F,
+      weekdays == F ~ F
+    )
+  )
+
+# Base sanity checks
+summary(data_cleaned$deg_from_north)
+data_cleaned %>% count(hour, pre_peak_hour)
+data_cleaned %>% count(working_days)
 
 ```
   
