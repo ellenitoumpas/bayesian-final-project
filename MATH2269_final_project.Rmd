@@ -42,8 +42,8 @@ source(paste0(here(),'/functions/DBDA2E-utilities.R'))
 
 graphics.off() # This closes all of R's graphics windows.
 options(scipen = 999)
-source(here('functions', 'load_packages.R'))
-load_packages()
+packages <- scan("requirements.txt", what="", sep="\n")
+lock_n_load_libraries(packages)
 
 ```
 

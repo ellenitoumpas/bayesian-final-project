@@ -20,6 +20,12 @@ Homebrew is great, but I currently avoid using it to install R, because of a num
 $ Rscript ./setup.R
 ```
 
+## Lint
+
+```zsh
+$ devtools::install_github("REditorSupport/languageserver")
+```
+
 ## Exporting as PDF (aka Knitting)
 
 Dependencies:

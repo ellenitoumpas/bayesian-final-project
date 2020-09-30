@@ -6,9 +6,7 @@ remotes::install_github("rstudio/renv")
 if (!requireNamespace("here"))
   install.packages("here")
 
-library('here')
-source(here('functions', 'install_packages.R'))
-
-install_packages()
+packages <- scan("requirements.txt", what="", sep="\n")
+lock_n_load_libraries(packages)
 
 # TODO: "lintr"
