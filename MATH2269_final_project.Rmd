@@ -70,37 +70,22 @@ source(paste0(here(),'/functions/DBDA2E-utilities.R'))
 # Introduction
 
 
-```{r Import data, message=FALSE, warning=FALSE, include=FALSE}
-
-data <- vroom::vroom(paste0(here(),'/data/hour_extra_Brooklyn_2016_18.csv'))
-
-data_cleaned <- data %>% 
-  janitor::clean_names() 
-
-```
-
-
-
-```{r}
-
-data_cleaned %>%  select(pm10, pm10a, yn80, yn50, yn60)
-
-```
-
-
-```{r}
-
-data_cleaned %>%  select(-c(pm10, pm10a, yn80, yn50, yn60))
-
-```
-
-
-
 
 # Analysis 
 
+
+```{r Import data, message=FALSE, warning=FALSE, include=FALSE}
+
+data <- vroom::vroom(paste0(here(),'/data/hour_extra_Brooklyn_2016_18.csv'))
+data_cleaned <- data %>% janitor::clean_names() 
+
+```
+
+
+
 ## A descriptive look
 
+### Dimensions
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -111,113 +96,324 @@ data.frame(columns = integer(), rows = integer()) %>%
 ```
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, size = 'tiny', out.extra='angle=90', size = 'tiny'}
 
-data_cleaned %>%  head() %>% format_table(p_caption = "Inspecting the first six rows of the data.")
+## TODO: Find a way to hack the landscape() function so that forced page breaks dont occur. It would be good to have all preview tables
+## printed in landscape so there is extra real estate in the width of the table but all header previews still contained to one page?s
+
+data_cleaned %>% select(id, rainfall_mm, rf_cum_2_day, rf_cum_3_day, rf_cum_4_day, rf_cum_5_day) %>% 
+  head(5) %>%
+  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
+  kableExtra::landscape() %>%
+  kableExtra::row_spec(0, angle = 90)
+  
+data_cleaned %>% select(rf_cum_6_day, rf_cum_7_day, date_day, date_local_time, site) %>% 
+  head(5) %>%
+  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
+  kableExtra::landscape() %>%
+  kableExtra::row_spec(0, angle = 90)
+
+data_cleaned %>% select(temperature, pm10, pm10a, wd, ws, dow, hour, winddire) %>%
+  head(5) %>%
+  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
+  kableExtra::landscape() %>%
+  kableExtra::row_spec(0, angle = 90)
+
+data_cleaned %>% select(years, yn80, roll_temp, yn50, north, north1, yn60, weekdays, mornings) %>%
+  head(5) %>%
+  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
+  kableExtra::landscape() %>%
+  kableExtra::row_spec(0, angle = 90)
 
 ```
 
 
 
-### Missing values
+### Datatypes
+
+The datatypes for each variable can be found below (after variable datatypes were set on import). Numerical variables that are actually binary values or an identifier were transformed to a factor.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+sapply(data_cleaned, class) %>% 
+  as.data.frame() %>%
+  mutate(date_local_time = "POSIXct POSIXt") %>% 
+  unique() %>% 
+  as.matrix() %>% 
+  t() %>% 
+  as.data.frame() %>%
+  `colnames<-`(c("class")) %>% 
+  format_table(p_caption = "Data types")
+```
 
 
-```{r Missing values, echo=FALSE, message=FALSE, warning=FALSE}
+### Data Preprocessing
+
+#### Removing unique identifier
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+data_cleaned %>% 
+  group_by(id) %>% 
+  summarise(count = n()) %>% 
+  ungroup() %>% 
+  filter(count > 1)  %>% 
+  format_table(p_caption = "The count of id variable filtered to show only values that are not unique.")
+  
+```
+
+
+As confirmed above, the **id** is a unique identifier, and it is therefore removed from the dataset.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+data_cleaned <- data_cleaned %>% select(-c(id))
+
+```
+
+
+#### Target variable frequency
+
+Before moving on to the outlier, impossible value and missing values check phases, it is important to get an understanding of the frequency of each level in the target level. This will assist when deciding on the best method for fixing possible issues in the following phases. If one of the target levels are only represented by a small number of records then simply removing the records that fail any of the further checks will be ill-advised. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+data_cleaned %>% 
+  group_by(yn80) %>% 
+  summarise(count = n()) %>% 
+  format_table(p_caption = "The frequency of different levels in the target variable.")
+
+```
+
+We can see from the frequency of the target variables that there is a severely imbalanced dataset. If the decision had to be made on how to resolve issues in records containing a positive target class, it is advisable not to remove these records.
+
+
+
+
+
+
+Inspecing the missing records, we can see that all missing values occur in the end part of the dataset with no records including a positive target class.
+
+
+
+### Data Preprocessing
+
+#### Outliers
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+ncols <- 3
+nrows <- ceiling(sapply(data_cleaned, class) %>%  
+                   as.data.frame() %>%
+                   mutate(date_local_time = "POSIXct POSIXt") %>%  
+                   unique() %>% 
+                   as.matrix() %>% 
+                   t() %>% 
+                   as.data.frame() %>%
+                   `colnames<-`(c("class")) %>% 
+                   filter(class %in% c('numeric','integer')) %>% 
+                   nrow() / ncols)
+
+fig_height <- nrows * 1.5
+
+```
+
+```{r echo=FALSE, fig.height=fig_height, message=FALSE, warning=FALSE}
+
+par(mfrow = c(nrows,ncols))
+par(mar=c(1,1,1,1))
+
+for(col in colnames(data_cleaned)){
+  if((class(data_cleaned[[col]])[1] %in% c('numeric','integer')) & (col != 'id')){
+    boxplot(data_cleaned[[col]], pch=19, xlab=paste0(col))
+  }
+}
+
+par(mfrow=c(1,1))
+par(mar=c(5.1,4.1,2.1,2.1))
+
+```
+
+
+#### Impossible values
+
+For the numerical values in the dataset an impossible value check is performed. 
+
+<!-- ELLENI TODO: I didn't think PM10 levels could be below 0. In the impossible value check below we can see 118 records with negative PM10 levels. I need to check this with Maj Britte. For now leave as is. -->
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+data.frame(column = character(), nrows = integer()) %>% 
+  add_row(column = 'rainfall_mm', nrows = data_cleaned %>% filter(rainfall_mm < 0) %>% nrow()) %>% 
+  add_row(column = 'rf_cum_2_day', nrows = data_cleaned %>% filter(rf_cum_2_day < 0) %>% nrow()) %>%
+  add_row(column = 'rf_cum_3_day', nrows = data_cleaned %>% filter(rf_cum_3_day < 0) %>% nrow()) %>% 
+  add_row(column = 'rf_cum_4_day', nrows = data_cleaned %>% filter(rf_cum_4_day < 0) %>% nrow()) %>% 
+  add_row(column = 'rf_cum_5_day', nrows = data_cleaned %>% filter(rf_cum_5_day < 0) %>% nrow()) %>% 
+  add_row(column = 'rf_cum_6_day', nrows = data_cleaned %>% filter(rf_cum_6_day < 0) %>% nrow()) %>% 
+  add_row(column = 'rf_cum_7_day', nrows = data_cleaned %>% filter(rf_cum_7_day < 0) %>% nrow()) %>% 
+  add_row(column = 'rf_cum_5_day', nrows = data_cleaned %>% filter(rf_cum_5_day < 0) %>% nrow()) %>% 
+  add_row(column = 'date_day', nrows = data_cleaned %>% filter(date_day < dmy('01/01/2016')) %>% 
+            rbind(data_cleaned %>% filter(date_day > dmy('31/12/2018'))) %>% nrow()) %>% 
+  add_row(column = 'temperature', nrows = data_cleaned %>% filter(temperature < 0) %>% 
+            rbind(data_cleaned %>% filter(temperature > 50)) %>% nrow()) %>% 
+  add_row(column = 'pm10', nrows = data_cleaned %>% filter(pm10 < 0) %>% nrow()) %>% 
+  add_row(column = 'pm10a', nrows = data_cleaned %>% filter(pm10a < 0) %>% nrow()) %>% 
+  add_row(column = 'wd', nrows = data_cleaned %>% filter(wd < 0) %>% 
+            rbind(data_cleaned %>% filter(wd > 360)) %>% nrow()) %>% 
+  add_row(column = 'ws', nrows = data_cleaned %>% filter(ws < 0) %>% nrow()) %>% 
+  add_row(column = 'hour', nrows = data_cleaned %>% filter(hour < 0) %>% 
+            rbind(data_cleaned %>% filter(hour > 23)) %>% nrow()) %>% 
+  add_row(column = 'years', nrows = data_cleaned %>% filter(years < 2016) %>% 
+            rbind(data_cleaned %>% filter(years > 2018)) %>% nrow()) %>% 
+  add_row(column = 'roll_temp', nrows = data_cleaned %>% filter(roll_temp < 0) %>% 
+            rbind(data_cleaned %>% filter(roll_temp > 50)) %>% nrow()) %>% 
+  format_table(p_caption = "The number of rows with impossible values.")
+
+```
+
+#### Missing values
+
+
+
+Checking the missing values we can see that there are 23 rolling temperate missing records.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 data_cleaned %>% 
   is.na() %>% 
   colSums() %>% 
   as.data.frame() %>% 
-  `colnames<-`(c("missing")) %>% 
-  format_table(p_caption = "Checking data for missing values.") 
+  `colnames<-`(c("Number missing values")) %>% 
+  format_table(p_caption = "Count of missing values by variable")
 
 ```
 
-### Data Preprocessing
+```{r message=FALSE, warning=FALSE}
 
-```{r Data Preprocessing, echo=FALSE, message=FALSE, warning=FALSE}
+data_cleaned %>% 
+  filter(is.na(roll_temp)) %>% 
+  select(date_day, date_local_time, roll_temp, yn80) %>% 
+  format_table(p_caption = "Missing roll temperate values")
 
+```
+
+It is therefore sufficient to simply remove these records from the dataset.
+
+```{r}
 # Remove incomplete rows
 data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
 
 ```
-### Summary statistics
 
+#### Feature engineering
 
-```{r Summary Statistics, echo=FALSE, message=FALSE, warning=FALSE}
+```{r}
 
-data_cleaned %>% 
-  summary() %>% 
-  format_table(p_caption="A look at the basic summary statistics for each variable in the data set.", width = FALSE)
+#### Do we need to create any new features from the data set?
 
 ```
 
-### Univariate distribution
+
+#### Categorical Features
+
+To check whether there are errors (including typos or unexpected values) in the categorical features each variable is arranged in order and then inspected by the researchers. In the list of possible values printed below there seems to be no incorrect values.
+
+```{r message=FALSE, warning=FALSE}
 
 
-```{r Univariate distribution, fig.cap = "A univartiate look at the distribution of all the variables found in the Melbourne sale price data.", echo=FALSE, message=FALSE, warning=FALSE}
+for (col in colnames(data_cleaned)){
+  
+  if(class(data_cleaned[[col]])[1] %in% c('factor', 'ordered', 'character')){
+    
+    paste0("Unique values for ",col) %>% cat()
+    cat("\n")
 
+    data_cleaned %>%
+      arrange(get(col)) %>%
+      select(col) %>%
+      unique() %>%
+      pull() %>% 
+      as.character() %>%
+      paste0(collapse = ", ") %>%
+      stringr::str_trunc(width = 800, side = "right", ellipsis = "... (truncated)") %>%
+      cat()
 
-
-# plot1 <- ggplot(data_cleaned, aes(x = sale_price_100k)) +  
-#   geom_histogram() + 
-#   labs(x = "Sale price in AU$100,000 units", 
-#        y = "Frequency") +
-#   theme_minimal() +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# plot2 <- ggplot(data_cleaned, aes(x = area)) +  
-#   geom_histogram() + 
-#   labs(x = bquote("Area in" ~ m^2), 
-#        y = "Frequency") + 
-#   theme_minimal() +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# bedroom_frequency <- data_cleaned %>% select(bedrooms) %>% group_by(bedrooms) %>% summarise(count = n())
-# plot3 <- ggplot(bedroom_frequency, aes(x = bedrooms, y = count)) +  
-#   geom_bar(stat = "identity") + 
-#   labs(x = "Number of bedrooms", 
-#        y = "Frequency") + 
-#   theme_minimal() +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# bathroom_frequency <- data_cleaned %>% select(bathrooms) %>% group_by(bathrooms) %>% summarise(count = n())
-# plot4 <- ggplot(bathroom_frequency, aes(x = bathrooms, y = count)) +  
-#   geom_bar(stat = "identity") + 
-#   labs(x = "Number of bathrooms", 
-#        y = "Frequency") + 
-#   theme_minimal() +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# car_parks_frequency <- data_cleaned %>% select(car_parks) %>% group_by(car_parks) %>% summarise(count = n())
-# plot5 <- ggplot(car_parks_frequency, aes(x = car_parks, y = count)) +  
-#   geom_bar(stat = "identity") + 
-#   labs(x = "Number of car parks", 
-#        y = "Frequency") + 
-#   theme_minimal()  +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# property_type_frequency <- data_cleaned %>% select(property_type) %>% group_by(property_type) %>% summarise(count = n())
-# plot6 <- ggplot(property_type_frequency, aes(x = property_type, y = count)) + 
-#   geom_bar(stat = "identity") + 
-#   labs(x = "Property type", 
-#        y = "Frequency") + 
-#   theme_minimal() + 
-#   multi_row_margin + 
-#   assignment_plot_theme
-
-# grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, ncol=2)
-
+    cat("\n")
+    cat("\n")
+    
+  }
+}
 
 ```
+
+#### Any categorical descriptive feature encoded 
+
+```{r message=FALSE, warning=FALSE}
+
+#### Do we need to encode categorical variables?
+
+```
+  
+
+#### Summary statistics
+
+A quick look at the custom summary statistics can be found below. For factors we can see the most common level, with the count of appearances for that mode level. For the Date variables we can we can see the min, max and mode levels. For the numeric and integer variables we can see the mean, median, standard deviation, minimum and maximum values.
+
+```{r fig.cap="Summary statistics", message=FALSE, warning=FALSE}
+
+results_df <- exploratory_summarize(data_cleaned, col == 'id')
+results_df %>%  format_table(p_caption = "Exploratory dataset")
+
+```
+
+
+
+
+
+#### Univariate distribution
+
+
+```{r Univariate distribution, fig.cap = "A univariate look at the distribution of all the variables found in the Air dataset.", fig.height = 35, message=FALSE, warning=FALSE, fig.width=12}
+
+plots <- list()
+
+for(col in colnames(data_cleaned)){
+  plots[[col]] <- univariate_distribution_plot(data_cleaned[[col]], col)
+}
+
+grid.arrange(grobs = plots, ncol = 3)
+
+```
+
+
+
+```{r echo=FALSE, fig.height=fig_height, message=FALSE, warning=FALSE}
+
+par(mfrow = c(nrows,ncols))
+par(mar=c(1,1,1,1))
+
+# colours not working in base boxplot call
+target <- "yn80"
+target_color <- ifelse(data_cleaned[[target]] == "TRUE" , rgb(0.1,0.1,0.7,0.5) , 
+                ifelse(data_cleaned[[target]] =="FALSE", rgb(0.8,0.1,0.3,0.6),
+                              "grey90"))
+
+for(col in colnames(data_cleaned)){
+  if((class(data_cleaned[[col]])[1] %in% c('numeric','integer')) & (col != 'id')){
+    boxplot(get(col) ~ as.character(yn80), data = data_cleaned, pch=19, xlab = target, ylab = col, color = target_color)
+  }
+}
+
+
+par(mfrow=c(1,1))
+par(mar=c(5.1,4.1,2.1,2.1))
+
+```
+
 
 ### Likelihood
-
 
 
 ```{r, fig.cap = "Density plot of the Melbourne sale prices", echo=FALSE, message=FALSE, warning=FALSE}
@@ -233,22 +429,18 @@ dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
   ) +
   theme(
      plot.caption = element_text(face = 'italic', color = '#999999')
-  )
-
-
-# ggplot(data_cleaned, aes(x = sale_price_100k)) + 
-#   geom_density() + 
-#   labs(x = "Sale price in AU$100,000 units", 
-#        y = "density") + 
-#   theme_minimal() + 
-#   assignment_plot_theme
-
+  ) + 
+  
+   assignment_plot_theme
+ 
 ```
+
 
 ### Dependant vs independant bivariate visualisation
 
 
-```{r, fig.cap = "Bivariate plots of dependant vs independant variables", echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
+
 
 # This covers uniform descriptive?
 
@@ -260,36 +452,6 @@ visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_d
                         aes(colour = factor(yn80)))
 
 visual_matrix
-
-# plot1 <- ggplot(data_cleaned, aes(x = area, y = sale_price_100k, colour = property_type)) + 
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "none") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# plot2 <- ggplot(data_cleaned, aes(x = bedrooms, y = sale_price_100k, colour = property_type)) +  
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "none") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# plot3 <- ggplot(data_cleaned, aes(x = bathrooms, y = sale_price_100k, colour = property_type)) +  
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "none") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# plot4 <- ggplot(data_cleaned, aes(x = car_parks, y = sale_price_100k, colour = property_type)) +  
-#   geom_point() + 
-#   theme_minimal() + 
-#   theme(legend.position = "right") +
-#   multi_row_margin + 
-#   assignment_plot_theme
-# 
-# grid.arrange(plot1, plot2, plot3, plot4,  ncol=2)
 
 ```
 
@@ -340,7 +502,12 @@ visual_matrix
 
 
 
+
 # Reference 
+
+```{r}
+
+```
 
 
 
