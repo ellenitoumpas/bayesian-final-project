@@ -479,12 +479,11 @@ dens_plot
 
 data_cleaned_num <- data_cleaned[sapply(data_cleaned, is.numeric)]
 
-cormat <- round(cor(data_cleaned_num), 1)
+correlations_matrix <- round(cor(data_cleaned_num), 1)
 
-melted_cormat <- reshape2::melt(cormat)
+melted_cor_matrix <- reshape2::melt(correlations_matrix)
 
-
-ggheatmap <- ggplot(melted_cormat, aes(Var2, Var1, fill = value)) +
+ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
   geom_tile(color = "white", show.legend = F) +
   scale_fill_gradient2(
     low = "blue",
@@ -517,8 +516,6 @@ ggheatmap <- ggplot(melted_cormat, aes(Var2, Var1, fill = value)) +
     legend.direction = "horizontal"
   ) +
   guides(fill = element_blank())
-
-ggheatmap
 
 ```
 
