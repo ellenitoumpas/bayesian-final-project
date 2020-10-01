@@ -371,14 +371,14 @@ data_cleaned <- data_cleaned %>%
       TRUE ~ wd
     ),
     pre_peak_hour = case_when(
-      hour > 4 & hour < 9 ~ T,
-      hour > 14 & hour < 17 ~ T,
-      T ~ F
+      hour > 4 & hour < 9 ~ TRUE,
+      hour > 14 & hour < 17 ~ TRUE,
+      TRUE ~ FALSE
     ),
     working_days = case_when(
-      weekdays == T ~ T,
-      date_day %in% holidays$date ~ F,
-      weekdays == F ~ F
+      weekdays == TRUE ~ TRUE,
+      date_day %in% holidays$date ~ FALSE,
+      weekdays == FALSE ~ FALSE
     )
   )
 
