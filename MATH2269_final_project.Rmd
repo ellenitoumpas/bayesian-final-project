@@ -162,23 +162,6 @@ data_cleaned <- data_cleaned %>% select(-id, -yn50, -yn60, -yn80, -pm10a)
 
 ```
 
-##### Target variable frequency
-
-Before moving on to the outlier, impossible value and missing values check phases, it is important to get an understanding of the frequency of each level in the target level. This will assist when deciding on the best method for fixing possible issues in the following phases. If one of the target levels are only represented by a small number of records then simply removing the records that fail any of the further checks will be ill-advised.
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-# data_cleaned %>%
-#   group_by(pm10) %>%
-#   summarise(count = n()) %>%
-#   format_table(p_caption = "The frequency of different levels in the target variable.")
-
-```
-
-We can see from the frequency of the target variables that there is a severely imbalanced dataset. If the decision had to be made on how to resolve issues in records containing a positive target class, it is advisable not to remove these records.
-
-Inspecing the missing records, we can see that all missing values occur in the end part of the dataset with no records including a positive target class.
-
 ##### Outliers
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
