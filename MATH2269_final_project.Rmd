@@ -32,10 +32,11 @@ knitr::opts_chunk$set(fig.pos = 'H')
 ```{r Source Functions, message=FALSE, warning=FALSE, include=FALSE}
 
 library('here')
-# source(paste0(here(), '/functions/packages.R'))
-source(paste0(here(), '/functions/functions_generic.R'))
-source(paste0(here(), '/functions/functions_bayesian.R'))
-source(paste0(here(), '/functions/DBDA2E-utilities.R'))
+library('hrbrthemes')
+library('ggplot2')
+source(here('functions', 'functions_generic.R'))
+source(here('functions', 'functions_bayesian.R'))
+source(here('functions', 'DBDA2E-utilities.R'))
 
 ```
 
@@ -49,21 +50,20 @@ library(dplyr)
 library(lubridate)
 library(purrr)
 library(janitor)
-library(ggplot2)
 library(gridExtra)
 library(rjags)
 library(ks)
-library(hrbrthemes)
-library(here)
+library(timeDate)
+
 
 # OR (this allows us to install packages as we go, kind of like a cheap docker image)
 
-required_pkgs <- c(
-  'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor', 'tsibble',
-  'gridExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
-)
+#required_pkgs <- c(
+#  'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor', 'tsibble',
+#  'gridExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
+#)
 
-lock_n_load_libraries(required_pkgs)
+# lock_n_load_libraries(required_pkgs)
 
 # lock_n_load_libraries(packages)
 
@@ -75,7 +75,7 @@ lock_n_load_libraries(required_pkgs)
 
 ```{r Import data, message=FALSE, warning=FALSE, include=FALSE}
 
-data <- vroom::vroom(paste0(here(), '/data/hour_extra_Brooklyn_2016_18.csv'))
+data <- vroom::vroom(here('data', 'hour_extra_Brooklyn_2016_18.csv'))
 data_cleaned <- data %>% janitor::clean_names()
 
 ```
@@ -373,7 +373,7 @@ grid.arrange(grobs = plots, ncol = 3)
 
 
 
-```{r Univariate distribution, fig.cap = "A ", fig.height = 4, message=FALSE, warning=FALSE, fig.width=4}
+```{r Univariate distribution scatter plots, fig.cap = "A ", fig.height = 4, message=FALSE, warning=FALSE, fig.width=4}
 
 scatter_plots <- list()
 
