@@ -154,9 +154,11 @@ data_cleaned %>%
 
 As confirmed above, the **id** is a unique identifier, and it is therefore removed from the dataset.
 
+Regarding the other variables removed, we have determined $PM_{10}$ as our target variable, the remain proposed target variables ($PM_{10}a, yn_{80}, yn_{60},  yn_{50}$) are therfore discarded.
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-data_cleaned <- data_cleaned %>% select(-c(id))
+data_cleaned <- data_cleaned %>% select(-id, -yn50, -yn60, -yn80, -pm10a)
 
 ```
 
@@ -341,6 +343,8 @@ data_cleaned %>% count(hour, pre_peak_hour)
 data_cleaned %>% count(working_days)
 
 ```
+  
+If we were to have issues within the pre_peak_hour summary, there would either be a duplicate of the hour values or NA values in both hour and pre_peak_hour fields.  
   
 ##### Summary statistics
 
