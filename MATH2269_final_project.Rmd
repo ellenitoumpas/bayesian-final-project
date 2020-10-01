@@ -117,7 +117,7 @@ data_cleaned %>%
     kableExtra::landscape() %>%
     kableExtra::row_spec(0, angle = 90)
 
-```
+
 
 #### Datatypes
 
