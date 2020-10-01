@@ -100,29 +100,9 @@ data.frame(columns = integer(), rows = integer()) %>%
 ## TODO: Find a way to hack the landscape() function so that forced page breaks dont occur. It would be good to have all preview tables
 ## printed in landscape so there is extra real estate in the width of the table but all header previews still contained to one page?s
 
-data_cleaned %>% select(id, rainfall_mm, rf_cum_2_day, rf_cum_3_day, rf_cum_4_day, rf_cum_5_day) %>% 
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
-  
-data_cleaned %>% select(rf_cum_6_day, rf_cum_7_day, date_day, date_local_time, site) %>% 
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
+source(here('src', 'data', 'inspect_data.R'))
+inspect_data(data_cleaned)
 
-data_cleaned %>% select(temperature, pm10, pm10a, wd, ws, dow, hour, winddire) %>%
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
-
-data_cleaned %>% select(years, yn80, roll_temp, yn50, north, north1, yn60, weekdays, mornings) %>%
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
 
 ```
 
@@ -240,31 +220,8 @@ For the numerical values in the dataset an impossible value check is performed.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-data.frame(column = character(), nrows = integer()) %>% 
-  add_row(column = 'rainfall_mm', nrows = data_cleaned %>% filter(rainfall_mm < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_2_day', nrows = data_cleaned %>% filter(rf_cum_2_day < 0) %>% nrow()) %>%
-  add_row(column = 'rf_cum_3_day', nrows = data_cleaned %>% filter(rf_cum_3_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_4_day', nrows = data_cleaned %>% filter(rf_cum_4_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_5_day', nrows = data_cleaned %>% filter(rf_cum_5_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_6_day', nrows = data_cleaned %>% filter(rf_cum_6_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_7_day', nrows = data_cleaned %>% filter(rf_cum_7_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_5_day', nrows = data_cleaned %>% filter(rf_cum_5_day < 0) %>% nrow()) %>% 
-  add_row(column = 'date_day', nrows = data_cleaned %>% filter(date_day < dmy('01/01/2016')) %>% 
-            rbind(data_cleaned %>% filter(date_day > dmy('31/12/2018'))) %>% nrow()) %>% 
-  add_row(column = 'temperature', nrows = data_cleaned %>% filter(temperature < 0) %>% 
-            rbind(data_cleaned %>% filter(temperature > 50)) %>% nrow()) %>% 
-  add_row(column = 'pm10', nrows = data_cleaned %>% filter(pm10 < 0) %>% nrow()) %>% 
-  add_row(column = 'pm10a', nrows = data_cleaned %>% filter(pm10a < 0) %>% nrow()) %>% 
-  add_row(column = 'wd', nrows = data_cleaned %>% filter(wd < 0) %>% 
-            rbind(data_cleaned %>% filter(wd > 360)) %>% nrow()) %>% 
-  add_row(column = 'ws', nrows = data_cleaned %>% filter(ws < 0) %>% nrow()) %>% 
-  add_row(column = 'hour', nrows = data_cleaned %>% filter(hour < 0) %>% 
-            rbind(data_cleaned %>% filter(hour > 23)) %>% nrow()) %>% 
-  add_row(column = 'years', nrows = data_cleaned %>% filter(years < 2016) %>% 
-            rbind(data_cleaned %>% filter(years > 2018)) %>% nrow()) %>% 
-  add_row(column = 'roll_temp', nrows = data_cleaned %>% filter(roll_temp < 0) %>% 
-            rbind(data_cleaned %>% filter(roll_temp > 50)) %>% nrow()) %>% 
-  format_table(p_caption = "The number of rows with impossible values.")
+source(here('src', 'data', 'impossible_values.R'))
+impossible_values(data_cleaned)
 
 ```
 
