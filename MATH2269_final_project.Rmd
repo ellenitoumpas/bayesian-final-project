@@ -369,14 +369,14 @@ data_cleaned <- data_cleaned %>%
       TRUE ~ wd
     ),
     pre_peak_hour = case_when(
-      hour > 4 & hour < 9 ~ T,
-      hour > 14 & hour < 17 ~ T,
-      T ~ F
+      hour > 4 & hour < 9 ~ TRUE,
+      hour > 14 & hour < 17 ~ TRUE,
+      TRUE ~ FALSE
     ),
     working_days = case_when(
-      weekdays == T ~ T,
-      date_day %in% holidays$date ~ F,
-      weekdays == F ~ F
+      weekdays == TRUE ~ TRUE,
+      date_day %in% holidays$date ~ FALSE,
+      weekdays == FALSE ~ FALSE
     )
   )
 
@@ -465,11 +465,55 @@ dens_plot
 
 ### Dependant vs independant bivariate visualisation
 
+```{r, fig.cap= "Numeric Variable Correlation Heatmap", echo=FALSE, message=FALSE, warning=FALSE}
+
+# Correlation Heatmap of all variables
+
+data_cleaned_num <- data_cleaned[sapply(data_cleaned, is.numeric)]
+
+correlations_matrix <- round(cor(data_cleaned_num), 1)
+
+melted_cor_matrix <- reshape2::melt(correlations_matrix)
+
+ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
+  geom_tile(color = "white", show.legend = F) +
+  scale_fill_gradient2(
+    low = "blue",
+    high = "red",
+    mid = "white",
+    midpoint = 0,
+    limit = c(-1, 1),
+    space = "Lab"
+  ) +
+  assignment_plot_theme +
+  theme(axis.text.x = element_text(
+    angle = 45,
+    vjust = 1,
+    size = 6,
+    hjust = 1
+  )) +
+  coord_fixed() +
+  geom_text(aes(Var2, Var1, label = value),
+            color = "black",
+            size = 4) +
+  theme(
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    axis.ticks = element_blank(),
+    legend.justification = c(1, 0),
+    legend.position = c(0.6, 0.7),
+    legend.direction = "horizontal"
+  ) +
+  guides(fill = element_blank())
+
+```
+
+
 
 ```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
-
-
-# This covers uniform descriptive?
 
 # Visualisation Matrix
 visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
