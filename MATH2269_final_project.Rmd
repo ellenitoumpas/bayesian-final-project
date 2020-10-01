@@ -70,8 +70,6 @@ lock_n_load_libraries(required_pkgs)
 
 # Introduction
 
-
-
 # Analysis 
 
 
@@ -422,26 +420,20 @@ grid.arrange(grobs = plots, ncol = 3)
 
 
 
-```{r echo=FALSE, fig.height=fig_height, message=FALSE, warning=FALSE}
+```{r Univariate distribution, fig.cap = "A ", fig.height = 4, message=FALSE, warning=FALSE, fig.width=4}
 
-par(mfrow = c(nrows,ncols))
-par(mar=c(1,1,1,1))
-
-# colours not working in base boxplot call
-target <- "yn80"
-target_color <- ifelse(data_cleaned[[target]] == "TRUE" , rgb(0.1,0.1,0.7,0.5) , 
-                ifelse(data_cleaned[[target]] =="FALSE", rgb(0.8,0.1,0.3,0.6),
-                              "grey90"))
+scatter_plots <- list()
 
 for(col in colnames(data_cleaned)){
-  if((class(data_cleaned[[col]])[1] %in% c('numeric','integer')) & (col != 'id')){
-    boxplot(get(col) ~ as.character(yn80), data = data_cleaned, pch=19, xlab = target, ylab = col, color = target_color)
+  if((class(data_cleaned[[col]])[1] %in% c('numeric','integer')) & (col != 'pm10')){
+    scatter_plots[[col]] <- ggplot(data_cleaned, aes_string(x = col, y = 'pm10')) + 
+      geom_point(fill = 'orange', alpha = 0.3, col = 'orange') + 
+      labs(title = paste0(col," plotted\nagainst PM10 levels")) +
+      assignment_multi_plot_theme
   }
 }
 
-
-par(mfrow=c(1,1))
-par(mar=c(5.1,4.1,2.1,2.1))
+grid.arrange(grobs = scatter_plots, ncol = 3)
 
 ```
 
