@@ -1,0 +1,17 @@
+dplyr
+GGally
+ggplot2
+gridExtra
+here
+hrbrthemes
+janitor
+ks
+languageserver
+lintr
+lubridate
+purrr
+rjags
+rticles
+tidyverse
+tsibble
+vroom
