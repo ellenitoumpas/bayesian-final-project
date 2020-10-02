@@ -80,6 +80,20 @@ data_cleaned <- data %>% janitor::clean_names()
 
 ```
 
+
+```{r}
+
+data_cleaned <- data_cleaned %>% 
+  mutate(dow = factor(dow, levels = c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'), 
+                           labels = c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'), ordered = TRUE), 
+         winddire = factor(winddire, 
+                           levels = c('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW','NNW'), 
+                           labels = c('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW','NNW'),
+                           ordered = TRUE))
+
+```
+
+
 ### A descriptive look
 
 #### Dimensions
@@ -169,10 +183,12 @@ data_cleaned <- data_cleaned %>% select(-id, -yn50, -yn60, -yn80, -pm10a)
 ncols <- 3
 nrows <- ceiling(sapply(data_cleaned, class) %>%  
                    as.data.frame() %>%
-                   mutate(date_local_time = "POSIXct POSIXt") %>%  
-                   unique() %>%
-                   as.matrix() %>%
-                   t() %>%
+                   mutate(date_local_time = "POSIXct POSIXt", 
+                          dow = "ordered factor", 
+                          winddire = "ordered factor") %>%  
+                   unique() %>% 
+                   as.matrix() %>% 
+                   t() %>% 
                    as.data.frame() %>%
                    `colnames<-`(c("class")) %>%
                    filter(class %in% c('numeric', 'integer')) %>%
@@ -356,7 +372,8 @@ grid.arrange(grobs = plots, ncol = 3)
 
 
 
-```{r Univariate distribution scatter plots, fig.cap = "A ", fig.height = 4, message=FALSE, warning=FALSE, fig.width=4}
+
+```{r Univariate distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
 
 scatter_plots <- list()
 
@@ -370,6 +387,25 @@ for(col in colnames(data_cleaned)){
 }
 
 grid.arrange(grobs = scatter_plots, ncol = 3)
+
+```
+
+```{r Univariate distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
+
+box_plots <- list()
+
+for(col in colnames(data_cleaned)){
+  if((class(data_cleaned[[col]])[1] %in% c('ordered','factor', 'character', 'logical')) & (col != 'pm10')){
+    
+    box_plots[[col]] <- ggplot(data_cleaned, aes_string(x = col, y = 'pm10')) + 
+      geom_boxplot(fill = 'orange', alpha = 0.3, col = 'orange') + 
+      labs(title = paste0(col," plotted\nagainst PM10 levels")) +
+      assignment_multi_plot_theme
+    
+  } 
+}
+
+grid.arrange(grobs = box_plots, ncol = 3)
 
 ```
 
