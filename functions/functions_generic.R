@@ -177,12 +177,17 @@ exploratory_summarize <- function(data, uniqueIdentifier = NULL){
 
 
 
-multi_row_margin <- theme(plot.margin =  unit(c(0.5,0.5,0.5,0.5), "cm"))
+assignment_multi_plot_theme <- theme_minimal() + 
+  theme(plot.margin =  unit(c(0.5,0.5,0.5,0.5), "cm"), 
+        title = element_text(size = 6, colour = '#333333'),
+        plot.title = element_text(hjust = 0.5),
+        axis.text = element_text(size = 7, colour = '#333333'), 
+        axis.title = element_text(size = 7, margin = margin(t = 20, r = 20, b = 20, l = 20), colour = '#333333'))
 
-assignment_plot_theme <-
-  theme_minimal() +
-  theme(axis.text = element_text(size=8), 
-        axis.title = element_text(size=8, margin = margin(t = 20, r = 20, b = 20, l = 20)))
+assignment_plot_theme <- theme_minimal() +
+  theme(title = element_text(size = 8, colour = '#333333'),
+        axis.text = element_text(size = 8, colour = '#333333'), 
+        axis.title = element_text(size = 8, margin = margin(t = 20, r = 20, b = 20, l = 20), colour = '#333333'))
 
 
 format_table <- function(pre_pipeline, p_caption=NULL, width = TRUE, text_size = NULL){

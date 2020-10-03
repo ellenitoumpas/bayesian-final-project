@@ -24,11 +24,12 @@ $ Rscript ./setup.R
 
 ```zsh
 $ devtools::install_github("REditorSupport/languageserver")
+$ Rscript functions/lint.R
 ```
 
 ## Exporting as PDF (aka Knitting)
 
-Dependencies:
+### Setup
 
 ```zsh
 $ brew install pandoc pandoc-citeproc mactex # or basictex

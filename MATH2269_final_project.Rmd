@@ -29,12 +29,14 @@ header-includes:
 knitr::opts_chunk$set(fig.pos = 'H')
 ```
 
-
 ```{r Source Functions, message=FALSE, warning=FALSE, include=FALSE}
 
-source(paste0(here(),'/functions/functions_generic.R'))
-source(paste0(here(),'/functions/functions_bayesian.R'))
-source(paste0(here(),'/functions/DBDA2E-utilities.R'))
+library('here')
+library('hrbrthemes')
+library('ggplot2')
+source(here('functions', 'functions_generic.R'))
+source(here('functions', 'functions_bayesian.R'))
+source(here('functions', 'DBDA2E-utilities.R'))
 
 ```
 
@@ -47,151 +49,129 @@ lock_n_load_libraries(packages)
 
 ```
 
+## Introduction
 
-
-# Introduction
-
-
-
-# Analysis 
-
+## Analysis
 
 ```{r Import data, message=FALSE, warning=FALSE, include=FALSE}
 
-data <- vroom::vroom(paste0(here(),'/data/hour_extra_Brooklyn_2016_18.csv'))
-data_cleaned <- data %>% janitor::clean_names() 
+data <- vroom::vroom(here('data', 'hour_extra_Brooklyn_2016_18.csv'))
+data_cleaned <- data %>% janitor::clean_names()
 
 ```
 
 
+```{r}
 
-## A descriptive look
+data_cleaned <- data_cleaned %>% 
+  mutate(dow = factor(dow, levels = c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'), 
+                           labels = c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'), ordered = TRUE), 
+         winddire = factor(winddire, 
+                           levels = c('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW','NNW'), 
+                           labels = c('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW','NNW'),
+                           ordered = TRUE))
 
-### Dimensions
+```
+
+
+### A descriptive look
+
+#### Dimensions
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-data.frame(columns = integer(), rows = integer()) %>% 
-  add_row(columns = dim(data_cleaned)[2], rows = dim(data_cleaned)[1]) %>% 
+data.frame(columns = integer(), rows = integer()) %>%
+  add_row(columns = dim(data_cleaned)[2], rows = dim(data_cleaned)[1]) %>%
   format_table(p_caption = "Dimenions")
 
 ```
-
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, size = 'tiny', out.extra='angle=90', size = 'tiny'}
 
 ## TODO: Find a way to hack the landscape() function so that forced page breaks dont occur. It would be good to have all preview tables
 ## printed in landscape so there is extra real estate in the width of the table but all header previews still contained to one page?s
 
-data_cleaned %>% select(id, rainfall_mm, rf_cum_2_day, rf_cum_3_day, rf_cum_4_day, rf_cum_5_day) %>% 
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
-  
-data_cleaned %>% select(rf_cum_6_day, rf_cum_7_day, date_day, date_local_time, site) %>% 
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
+source(here('src', 'data', 'inspect_data.R'))
+inspect_data(data_cleaned)
 
-data_cleaned %>% select(temperature, pm10, pm10a, wd, ws, dow, hour, winddire) %>%
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
-
-data_cleaned %>% select(years, yn80, roll_temp, yn50, north, north1, yn60, weekdays, mornings) %>%
-  head(5) %>%
-  format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-  kableExtra::landscape() %>%
-  kableExtra::row_spec(0, angle = 90)
 
 ```
 
+data_cleaned %>% 
+  select(temperature, pm10, pm10a, wd, ws, dow, hour, winddire) %>%
+    head(5) %>%
+    format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
+    kableExtra::landscape() %>%
+    kableExtra::row_spec(0, angle = 90)
+
+data_cleaned %>%
+  select(years, yn80, roll_temp, yn50, north, north1, yn60, weekdays, mornings) %>%
+    head(5) %>%
+    format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
+    kableExtra::landscape() %>%
+    kableExtra::row_spec(0, angle = 90)
 
 
-### Datatypes
+
+#### Datatypes
 
 The datatypes for each variable can be found below (after variable datatypes were set on import). Numerical variables that are actually binary values or an identifier were transformed to a factor.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-sapply(data_cleaned, class) %>% 
+sapply(data_cleaned, class) %>%
   as.data.frame() %>%
-  mutate(date_local_time = "POSIXct POSIXt") %>% 
-  unique() %>% 
-  as.matrix() %>% 
-  t() %>% 
+  mutate(date_local_time = "POSIXct POSIXt") %>%
+  unique() %>%
+  as.matrix() %>%
+  t() %>%
   as.data.frame() %>%
-  `colnames<-`(c("class")) %>% 
+  `colnames<-`(c("class")) %>%
   format_table(p_caption = "Data types")
 
 ```
 
+#### Data Preprocessing
 
-### Data Preprocessing
-
-#### Removing unique identifier
-
+##### Removing unique identifier
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-data_cleaned %>% 
-  group_by(id) %>% 
-  summarise(count = n()) %>% 
-  ungroup() %>% 
-  filter(count > 1)  %>% 
+data_cleaned %>%
+  group_by(id) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  filter(count > 1)  %>%
   format_table(p_caption = "The count of id variable filtered to show only values that are not unique.")
   
 ```
 
-
 As confirmed above, the **id** is a unique identifier, and it is therefore removed from the dataset.
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-data_cleaned <- data_cleaned %>% select(-c(id))
-
-```
-
-
-#### Target variable frequency
-
-Before moving on to the outlier, impossible value and missing values check phases, it is important to get an understanding of the frequency of each level in the target level. This will assist when deciding on the best method for fixing possible issues in the following phases. If one of the target levels are only represented by a small number of records then simply removing the records that fail any of the further checks will be ill-advised. 
+Regarding the other variables removed, we have determined $PM_{10}$ as our target variable, the remain proposed target variables ($PM_{10}a, yn_{80}, yn_{60},  yn_{50}$) are therfore discarded.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-# data_cleaned %>% 
-#   group_by(pm10) %>% 
-#   summarise(count = n()) %>% 
-#   format_table(p_caption = "The frequency of different levels in the target variable.")
+data_cleaned <- data_cleaned %>% select(-id, -yn50, -yn60, -yn80, -pm10a)
 
 ```
 
-We can see from the frequency of the target variables that there is a severely imbalanced dataset. If the decision had to be made on how to resolve issues in records containing a positive target class, it is advisable not to remove these records.
-
-Inspecing the missing records, we can see that all missing values occur in the end part of the dataset with no records including a positive target class.
-
-
-
-### Data Preprocessing
-
-#### Outliers
-
+##### Outliers
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 ncols <- 3
 nrows <- ceiling(sapply(data_cleaned, class) %>%  
                    as.data.frame() %>%
-                   mutate(date_local_time = "POSIXct POSIXt") %>%  
+                   mutate(date_local_time = "POSIXct POSIXt", 
+                          dow = "ordered factor", 
+                          winddire = "ordered factor") %>%  
                    unique() %>% 
                    as.matrix() %>% 
                    t() %>% 
                    as.data.frame() %>%
-                   `colnames<-`(c("class")) %>% 
-                   filter(class %in% c('numeric','integer')) %>% 
+                   `colnames<-`(c("class")) %>%
+                   filter(class %in% c('numeric', 'integer')) %>%
                    nrow() / ncols)
 
 fig_height <- nrows * 1.5
@@ -203,8 +183,8 @@ fig_height <- nrows * 1.5
 par(mfrow = c(nrows,ncols))
 par(mar=c(1,1,1,1))
 
-for(col in colnames(data_cleaned)){
-  if((class(data_cleaned[[col]])[1] %in% c('numeric','integer')) & (col != 'id')){
+for (col in colnames(data_cleaned)) {
+  if ((class(data_cleaned[[col]])[1] %in% c('numeric', 'integer')) & (col != 'id')) {
     boxplot(data_cleaned[[col]], pch=19, xlab=paste0(col))
   }
 }
@@ -214,65 +194,39 @@ par(mar=c(5.1,4.1,2.1,2.1))
 
 ```
 
+##### Impossible values
 
-#### Impossible values
-
-For the numerical values in the dataset an impossible value check is performed. 
+For the numerical values in the dataset an impossible value check is performed.
 
 <!-- ELLENI TODO: I didn't think PM10 levels could be below 0. In the impossible value check below we can see 118 records with negative PM10 levels. I need to check this with Maj Britte. For now leave as is. -->
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-data.frame(column = character(), nrows = integer()) %>% 
-  add_row(column = 'rainfall_mm', nrows = data_cleaned %>% filter(rainfall_mm < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_2_day', nrows = data_cleaned %>% filter(rf_cum_2_day < 0) %>% nrow()) %>%
-  add_row(column = 'rf_cum_3_day', nrows = data_cleaned %>% filter(rf_cum_3_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_4_day', nrows = data_cleaned %>% filter(rf_cum_4_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_5_day', nrows = data_cleaned %>% filter(rf_cum_5_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_6_day', nrows = data_cleaned %>% filter(rf_cum_6_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_7_day', nrows = data_cleaned %>% filter(rf_cum_7_day < 0) %>% nrow()) %>% 
-  add_row(column = 'rf_cum_5_day', nrows = data_cleaned %>% filter(rf_cum_5_day < 0) %>% nrow()) %>% 
-  add_row(column = 'date_day', nrows = data_cleaned %>% filter(date_day < dmy('01/01/2016')) %>% 
-            rbind(data_cleaned %>% filter(date_day > dmy('31/12/2018'))) %>% nrow()) %>% 
-  add_row(column = 'temperature', nrows = data_cleaned %>% filter(temperature < 0) %>% 
-            rbind(data_cleaned %>% filter(temperature > 50)) %>% nrow()) %>% 
-  add_row(column = 'pm10', nrows = data_cleaned %>% filter(pm10 < 0) %>% nrow()) %>% 
-  add_row(column = 'pm10a', nrows = data_cleaned %>% filter(pm10a < 0) %>% nrow()) %>% 
-  add_row(column = 'wd', nrows = data_cleaned %>% filter(wd < 0) %>% 
-            rbind(data_cleaned %>% filter(wd > 360)) %>% nrow()) %>% 
-  add_row(column = 'ws', nrows = data_cleaned %>% filter(ws < 0) %>% nrow()) %>% 
-  add_row(column = 'hour', nrows = data_cleaned %>% filter(hour < 0) %>% 
-            rbind(data_cleaned %>% filter(hour > 23)) %>% nrow()) %>% 
-  add_row(column = 'years', nrows = data_cleaned %>% filter(years < 2016) %>% 
-            rbind(data_cleaned %>% filter(years > 2018)) %>% nrow()) %>% 
-  add_row(column = 'roll_temp', nrows = data_cleaned %>% filter(roll_temp < 0) %>% 
-            rbind(data_cleaned %>% filter(roll_temp > 50)) %>% nrow()) %>% 
-  format_table(p_caption = "The number of rows with impossible values.")
+source(here('src', 'data', 'impossible_values.R'))
+impossible_values(data_cleaned)
 
 ```
 
-#### Missing values
-
-
+##### Missing values
 
 Checking the missing values we can see that there are 23 rolling temperate missing records.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-data_cleaned %>% 
-  is.na() %>% 
-  colSums() %>% 
-  as.data.frame() %>% 
-  `colnames<-`(c("Number missing values")) %>% 
+data_cleaned %>%
+  is.na() %>%
+  colSums() %>%
+  as.data.frame() %>%
+  `colnames<-`(c("Number missing values")) %>%
   format_table(p_caption = "Count of missing values by variable")
 
 ```
 
 ```{r message=FALSE, warning=FALSE}
 
-data_cleaned %>% 
-  filter(is.na(roll_temp)) %>% 
-  select(date_day, date_local_time, roll_temp, yn80) %>% 
+data_cleaned %>%
+  filter(is.na(roll_temp)) %>%
+  select(date_day, date_local_time, roll_temp, yn80) %>%
   format_table(p_caption = "Missing roll temperate values")
 
 ```
@@ -286,26 +240,25 @@ data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
 
 ```
 
-#### Feature engineering
+##### Feature engineering
 
 ```{r}
 
-#### Do we need to create any new features from the data set?
+# Do we need to create any new features from the data set?
 
 ```
 
-
-#### Categorical Features
+##### Categorical Features
 
 To check whether there are errors (including typos or unexpected values) in the categorical features each variable is arranged in order and then inspected by the researchers. In the list of possible values printed below there seems to be no incorrect values.
 
 ```{r message=FALSE, warning=FALSE}
 
 
-for (col in colnames(data_cleaned)){
+for (col in colnames(data_cleaned)) {
   
-  if(class(data_cleaned[[col]])[1] %in% c('factor', 'ordered', 'character')){
-    
+  if (class(data_cleaned[[col]])[1] %in% c('factor', 'ordered', 'character')) {
+
     paste0("Unique values for ",col) %>% cat()
     cat("\n")
 
@@ -313,7 +266,7 @@ for (col in colnames(data_cleaned)){
       arrange(get(col)) %>%
       select(col) %>%
       unique() %>%
-      pull() %>% 
+      pull() %>%
       as.character() %>%
       paste0(collapse = ", ") %>%
       stringr::str_trunc(width = 800, side = "right", ellipsis = "... (truncated)") %>%
@@ -321,17 +274,17 @@ for (col in colnames(data_cleaned)){
 
     cat("\n")
     cat("\n")
-    
+
   }
 }
 
 ```
 
-#### Any categorical descriptive feature encoded 
+##### Any categorical descriptive feature encoded
 
 ```{r message=FALSE, warning=FALSE}
 
-#### Do we need to encode categorical variables?
+### Do we need to encode categorical variables?
 
 ## Make sure we have these columns in or captured in the dataset....
 # Rain 3 day
@@ -345,21 +298,21 @@ for (col in colnames(data_cleaned)){
 
 holidays <- tsibble::holiday_aus(unique(data_cleaned$years), state = 'VIC')
 
-data_cleaned <- data_cleaned %>% 
+data_cleaned <- data_cleaned %>%
   mutate(
     deg_from_north = case_when(
       wd > 180 ~ abs(wd - 360),
       TRUE ~ wd
     ),
     pre_peak_hour = case_when(
-      hour > 4 & hour < 9 ~ T,
-      hour > 14 & hour < 17 ~ T,
-      T ~ F
+      hour > 4 & hour < 9 ~ TRUE,
+      hour > 14 & hour < 17 ~ TRUE,
+      TRUE ~ FALSE
     ),
     working_days = case_when(
-      weekdays == T ~ T,
-      date_day %in% holidays$date ~ F,
-      weekdays == F ~ F
+      weekdays == TRUE ~ TRUE,
+      date_day %in% holidays$date ~ FALSE,
+      weekdays == FALSE ~ FALSE
     )
   )
 
@@ -370,30 +323,26 @@ data_cleaned %>% count(working_days)
 
 ```
   
-
-#### Summary statistics
+If we were to have issues within the pre_peak_hour summary, there would either be a duplicate of the hour values or NA values in both hour and pre_peak_hour fields.  
+  
+##### Summary statistics
 
 A quick look at the custom summary statistics can be found below. For factors we can see the most common level, with the count of appearances for that mode level. For the Date variables we can we can see the min, max and mode levels. For the numeric and integer variables we can see the mean, median, standard deviation, minimum and maximum values.
 
-```{r fig.cap="Summary statistics", message=FALSE, warning=FALSE}
+```{r fig.cap = "Summary statistics", message=FALSE, warning=FALSE}
 
 results_df <- exploratory_summarize(data_cleaned, col == 'id')
 results_df %>%  format_table(p_caption = "Exploratory dataset")
 
 ```
 
-
-
-
-
-#### Univariate distribution
-
+##### Univariate distribution
 
 ```{r Univariate distribution, fig.cap = "A univariate look at the distribution of all the variables found in the Air dataset.", fig.height = 10, message=FALSE, warning=FALSE, fig.width=4}
 
 plots <- list()
 
-for(col in colnames(data_cleaned)){
+for (col in colnames(data_cleaned)) {
   plots[[col]] <- univariate_distribution_plot(data_cleaned[[col]], col)
 }
 
@@ -403,32 +352,44 @@ grid.arrange(grobs = plots, ncol = 3)
 
 
 
-```{r echo=FALSE, fig.height=fig_height, message=FALSE, warning=FALSE}
 
-par(mfrow = c(nrows,ncols))
-par(mar=c(1,1,1,1))
+```{r Univariate distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
 
-# colours not working in base boxplot call
-target <- "yn80"
-target_color <- ifelse(data_cleaned[[target]] == "TRUE" , rgb(0.1,0.1,0.7,0.5) , 
-                ifelse(data_cleaned[[target]] =="FALSE", rgb(0.8,0.1,0.3,0.6),
-                              "grey90"))
+scatter_plots <- list()
 
 for(col in colnames(data_cleaned)){
-  if((class(data_cleaned[[col]])[1] %in% c('numeric','integer')) & (col != 'id')){
-    boxplot(get(col) ~ as.character(yn80), data = data_cleaned, pch=19, xlab = target, ylab = col, color = target_color)
+  if((class(data_cleaned[[col]])[1] %in% c('numeric','integer')) & (col != 'pm10')){
+    scatter_plots[[col]] <- ggplot(data_cleaned, aes_string(x = col, y = 'pm10')) + 
+      geom_point(fill = 'orange', alpha = 0.3, col = 'orange') + 
+      labs(title = paste0(col," plotted\nagainst PM10 levels")) +
+      assignment_multi_plot_theme
   }
 }
 
-
-par(mfrow=c(1,1))
-par(mar=c(5.1,4.1,2.1,2.1))
+grid.arrange(grobs = scatter_plots, ncol = 3)
 
 ```
 
+```{r Univariate distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
 
-### Likelihood
+box_plots <- list()
 
+for(col in colnames(data_cleaned)){
+  if((class(data_cleaned[[col]])[1] %in% c('ordered','factor', 'character', 'logical')) & (col != 'pm10')){
+    
+    box_plots[[col]] <- ggplot(data_cleaned, aes_string(x = col, y = 'pm10')) + 
+      geom_boxplot(fill = 'orange', alpha = 0.3, col = 'orange') + 
+      labs(title = paste0(col," plotted\nagainst PM10 levels")) +
+      assignment_multi_plot_theme
+    
+  } 
+}
+
+grid.arrange(grobs = box_plots, ncol = 3)
+
+```
+
+#### Likelihood
 
 ```{r, fig.cap = "PM10 Distribution", echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -442,88 +403,121 @@ dens_plot <- ggplot(data_cleaned, aes(x = pm10)) +
     caption = 'MATH2269 - Assignment 3: Toumpas E, Steinke P, Holt S'
   ) +
   theme(
-     plot.caption = element_text(face = 'italic', color = '#999999')
-  ) + 
+    plot.caption = element_text(face = 'italic', color = '#999999')
+  ) +
   
    assignment_plot_theme
 
 dens_plot
- 
+
+```
+
+```{r, fig.cap= "Numeric Variable Correlation Heatmap", echo=FALSE, message=FALSE, warning=FALSE}
+
+# Correlation Heatmap of all variables
+
+data_cleaned_num <- data_cleaned[sapply(data_cleaned, is.numeric)]
+
+correlations_matrix <- round(cor(data_cleaned_num), 1)
+
+melted_cor_matrix <- reshape2::melt(correlations_matrix)
+
+ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
+  geom_tile(color = "white", show.legend = F) +
+  scale_fill_gradient2(
+    low = "blue",
+    high = "red",
+    mid = "white",
+    midpoint = 0,
+    limit = c(-1, 1),
+    space = "Lab"
+  ) +
+  assignment_plot_theme +
+  theme(axis.text.x = element_text(
+    angle = 45,
+    vjust = 1,
+    size = 6,
+    hjust = 1
+  )) +
+  coord_fixed() +
+  geom_text(aes(Var2, Var1, label = value),
+            color = "black",
+            size = 4) +
+  theme(
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    axis.ticks = element_blank(),
+    legend.justification = c(1, 0),
+    legend.position = c(0.6, 0.7),
+    legend.direction = "horizontal"
+  ) +
+  guides(fill = element_blank())
+
 ```
 
 
-### Dependant vs independant bivariate visualisation
-
 
 ```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
-
-
-# This covers uniform descriptive?
 
 # Visualisation Matrix
 visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
                                temperature,  roll_temp,
                                wd, ws, weekdays,
-                               pm10, yn80), 
+                               pm10, yn80),
                         aes(colour = factor(yn80)))
 
 visual_matrix
 
 ```
 
-
-### Correlation matrix of predictors
-
+#### Correlation matrix of predictors
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-### Insert correlation heat map
-### test old and newly created features and subset columns to desired ones for final analysis
-
-
-```
-
-
-## Subsampling
-### Subsample size trials
-### Subsample selection trials
-
-## Mathematical model
-## Prior specification
-## Model
-
-
-## Experiments to improve model efficiency
-### Isolated experiments on adapt steps
-### Isolated experiments on burn in steps
-### Isolated experiments on thinning steps
-### Isolated experiments on number of saved steps
-### Isolated experiments with initial values
-
-
-
-## Model fine-tuning
-## Prior sensitivity analysis
-## Posterior Inferences
-## Results
-
-## Prediction
-
-# Conclusion 
-
-
-
-
-
-# Reference 
-
-```{r}
+# Insert correlation heat map
+# test old and newly created features and subset columns to desired ones for final analysis
 
 ```
 
+### Subsampling
 
+#### Subsample size trials
 
+#### Subsample selection trials
 
-# Appendix
+### Mathematical model
 
+### Prior specification
 
+### Model
+
+### Experiments to improve model efficiency
+
+#### Isolated experiments on adapt steps
+
+#### Isolated experiments on burn in steps
+
+#### Isolated experiments on thinning steps
+
+#### Isolated experiments on number of saved steps
+
+#### Isolated experiments with initial values
+
+### Model fine-tuning
+
+### Prior sensitivity analysis
+
+### Posterior Inferences
+
+### Results
+
+### Prediction
+
+## Conclusion
+
+## Reference
+
+## Appendix
