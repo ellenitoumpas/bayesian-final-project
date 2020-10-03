@@ -3,6 +3,7 @@ source(here('src', 'model', 'model_fine_tune.R'))
 source(here('src', 'model', 'model_math.R'))
 source(here('src', 'model', 'model_posterior.R'))
 source(here('src', 'model', 'model_prior.R'))
+source(here('src', 'model', 'model_string.R'))
 source(here('src', 'constants.R'))
 
 
