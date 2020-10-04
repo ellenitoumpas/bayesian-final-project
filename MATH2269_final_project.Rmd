@@ -38,7 +38,7 @@ source(here('functions', 'functions_packages.R'))
 source(here('functions', 'functions_generic.R'))
 source(here('functions', 'functions_bayesian.R'))
 source(here('functions', 'DBDA2E-utilities.R'))
-
+source(here('constants.R'))
 ```
 
 ```{r Packages, message=FALSE, warning=FALSE, include=FALSE}
@@ -63,13 +63,16 @@ data_cleaned <- data %>% janitor::clean_names()
 
 ```{r}
 
-data_cleaned <- data_cleaned %>% 
-  mutate(dow = factor(dow, levels = c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'), 
-                           labels = c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'), ordered = TRUE), 
-         winddire = factor(winddire, 
-                           levels = c('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW','NNW'), 
-                           labels = c('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW','NNW'),
-                           ordered = TRUE))
+data_cleaned <- data_cleaned %>%
+  mutate(
+    dow = factor(dow,
+      levels = days_of_weeks,
+      labels = days_of_weeks,
+      ordered = TRUE),
+    winddire = factor(winddire,
+      levels = wind_directions,
+      labels = wind_directions,
+      ordered = TRUE))
 
 ```
 
