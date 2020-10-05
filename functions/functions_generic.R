@@ -215,9 +215,6 @@ hasnt_run <- function(test){
 }
 
 
-
-
-
 # Run the subsample size trials
 #' Title
 #'
@@ -269,9 +266,6 @@ run_subsample_trial <- function(trial_df, row_num, full_sample, trial_name){
 }
 
 
-
-
-
 #' Title
 #'
 #' @param data 
@@ -286,8 +280,29 @@ run_subsample_trial <- function(trial_df, row_num, full_sample, trial_name){
 #' @export
 #'
 #' @examples
-run_subsample_size_JAGS_trial <- function(data, predictor, predictions, mu_list, var_list, initial_values, params, trial_num){
-  
+setup_run_JAGS_trial <- function(data, predictor, predictions, mu_list, var_list, initial_values, params, par_trial_name, num_predictions){
+
+  trial_info <- data.frame(trial_name = character(), mu01 = double(), mu02 = double(), mu03 = double(), mu04 = double(),
+                           mu05 = double(), mu06 = double(), mu07 = double(), mu08 = double(), var01 = double(),
+                           var02 = double(), var03 = double(), var04 = double(), var05 = double(), var06 = double(),
+                           var07 = double(), var08 = double(), number_chains = integer(), number_adaptation_steps = integer(), 
+                           burn_in_steps = integer(), thinning_steps = integer(), initial_values_list01 = double(), 
+                           initial_values_list02 = double(), initial_values_list03 = double(), initial_values_list04 = double(),
+                           initial_values_list05 = double(), initial_values_list06 = double(), initial_values_list07 = double(), 
+                           initial_values_list08 = double(), initial_values_list09 = double(), initial_values_list10 = double(), 
+                           duration = double(), stringsAsFactors = FALSE) %>% 
+    add_row(trial_name = par_trial_name, mu01 = mu_list[1], mu02 = mu_list[2], mu03 = mu_list[3], mu04 = mu_list[4], mu05 = mu_list[5], 
+             mu06 = mu_list[6], mu07 = mu_list[7], mu08 = mu_list[8], var01 = var_list[1], var02 = var_list[2], var03 = var_list[3],
+             var04 = var_list[4], var05 = var_list[5], var06 = var_list[6], var07 = var_list[7], var08 = var_list[8],
+             number_chains = params$number_chains,  number_adaptation_steps = params$number_adaptation_steps, 
+             burn_in_steps = params$burn_in_steps,  thinning_steps = params$thinning_steps, 
+             initial_values_list01 = initial_values[1], initial_values_list02 = initial_values[2], 
+             initial_values_list03 = initial_values[3], initial_values_list04 = initial_values[4], 
+             initial_values_list05 = initial_values[5], initial_values_list06 = initial_values[6], 
+             initial_values_list07 = initial_values[7], initial_values_list08 = initial_values[8], 
+             initial_values_list09 = initial_values[9], initial_values_list10 = initial_values[10], 
+             duration = 0)
+
   # Split independant and dependant variables
   y_data <- data[[predictor]]
   x_data <- as.matrix(data[,!(colnames(data) %in% predictor)])
@@ -296,7 +311,7 @@ run_subsample_size_JAGS_trial <- function(data, predictor, predictions, mu_list,
   dataList <- list(
     x = x_data ,
     y = y_data ,
-    # xPred = predictions,
+    xPred = predictions,
     Nx = dim(x_data)[2] ,
     Ntotal = dim(x_data)[1]
   )
@@ -309,11 +324,11 @@ run_subsample_size_JAGS_trial <- function(data, predictor, predictions, mu_list,
                      beta5_mu = mu_list[5], beta5_var = var_list[5],
                      beta6_mu = mu_list[6], beta6_var = var_list[6],
                      beta7_mu = mu_list[7], beta7_var = var_list[7],
-                     beta8_mu = mu_list[8], beta8_var = var_list[8])
+                     beta8_mu = mu_list[8], beta8_var = var_list[8], 
+                     num_predictions)
   
   # Set up monitoring parameters
-  # parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred")
-  parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar")
+  parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred")
   
   # Set up BLANK comparison values
   compVal <- data.frame("beta0" = NA, "beta[1]" = NA, "beta[2]" = NA,  "beta[3]" = NA, "beta[4]" =  NA,  "beta[5]" =  NA, 
@@ -326,9 +341,6 @@ run_subsample_size_JAGS_trial <- function(data, predictor, predictions, mu_list,
       zbeta = initial_values[seq(from = 2, to = length(initial_values)-1, by = 1)],
       zVar = initial_values[length(initial_values)]
     )
-    
-    print(initsList)
-    
   } else {
     initsList <- NULL
   }
@@ -350,7 +362,14 @@ run_subsample_size_JAGS_trial <- function(data, predictor, predictions, mu_list,
                                     thin_steps = params$thinning_steps, 
                                     summary = FALSE, 
                                     plot = FALSE,
-                                    trial_version = paste0("Trial_",stringr::str_pad(trial_num, width = 3, side = "left", pad = "0")))
+                                    trial_version = par_trial_name)
+  
+  # Save time elapsed for the model - Store
+  trial_info[1,'duration'] <- returned_values['time_elapsed']
+  write.csv(trial_info, paste0(here(),'/OUTPUTS/TRIAL_INFO/',par_trial_name,'_details.csv'), row.names = FALSE)
+  
+  # Save RData 
+  save.image(file = paste0(here(),'/OUTPUTS/RData/',par_trial_name,".RData"))
   
   return(returned_values)
   
@@ -366,6 +385,17 @@ run_subsample_size_JAGS_trial <- function(data, predictor, predictions, mu_list,
 
 
 
+#' Title
+#'
+#' @param pre_pipeline 
+#' @param p_caption 
+#' @param width 
+#' @param text_size 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 format_table <- function(pre_pipeline, p_caption=NULL, width = TRUE, text_size = NULL){
   pre_pipeline %>% knitr::kable(caption = p_caption) %>% kableExtra::kable_styling(full_width = width, font_size = text_size)
 }
@@ -374,6 +404,14 @@ format_table <- function(pre_pipeline, p_caption=NULL, width = TRUE, text_size =
 
 
 
+#' Title
+#'
+#' @param time 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get_time <- function(time) {
   time %>%
     stringr::str_split(" ") %>%
@@ -385,6 +423,15 @@ get_time <- function(time) {
 
 
 
+#' Title
+#'
+#' @param values 
+#' @param isID 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 exploratory_summary <- function(values, isID = FALSE){
   
   name <- colnames(values)
@@ -422,6 +469,15 @@ exploratory_summary <- function(values, isID = FALSE){
 
 
 
+#' Title
+#'
+#' @param data 
+#' @param uniqueIdentifier 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 exploratory_summarize <- function(data, uniqueIdentifier = NULL){
   
   summary_df <- data.frame(name = character(), 
@@ -461,9 +517,24 @@ exploratory_summarize <- function(data, uniqueIdentifier = NULL){
 
 
 
-# Calculate distance in kilometers between two points
-# https://conservationecology.wordpress.com/2013/06/30/distance-between-two-points-in-r/
+
+#' Title
+#'
+#' @param long1 
+#' @param lat1 
+#' @param long2 
+#' @param lat2 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 earth.dist <- function (long1, lat1, long2, lat2){
+  
+  # Calculate distance in kilometers between two points
+  # https://conservationecology.wordpress.com/2013/06/30/distance-between-two-points-in-r/
+  
+  
   rad <- pi/180
   a1 <- lat1 * rad
   a2 <- long1 * rad
