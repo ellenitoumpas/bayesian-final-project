@@ -359,7 +359,7 @@ grid.arrange(grobs = plots, ncol = 3)
 
 
 
-```{r Univariate distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
+```{r A numeric univariate vs target class distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
 
 scatter_plots <- list()
 
@@ -376,7 +376,7 @@ grid.arrange(grobs = scatter_plots, ncol = 3)
 
 ```
 
-```{r Univariate distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
+```{r A categorical univariate vs target class distribution, fig.cap = "A ", fig.height = 15, message=FALSE, warning=FALSE, fig.width=15}
 
 box_plots <- list()
 
@@ -471,12 +471,12 @@ ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
 ```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
 
 # Visualisation Matrix
-visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
-                               temperature,  roll_temp,
-                               wd, ws, weekdays,
-                               pm10),
-                        aes(colour = factor(yn80)))
-visual_matrix
+# visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
+#                                temperature,  roll_temp,
+#                                wd, ws, weekdays,
+#                                pm10),
+#                         aes(colour = factor(yn80)))
+# visual_matrix
 
 ```
 
@@ -832,23 +832,6 @@ if(hasnt_run(trial_type)){
 
 ```
 
-```{r}
-
-view_summary_table(trial_type)
-
-```
-
-```{r echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width=10}
-
-view_posterior_images(trial_type)
-
-```
-
-```{r echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width=10}
-
-view_prediction_diagnostics_images(trial_type)
-
-```
 
 ```{r echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width=10}
 
@@ -856,6 +839,25 @@ view_regression_diagnostics_images(trial_type)
 
 ```
 
+```{r echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width = 10}
+
+view_prediction_diagnostics_images(trial_type)
+
+```
+
+
+
+```{r echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width = 10}
+
+view_posterior_images(trial_type)
+
+```
+
+```{r}
+
+view_summary_table(trial_type) %>% format_table(p_caption="", size)
+
+```
 
 ### Experiments to improve model efficiency
 

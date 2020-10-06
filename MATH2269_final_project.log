@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.28)  28 SEP 2020 11:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.28)  6 OCT 2020 11:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -467,17 +467,7 @@ pdftex.def
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
 \l__kernel_color_stack_int=\count291
 \l__pdf_internal_box=\box66
-) (./MATH2269_final_project.aux
-
-LaTeX Warning: Label `tab:unnamed-chunk-2' multiply defined.
-
-
-LaTeX Warning: Label `tab:unnamed-chunk-2' multiply defined.
-
-
-LaTeX Warning: Label `tab:unnamed-chunk-2' multiply defined.
-
-)
+) (./MATH2269_final_project.aux)
 \openout1 = `MATH2269_final_project.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
@@ -536,501 +526,3039 @@ Non-PDF special ignored!
 <special> header=psfrag.pro
 
 {/Users/ellenitoumpas/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.
-map}] [2] [3pdfTeX warning (ext4): destination with the same identifier (name{t
-able.2}) has been already used, duplicate ignored
+map}]
+
+Package xcolor Warning: Incompatible color definition on input line 134.
+
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 136.
+
+Package xcolor Warning: Incompatible color definition on input line 144.
+
+
+Package xcolor Warning: Incompatible color definition on input line 144.
+
+[2] [3pdfTeX warning (ext4): destination with the same identifier (name{table.2
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.175 \end{landscape}
-                     ] [4pdfTeX warning (ext4): destination with the same ident
-ifier (name{table.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.198 \end{landscape}
-                     ] [5pdfTeX warning (ext4): destination with the same ident
-ifier (name{table.4}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.221 \end{landscape}
-                     ] [6pdfTeX warning (ext4): destination with the same ident
-ifier (name{table.5}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.244 \end{landscape}
+l.187 \end{landscape}
                      ]
 
-LaTeX Warning: Float too large for page by 0.93828pt on input line 318.
+LaTeX Warning: Float too large for page by 0.93828pt on input line 261.
 
-<MATH2269_final_project_files/figure-latex/unnamed-chunk-8-1.pdf, id=160, 469.7
-55pt x 542.025pt>
+<MATH2269_final_project_files/figure-latex/unnamed-chunk-8-1.pdf, id=95, 469.75
+5pt x 542.025pt>
 File: MATH2269_final_project_files/figure-latex/unnamed-chunk-8-1.pdf Graphic f
 ile (type pdf)
 <use MATH2269_final_project_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: MATH2269_final_project_files/figure-latex/unnamed-chun
-k-8-1.pdf  used on input line 377.
+k-8-1.pdf  used on input line 293.
 (pdftex.def)             Requested size: 469.75386pt x 542.02367pt.
 
-Overfull \hbox (66.62125pt too wide) in paragraph at lines 377--378
+Overfull \hbox (84.24606pt too wide) in paragraph at lines 293--294
  []\OT1/cmr/bx/n/12 Outliers[] [] 
  []
 
-[7
+[4
 
 
-
-
-
-
-
-
-] [8pdfTeX warning (ext4): destination with the same identifier (name{table.6})
+] [5pdfTeX warning (ext4): destination with the same identifier (name{table.3})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.380 ...ossible values}\label{impossible-values}}
-                                                  ] [9pdfTeX warning (ext4): de
-stination with the same identifier (name{table.7}) has been already used, dupli
+l.296 ...ossible values}\label{impossible-values}}
+                                                  ] [6pdfTeX warning (ext4): de
+stination with the same identifier (name{table.4}) has been already used, dupli
 cate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.380 ...ossible values}\label{impossible-values}}
-                                                  pdfTeX warning (ext4): destin
-ation with the same identifier (name{table.8}) has been already used, duplicate
- ignored
+l.342 \end{table}
+                  <./MATH2269_final_project_files/figure-latex/unnamed-chunk-8-
+1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 407.
+
+
+Package xcolor Warning: Incompatible color definition on input line 414.
+
+
+Package xcolor Warning: Incompatible color definition on input line 414.
+
+
+Package xcolor Warning: Incompatible color definition on input line 476.
+
+[7pdfTeX warning (ext4): destination with the same identifier (name{table.5}) h
+as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.380 ...ossible values}\label{impossible-values}}
-                                                  ] [10 <./MATH2269_final_proje
-ct_files/figure-latex/unnamed-chunk-8-1.pdf>] [11pdfTeX warning (ext4): destina
-tion with the same identifier (name{table.9}) has been already used, duplicate 
-ignored
+l.476 \begin{Shaded}
+                    ] [8pdfTeX warning (ext4): destination with the same identi
+fier (name{table.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.499 \end{table}
-                 ]
+l.476 \begin{Shaded}
+                    ] [9pdfTeX warning (ext4): destination with the same identi
+fier (name{table.7}) has been already used, duplicate ignored
 
-Package xcolor Warning: Incompatible color definition on input line 505.
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.476 \begin{Shaded}
+                    ]
 
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 507.
-
-Package xcolor Warning: Incompatible color definition on input line 512.
-
-
-Package xcolor Warning: Incompatible color definition on input line 512.
+Package xcolor Warning: Incompatible color definition on input line 481.
 
 
-Package xcolor Warning: Incompatible color definition on input line 574.
+Package xcolor Warning: Incompatible color definition on input line 481.
 
 
-Package xcolor Warning: Incompatible color definition on input line 578.
+Package xcolor Warning: Incompatible color definition on input line 486.
 
 
-Package xcolor Warning: Incompatible color definition on input line 578.
+Package xcolor Warning: Incompatible color definition on input line 490.
 
 
-Package xcolor Warning: Incompatible color definition on input line 583.
+Package xcolor Warning: Incompatible color definition on input line 490.
 
 
-Package xcolor Warning: Incompatible color definition on input line 587.
-
-
-Package xcolor Warning: Incompatible color definition on input line 587.
-
-
-Package xcolor Warning: Incompatible color definition on input line 597.
+Package xcolor Warning: Incompatible color definition on input line 500.
 
 LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
-599.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 599.
+502.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 502.
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 599.
+(Font)              for symbol `textbraceleft' on input line 502.
 
 
-Package xcolor Warning: Incompatible color definition on input line 622.
+Package xcolor Warning: Incompatible color definition on input line 525.
 
 
-Package xcolor Warning: Incompatible color definition on input line 622.
+Package xcolor Warning: Incompatible color definition on input line 525.
 
 
-Package xcolor Warning: Incompatible color definition on input line 622.
+Package xcolor Warning: Incompatible color definition on input line 525.
 
-[12] [13pdfTeX warning (ext4): destination with the same identifier (name{table
-.10}) has been already used, duplicate ignored
+[10]
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.622 \end{Shaded}
-                  ] [14pdfTeX warning (ext4): destination with the same identif
-ier (name{table.11}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.622 \end{Shaded}
-                  ]
-
-Package xcolor Warning: Incompatible color definition on input line 622.
+Package xcolor Warning: Incompatible color definition on input line 525.
 
 
-Package xcolor Warning: Incompatible color definition on input line 622.
+Package xcolor Warning: Incompatible color definition on input line 525.
 
 
-Package xcolor Warning: Incompatible color definition on input line 639.
+Package xcolor Warning: Incompatible color definition on input line 542.
 
 
-Package xcolor Warning: Incompatible color definition on input line 643.
+Package xcolor Warning: Incompatible color definition on input line 579.
 
 
-Package xcolor Warning: Incompatible color definition on input line 643.
-
-[15]
-
-Package xcolor Warning: Incompatible color definition on input line 654.
+Package xcolor Warning: Incompatible color definition on input line 579.
 
 
-Package xcolor Warning: Incompatible color definition on input line 659.
+Package xcolor Warning: Incompatible color definition on input line 579.
+
+[11]
+
+Package xcolor Warning: Incompatible color definition on input line 579.
 
 
-Package xcolor Warning: Incompatible color definition on input line 659.
+Package xcolor Warning: Incompatible color definition on input line 579.
 
 
-Overfull \hbox (39.06612pt too wide) in paragraph at lines 725--725
+Package xcolor Warning: Incompatible color definition on input line 586.
+
+
+Package xcolor Warning: Incompatible color definition on input line 590.
+
+
+Package xcolor Warning: Incompatible color definition on input line 590.
+
+[12]
+
+Package xcolor Warning: Incompatible color definition on input line 609.
+
+
+Package xcolor Warning: Incompatible color definition on input line 613.
+
+
+Package xcolor Warning: Incompatible color definition on input line 613.
+
+
+Package xcolor Warning: Incompatible color definition on input line 636.
+
+
+Package xcolor Warning: Incompatible color definition on input line 641.
+
+
+Package xcolor Warning: Incompatible color definition on input line 641.
+
+
+Overfull \hbox (39.06612pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 missing[]values|  
  []
 
 
-Overfull \hbox (2.98094pt too wide) in paragraph at lines 725--725
+Overfull \hbox (2.98094pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 median|  
  []
 
 
-Overfull \hbox (25.81487pt too wide) in paragraph at lines 725--725
+Overfull \hbox (25.81487pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 rainfall[]mm|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (32.31645pt too wide) in paragraph at lines 725--725
+Overfull \hbox (32.31645pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 rf[]cum[]2[]day|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (32.31645pt too wide) in paragraph at lines 725--725
+Overfull \hbox (32.31645pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 rf[]cum[]3[]day|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (32.31645pt too wide) in paragraph at lines 725--725
+Overfull \hbox (32.31645pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 rf[]cum[]4[]day|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (32.31645pt too wide) in paragraph at lines 725--725
+Overfull \hbox (32.31645pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 rf[]cum[]5[]day|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (32.31645pt too wide) in paragraph at lines 725--725
+Overfull \hbox (32.31645pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 rf[]cum[]6[]day|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (32.31645pt too wide) in paragraph at lines 725--725
+Overfull \hbox (32.31645pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 rf[]cum[]7[]day|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (10.47475pt too wide) in paragraph at lines 725--725
+Overfull \hbox (10.47475pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 date[]day|  
  []
 
 
-Overfull \hbox (43.10023pt too wide) in paragraph at lines 725--725
+Overfull \hbox (43.10023pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 date[]local[]time|  
  []
 
 
-Overfull \hbox (12.27252pt too wide) in paragraph at lines 725--725
+Overfull \hbox (12.27252pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 POSIXct|  
  []
 
 
-Overfull \hbox (43.10023pt too wide) in paragraph at lines 725--725
+Overfull \hbox (43.10023pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 date[]local[]time|  
  []
 
 
-Overfull \hbox (7.05035pt too wide) in paragraph at lines 725--725
+Overfull \hbox (7.05035pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 POSIXt|  
  []
 
 
-Overfull \hbox (13.09889pt too wide) in paragraph at lines 725--725
+Overfull \hbox (13.09889pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 character|  
  []
 
 
-Overfull \hbox (28.7654pt too wide) in paragraph at lines 725--725
+Overfull \hbox (28.7654pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 temperature|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (39.53612pt too wide) in paragraph at lines 725--725
+Overfull \hbox (39.53612pt too wide) in paragraph at lines 709--709
 \OT1/cmr/m/n/12 46.9000015259|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (39.53612pt too wide) in paragraph at lines 725--725
-\OT1/cmr/m/n/12 46.9000015259|  
+Overfull \hbox (4.28648pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 193.784|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (4.28648pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 110.883|  
+ []
+
+
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (4.28648pt too wide) in paragraph at lines 725--725
-[]\OT1/cmr/m/n/12 193.817|  
- []
-
-
-Overfull \hbox (4.28648pt too wide) in paragraph at lines 725--725
-[]\OT1/cmr/m/n/12 110.853|  
- []
-
-
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
-[]\OT1/cmr/m/n/12 numeric|  
- []
-
-
-Overfull \hbox (39.53612pt too wide) in paragraph at lines 725--725
+Overfull \hbox (39.53612pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 12.8000001907|  
  []
 
 
-Overfull \hbox (13.09889pt too wide) in paragraph at lines 725--725
-[]\OT1/cmr/m/n/12 character|  
+Overfull \hbox (4.28648pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 ordered|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (10.16142pt too wide) in paragraph at lines 725--725
+Overfull \hbox (10.16142pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 winddire|  
  []
 
 
-Overfull \hbox (13.09889pt too wide) in paragraph at lines 725--725
-[]\OT1/cmr/m/n/12 character|  
+Overfull \hbox (4.28648pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 ordered|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (10.16142pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 winddire|  
+ []
+
+
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (13.08583pt too wide) in paragraph at lines 725--725
+Overfull \hbox (13.08583pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 roll[]temp|  
  []
 
 
-Overfull \hbox (6.57118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 numeric|  
  []
 
 
-Overfull \hbox (33.66118pt too wide) in paragraph at lines 725--725
+Overfull \hbox (33.66118pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 5.4500000079|  
  []
 
 
-Overfull \hbox (39.53612pt too wide) in paragraph at lines 725--725
+Overfull \hbox (39.53612pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 34.2958333333|  
  []
 
 
-Overfull \hbox (13.49055pt too wide) in paragraph at lines 725--725
+Overfull \hbox (13.49055pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 weekdays|  
  []
 
 
-Overfull \hbox (12.83778pt too wide) in paragraph at lines 725--725
+Overfull \hbox (12.83778pt too wide) in paragraph at lines 709--709
 []\OT1/cmr/m/n/12 mornings|  
  []
 
 
-LaTeX Warning: Float too large for page by 45.0905pt on input line 726.
+Overfull \hbox (43.753pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 deg[]from[]north|  
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 731.
+Overfull \hbox (6.57118pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 numeric|  
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 739.
+Overfull \hbox (38.20445pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 pre[]peak[]hour|  
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 739.
+Overfull \hbox (33.38701pt too wide) in paragraph at lines 709--709
+[]\OT1/cmr/m/n/12 working[]days|  
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 755.
+LaTeX Warning: Float too large for page by 51.79802pt on input line 710.
 
-[16] [17pdfTeX warning (ext4): destination with the same identifier (name{table
-.12}) has been already used, duplicate ignored
+
+Package xcolor Warning: Incompatible color definition on input line 715.
+
+[13] [14pdfTeX warning (ext4): destination with the same identifier (name{table
+.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.759 \end{Shaded}
-                  ]
+l.715 \begin{Shaded}
+                    ]
 
-Package xcolor Warning: Incompatible color definition on input line 759.
+Package xcolor Warning: Incompatible color definition on input line 723.
 
 
-Package xcolor Warning: Incompatible color definition on input line 759.
+Package xcolor Warning: Incompatible color definition on input line 723.
 
-<MATH2269_final_project_files/figure-latex/Univariate distribution-1.pdf, id=24
-4, 867.24pt x 2529.45pt>
+
+Package xcolor Warning: Incompatible color definition on input line 736.
+
+
+Package xcolor Warning: Incompatible color definition on input line 740.
+
+
+Package xcolor Warning: Incompatible color definition on input line 740.
+
+<MATH2269_final_project_files/figure-latex/Univariate distribution-1.pdf, id=17
+9, 289.08pt x 722.7pt>
 File: MATH2269_final_project_files/figure-latex/Univariate distribution-1.pdf G
 raphic file (type pdf)
 <use MATH2269_final_project_files/figure-latex/Univariate distribution-1.pdf>
 Package pdftex.def Info: MATH2269_final_project_files/figure-latex/Univariate d
-istribution-1.pdf  used on input line 763.
-(pdftex.def)             Requested size: 867.2379pt x 2529.44385pt.
+istribution-1.pdf  used on input line 744.
+(pdftex.def)             Requested size: 289.07928pt x 722.69823pt.
+[15]
+Overfull \vbox (113.60527pt too high) has occurred while \output is active []
 
-Overfull \hbox (404.96791pt too wide) in paragraph at lines 763--765
- [][] 
- []
-
-[18]
-Overfull \vbox (1941.37584pt too high) has occurred while \output is active []
-
-[19pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+[16pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.767 
+l.748 
        <./MATH2269_final_project_files/figure-latex/Univariate distribution-1.p
 df>]
-<MATH2269_final_project_files/figure-latex/unnamed-chunk-17-1.pdf, id=261, 469.
-755pt x 542.025pt>
+
+Package xcolor Warning: Incompatible color definition on input line 749.
+
+
+Package xcolor Warning: Incompatible color definition on input line 764.
+
+
+Package xcolor Warning: Incompatible color definition on input line 764.
+
+<MATH2269_final_project_files/figure-latex/A numeric univariate vs target class
+ distribution-1.pdf, id=196, 1084.05pt x 1084.05pt>
+File: MATH2269_final_project_files/figure-latex/A numeric univariate vs target 
+class distribution-1.pdf Graphic file (type pdf)
+<use MATH2269_final_project_files/figure-latex/A numeric univariate vs target c
+lass distribution-1.pdf>
+Package pdftex.def Info: MATH2269_final_project_files/figure-latex/A numeric un
+ivariate vs target class distribution-1.pdf  used on input line 768.
+(pdftex.def)             Requested size: 1084.04736pt x 1084.04736pt.
+
+Overfull \hbox (621.77737pt too wide) in paragraph at lines 768--769
+ [][] 
+ []
+
+[17]
+Overfull \vbox (495.97935pt too high) has occurred while \output is active []
+
+[18pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.771 
+       <./MATH2269_final_project_files/figure-latex/A numeric univariate vs tar
+get class distribution-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 772.
+
+
+Package xcolor Warning: Incompatible color definition on input line 789.
+
+
+Package xcolor Warning: Incompatible color definition on input line 789.
+
+<MATH2269_final_project_files/figure-latex/A categorical univariate vs target c
+lass distribution-1.pdf, id=215, 1084.05pt x 1084.05pt>
+File: MATH2269_final_project_files/figure-latex/A categorical univariate vs tar
+get class distribution-1.pdf Graphic file (type pdf)
+<use MATH2269_final_project_files/figure-latex/A categorical univariate vs targ
+et class distribution-1.pdf>
+Package pdftex.def Info: MATH2269_final_project_files/figure-latex/A categorica
+l univariate vs target class distribution-1.pdf  used on input line 793.
+(pdftex.def)             Requested size: 1084.04736pt x 1084.04736pt.
+
+Overfull \hbox (621.77737pt too wide) in paragraph at lines 793--794
+ [][] 
+ []
+
+[19]
+Overfull \vbox (495.97935pt too high) has occurred while \output is active []
+
+[20pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.796 
+       <./MATH2269_final_project_files/figure-latex/A categorical univariate vs
+ target class distribution-1.pdf>]
+<MATH2269_final_project_files/figure-latex/unnamed-chunk-17-1.pdf, id=235, 469.
+755pt x 325.215pt>
 File: MATH2269_final_project_files/figure-latex/unnamed-chunk-17-1.pdf Graphic 
 file (type pdf)
 <use MATH2269_final_project_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: MATH2269_final_project_files/figure-latex/unnamed-chun
-k-17-1.pdf  used on input line 768.
-(pdftex.def)             Requested size: 469.75386pt x 542.02367pt.
+k-17-1.pdf  used on input line 802.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (25.10869pt too wide) in paragraph at lines 768--769
-[][] 
+Overfull \hbox (7.48387pt too wide) in paragraph at lines 802--803
+ [][] 
  []
 
-No file MATH2269_final_project.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 849.
-[20 <./MATH2269_final_project_files/figure-latex/unnamed-chunk-17-1.pdf>] [21]
-Overfull \vbox (62.33932pt too high) has occurred while \output is active []
+<MATH2269_final_project_files/figure-latex/unnamed-chunk-18-1.pdf, id=236, 469.
+755pt x 325.215pt>
+File: MATH2269_final_project_files/figure-latex/unnamed-chunk-18-1.pdf Graphic 
+file (type pdf)
+<use MATH2269_final_project_files/figure-latex/unnamed-chunk-18-1.pdf>
+Package pdftex.def Info: MATH2269_final_project_files/figure-latex/unnamed-chun
+k-18-1.pdf  used on input line 812.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-[22]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 849.
+Overfull \hbox (7.48387pt too wide) in paragraph at lines 812--813
+ [][] 
+ []
+
+[21pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.815 
+       <./MATH2269_final_project_files/figure-latex/unnamed-chunk-17-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 819.
+
+
+Package xcolor Warning: Incompatible color definition on input line 847.
+
+
+Package xcolor Warning: Incompatible color definition on input line 847.
+
+
+Package xcolor Warning: Incompatible color definition on input line 847.
+
+[22pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.847 \end{Shaded}
+                   <./MATH2269_final_project_files/figure-latex/unnamed-chunk-1
+8-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 847.
+
+
+Package xcolor Warning: Incompatible color definition on input line 847.
+
+
+Package xcolor Warning: Incompatible color definition on input line 849.
+
+
+Package xcolor Warning: Incompatible color definition on input line 868.
+
+
+Package xcolor Warning: Incompatible color definition on input line 868.
+
+
+Package xcolor Warning: Incompatible color definition on input line 868.
+
+[23]
+
+Package xcolor Warning: Incompatible color definition on input line 868.
+
+
+Package xcolor Warning: Incompatible color definition on input line 868.
+
+
+Package xcolor Warning: Incompatible color definition on input line 873.
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+[24]
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Underfull \vbox (badness 10000) detected at line 973
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 973
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+[25]
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Underfull \vbox (badness 10000) detected at line 973
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 973
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+[26]
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 979.
+
+
+Package xcolor Warning: Incompatible color definition on input line 993.
+
+
+Package xcolor Warning: Incompatible color definition on input line 993.
+
+<MATH2269_final_project_files/figure-latex/unnamed-chunk-22-1.pdf, id=283, 469.
+755pt x 325.215pt>
+File: MATH2269_final_project_files/figure-latex/unnamed-chunk-22-1.pdf Graphic 
+file (type pdf)
+<use MATH2269_final_project_files/figure-latex/unnamed-chunk-22-1.pdf>
+Package pdftex.def Info: MATH2269_final_project_files/figure-latex/unnamed-chun
+k-22-1.pdf  used on input line 1058.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (7.48387pt too wide) in paragraph at lines 1058--1059
+ [][] 
+ []
+
+[27] [28pdfTeX warning (ext4): destination with the same identifier (name{table
+.9}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1061 
+       ]
+
+Package xcolor Warning: Incompatible color definition on input line 1062.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1070.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1070.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1107.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+[29pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1159 \end{Shaded}
+                    <./MATH2269_final_project_files/figure-latex/unnamed-chunk-
+22-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+
+Underfull \vbox (badness 10000) detected at line 1159
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1159
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+[30pdfTeX warning (ext4): destination with the same identifier (name{table.10})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1159 \end{Shaded}
+                   ]
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1159.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1165.
+
+[31]
+
+Package xcolor Warning: Incompatible color definition on input line 1177.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1177.
+
+
+Overfull \hbox (32.96785pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 temperature
+ []
+
+
+Overfull \hbox (10.44725pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 working
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9335038|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9179127|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8800272|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8615146|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9527719|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 1.0000000|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 1.0000000|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8015225|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9999915|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9877941|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8844267|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9929617|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9518290|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.6624545|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9220733|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9809347|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9809347|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.6664733|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 1.0000000|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8021792|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8826383|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9994628|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9669227|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9448022|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8660622|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9999993|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 1.0000000|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8545957|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9588906|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.3530091|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8530036|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9697510|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9118581|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.6231489|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9406564|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8810719|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8810719|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9058613|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 1.0000000|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.5636127|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.8453595|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9969976|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.1919882|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9935657|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9804068|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9999981|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 1.0000000|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.7198917|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.9726895|
+ []
+
+
+Overfull \hbox (20.23882pt too wide) in paragraph at lines 1197--1197
+ []\OT1/cmr/m/n/12 0.7526976|
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1200.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1206.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1206.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1217.
+
+[32pdfTeX warning (ext4): destination with the same identifier (name{table.11})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1217 \begin{Shaded}
+                     ]
+
+Package xcolor Warning: Incompatible color definition on input line 1247.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1247.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1247.
+
+[33]
+
+Package xcolor Warning: Incompatible color definition on input line 1247.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1247.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1252.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1275.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1275.
+
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta0.jpg, id=329, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta0.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta0.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta0.jpg  used on inp
+ut line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[1].jpg, id=330, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[1].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[1].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[1].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[2].jpg, id=331, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[2].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[2].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[2].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[3].jpg, id=332, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[3].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[3].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[3].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[4].jpg, id=333, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[4].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[4].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[4].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[5].jpg, id=334, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[5].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[5].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[5].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[6].jpg, id=335, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[6].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[6].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[6].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[7].jpg, id=336, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[7].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[7].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[7].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagbeta[8].jpg, id=337, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[8].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta[8].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[8].jpg  used on i
+nput line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagtau.jpg, id=338, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagtau.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagtau.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagtau.jpg  used on input
+ line 1282.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1282--1282
+[][] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1282--1282
+[] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1282--1282
+[] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1282--1282
+[] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1282--1282
+[] [] 
+ []
+
+[34]
+Overfull \vbox (188.24365pt too high) has occurred while \output is active []
+
+[35 </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagbeta0.jpg> </Users/ellenitoumpas/DATA/STUD
+Y/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATI
+STICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODE
+L_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDi
+agbeta[1].jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SE
+MESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-fina
+l-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3
+/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[2].jpg> </Users/ellenitoum
+pas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_B
+AYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DIA
+GNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b5
+00_t3_namesDiagbeta[3].jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-AN
+ALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/
+bayesian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3
+_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[4].jpg> </Use
+rs/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2
+269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IM
+AGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gam
+ma_c3_a500_b500_t3_namesDiagbeta[5].jpg> </Users/ellenitoumpas/DATA/STUDY/COURS
+ES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/F
+INAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_G
+AMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[
+6].jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-
+02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-proje
+ct/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_
+001_gamma_gamma_c3_a500_b500_t3_namesDiagbeta[7].jpg> </Users/ellenitoumpas/DAT
+A/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN
+_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTIC
+S/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_n
+amesDiagbeta[8].jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS
+/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesia
+n-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B
+500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagtau.jpg>]
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[1].jpg, id=349, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[1].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[1].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[1].jpg  used on i
+nput line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[2].jpg, id=350, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[2].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[2].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[2].jpg  used on i
+nput line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[10].jpg, id=351, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[10].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[10].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[10].jpg  used on 
+input line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[20].jpg, id=352, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[20].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[20].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[20].jpg  used on 
+input line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[30].jpg, id=353, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[30].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[30].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[30].jpg  used on 
+input line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[40].jpg, id=354, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[40].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[40].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[40].jpg  used on 
+input line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[50].jpg, id=355, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[50].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[50].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[50].jpg  used on 
+input line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[60].jpg, id=356, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[60].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[60].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[60].jpg  used on 
+input line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[70].jpg, id=357, 673.51625pt x 481.8pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3_namesDiagpred[70].jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[70].jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A50
+0_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[70].jpg  used on 
+input line 1285.
+(pdftex.def)             Requested size: 231.135pt x 165.33897pt.
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1285--1285
+[][] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1285--1285
+[] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1285--1285
+[] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1285--1285
+[] []
+ []
+
+
+Overfull \vbox (188.24365pt too high) has occurred while \output is active []
+
+[36 </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_
+gamma_gamma_c3_a500_b500_t3_namesDiagpred[1].jpg> </Users/ellenitoumpas/DATA/ST
+UDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STA
+TISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MO
+DEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_names
+Diagpred[2].jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-
+SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-fi
+nal-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_
+T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[10].jpg> </Users/ellenit
+oumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIE
+D_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_
+DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500
+_b500_t3_namesDiagpred[20].jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTER
+S-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJ
+ECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMM
+A_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[30].jpg> 
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3_namesDiagpred[40].jpg> </Users/ellenitoumpas/DATA/STUDY
+/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATIS
+TICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL
+_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3_namesDia
+gpred[50].jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SE
+MESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-fina
+l-project/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3
+/model_001_gamma_gamma_c3_a500_b500_t3_namesDiagpred[60].jpg> </Users/ellenitou
+mpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_
+BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/BETA_DI
+AGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b
+500_t3_namesDiagpred[70].jpg>]
+
+Package xcolor Warning: Incompatible color definition on input line 1287.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1292.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1292.
+
+
+Overfull \hbox (9.57338pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 Mean|
+ []
+
+
+Overfull \hbox (19.36494pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 Median|
+ []
+
+
+Overfull \hbox (9.89977pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 Mode|
+ []
+
+
+Overfull \hbox (2.2318pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 ESS|
+ []
+
+
+Overfull \hbox (28.13847pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 HDImass|
+ []
+
+
+Overfull \hbox (20.50105pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 HDIlow|
+ []
+
+
+Overfull \hbox (25.39684pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 HDIhigh|
+ []
+
+
+Overfull \hbox (28.83012pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 CompVal|  
+ []
+
+
+Overfull \hbox (66.60614pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 PcntGtCompVal|  
+ []
+
+
+Overfull \hbox (31.92873pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 ROPElow|  
+ []
+
+
+Overfull \hbox (36.82451pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 ROPEhigh|  
+ []
+
+
+Overfull \hbox (50.52855pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 PcntLtROPE|  
+ []
+
+
+Overfull \hbox (49.38411pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 PcntInROPE|  
+ []
+
+
+Overfull \hbox (52.40631pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 PcntGtROPE|  
+ []
+
+
+Overfull \hbox (20.3316pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 CHAIN|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2.0000000|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2.0000000|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3.0022676|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1.0000000|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3.000000|
+ []
+
+
+Overfull \hbox (9.57755pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta0|  
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 499.2639740|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 499.3360000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 497.9185555|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 465.8|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 447.1800000|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 551.568000|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[1]|  
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 14.3071228|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 14.3061500|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 14.2497131|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1305.1|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 14.6599000|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 13.953800|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[2]|  
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 23.6630136|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 23.6566500|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 23.5529786|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1237.8|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 22.8543000|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 24.460400|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[3]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.8977872|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.9475500|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 7.7574681|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1161.6|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1.4180300|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 12.136000|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[4]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.2098892|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.2098835|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.2103907|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1500.0|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.2168640|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.202666|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[5]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.4216764|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.4567950|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.6406596|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1080.9|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3.4291200|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 9.594490|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[6]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1801.7689333|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1801.2900000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1805.7142746|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 867.3|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1745.7700000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1859.940000|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[7]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.0794385|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.0834228|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.0997201|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1269.0|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.1886320|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.355125|
+ []
+
+
+Overfull \hbox (16.10526pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 beta[8]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1907.6886933|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1908.0200000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1907.3549178|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1243.0|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1849.7900000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1976.940000|
+ []
+
+
+Overfull \hbox (14.79971pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta0|  
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 24.9263915|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 24.9300000|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 24.8592012|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 465.8|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 22.3260000|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 27.537800|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[1]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 5.3207371|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 5.3203650|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 5.2993750|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1305.1|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 5.4519400|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 5.189340|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[2]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.9852882|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.9834100|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.9528096|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1237.8|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 6.7465500|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 7.220680|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[3]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.5018392|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.5054595|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.5643846|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1161.6|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.1031670|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.882936|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[4]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.6467360|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.6467185|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.6482804|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1500.0|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.6682290|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.624481|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[5]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.6412128|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.6447195|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.6630789|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1080.9|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.3424020|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.958023|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[6]|  
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 40.5845967|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 40.5738000|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 40.6733946|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 867.3|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 39.3232000|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 41.894800|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[7]|  
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.0268893|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.0282380|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.0337544|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1269.0|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ \OT1/cmr/m/n/12 0.0638505|
+ []
+
+
+Overfull \hbox (25.57043pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.120207|
+ []
+
+
+Overfull \hbox (21.32742pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zbeta[8]|  
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 41.7980944|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 41.8052500|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 41.7908303|
+ []
+
+
+Overfull \hbox (13.82056pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 1243.0|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 40.5295000|
+ []
+
+
+Overfull \hbox (31.44537pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 43.315500|
+ []
+
+
+Overfull \hbox (72.56995pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 39822823.8000000|
+ []
+
+
+Overfull \hbox (72.56995pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 39765650.0000000|
+ []
+
+
+Overfull \hbox (72.56995pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 39698357.7560163|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 312.1|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (72.56995pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 36360400.0000000|
+ []
+
+
+Overfull \hbox (66.695pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 42754800.000000|
+ []
+
+
+Overfull \hbox (4.6776pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 zVar|  
+ []
+
+
+Overfull \hbox (54.94513pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 99263.6963333|
+ []
+
+
+Overfull \hbox (54.94513pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 99121.1000000|
+ []
+
+
+Overfull \hbox (54.94513pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 98953.4644451|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 312.1|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (54.94513pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 90633.2000000|
+ []
+
+
+Overfull \hbox (54.94513pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 106572.000000|
+ []
+
+
+Overfull \hbox (16.43164pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[1]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2882.4102067|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2882.2300000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2883.7895721|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 549.3|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2804.0500000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2956.490000|
+ []
+
+
+Overfull \hbox (16.43164pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[2]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2883.6339467|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2883.5100000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2885.0730600|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 548.7|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2805.5900000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2957.920000|
+ []
+
+
+Overfull \hbox (22.30658pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[10]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3124.8543667|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3124.7050000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3124.9200590|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 604.4|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3050.1000000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3203.970000|
+ []
+
+
+Overfull \hbox (22.30658pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[20]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2930.5344400|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2930.3100000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2932.0561737|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 592.5|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2854.9400000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3008.070000|
+ []
+
+
+Overfull \hbox (22.30658pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[30]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2935.2638533|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2936.1700000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2935.9509523|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 713.1|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2847.5900000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 3015.700000|
+ []
+
+
+Overfull \hbox (22.30658pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[40]|  
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2897.8973867|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2898.0550000|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2894.9128228|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 772.8|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (49.07019pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2809.4400000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 2976.630000|
+ []
+
+
+Overfull \hbox (22.30658pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[50]|  
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 952.8020907|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 953.4195000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 954.7756295|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 612.1|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 902.3930000|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 999.600000|
+ []
+
+
+Overfull \hbox (22.30658pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[60]|  
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 924.3415613|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 924.8925000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 926.7147427|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 608.4|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 874.4610000|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 972.168000|
+ []
+
+
+Overfull \hbox (22.30658pt too wide) in paragraph at lines 1362--1362
+[]\OT1/cmr/m/n/12 pred[70]|  
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 939.5203053|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 939.7135000|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 941.1702871|
+ []
+
+
+Overfull \hbox (7.94562pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 636.5|
+ []
+
+
+Overfull \hbox (2.07068pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 0.95|
+ []
+
+
+Overfull \hbox (43.19525pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 888.6290000|
+ []
+
+
+Overfull \hbox (37.32031pt too wide) in paragraph at lines 1362--1362
+ []\OT1/cmr/m/n/12 987.090000|
+ []
+
+
+LaTeX Warning: Float too large for page by 129.75926pt on input line 1363.
+
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3Post_Beta1.jpg, id=362, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3Post_Beta1.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3Post_Beta1.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3Post_Beta1.jpg  used on inp
+ut line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3Post_Beta2.jpg, id=363, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3Post_Beta2.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3Post_Beta2.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3Post_Beta2.jpg  used on inp
+ut line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3Post_Pred1.jpg, id=364, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3Post_Pred1.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3Post_Pred1.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3Post_Pred1.jpg  used on inp
+ut line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3Post_Pred2.jpg, id=365, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3Post_Pred2.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3Post_Pred2.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3Post_Pred2.jpg  used on inp
+ut line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3PostMarg1.jpg, id=366, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3PostMarg1.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3PostMarg1.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3PostMarg1.jpg  used on inpu
+t line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3PostMargZ1.jpg, id=367, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3PostMargZ1.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3PostMargZ1.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3PostMargZ1.jpg  used on inp
+ut line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3PostMargZ2.jpg, id=368, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3PostMargZ2.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3PostMargZ2.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3PostMargZ2.jpg  used on inp
+ut line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+</Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/
+MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPU
+TS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001
+_gamma_gamma_c3_a500_b500_t3PostMargZ21.jpg, id=369, 673.51625pt x 385.44pt>
+File: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-
+2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/
+OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/mode
+l_001_gamma_gamma_c3_a500_b500_t3PostMargZ21.jpg Graphic file (type jpg)
+<use /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3PostMargZ21.jpg>
+Package pdftex.def Info: /Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYT
+ICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/baye
+sian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C
+3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3PostMargZ21.jpg  used on in
+put line 1366.
+(pdftex.def)             Requested size: 231.135pt x 132.27118pt.
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1366--1366
+[][] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1366--1366
+[] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1366--1366
+[] []
+ []
+
+
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 1366--1366
+[] [] 
+ []
+
+[37 </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2
+020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/O
+UTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model
+_001_gamma_gamma_c3_a500_b500_t3Post_Beta1.jpg> </Users/ellenitoumpas/DATA/STUD
+Y/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATI
+STICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS
+/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3Pos
+t_Beta2.jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEME
+STER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-
+project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500
+_T3/model_001_gamma_gamma_c3_a500_b500_t3Post_Pred1.jpg> </Users/ellenitoumpas/
+DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYES
+IAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/POSTERIOR_DI
+AGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b
+500_t3Post_Pred2.jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTIC
+S/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesi
+an-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_
+A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3PostMarg1.jpg> </Users/elleni
+toumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLI
+ED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IMAGES/POST
+ERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamma_gamma_c
+3_a500_b500_t3PostMargZ1.jpg> </Users/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-
+ANALYTICS/06-SEMESTER-02-2020/MATH2269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJEC
+T/bayesian-final-project/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_G
+AMMA_C3_A500_B500_T3/model_001_gamma_gamma_c3_a500_b500_t3PostMargZ2.jpg> </Use
+rs/ellenitoumpas/DATA/STUDY/COURSES/MASTERS-ANALYTICS/06-SEMESTER-02-2020/MATH2
+269_APPLIED_BAYESIAN_STATISTICS/FINAL_PROJECT/bayesian-final-project/OUTPUTS/IM
+AGES/POSTERIOR_DIAGNOSTICS/MODEL_001_GAMMA_GAMMA_C3_A500_B500_T3/model_001_gamm
+a_gamma_c3_a500_b500_t3PostMargZ21.jpg>] [38pdfTeX warning (ext4): destination 
+with the same identifier (name{table.12}) has been already used, duplicate igno
+red
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1378 ...{isolated-experiments-on-burn-in-steps}}
+                                                  ]
+No file MATH2269_final_project.bbl.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1420.
+[39]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1420.
 (./MATH2269_final_project.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 849.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 849.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1420.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1420.
+
 Package rerunfilecheck Info: File `MATH2269_final_project.out' has not changed.
 
-(rerunfilecheck)             Checksum: 2372368AD22ADD5DD5700BFA7A390C39;2139.
+(rerunfilecheck)             Checksum: D3530F1F44908AD96219A928EBF88015;1095.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 849.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1420.
  ) 
 Here is how much of TeX's memory you used:
- 8686 strings out of 482823
- 131312 string characters out of 5954665
- 436545 words of memory out of 5000000
- 23758 multiletter control sequences out of 15000+600000
- 543313 words of font info for 59 fonts, out of 8000000 for 9000
+ 8971 strings out of 482823
+ 195947 string characters out of 5954665
+ 452661 words of memory out of 5000000
+ 23986 multiletter control sequences out of 15000+600000
+ 542707 words of font info for 57 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 43i,17n,37p,326b,560s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,17n,37p,3483b,562s stack positions out of 5000i,500n,10000p,200000b,80000s
 </Users/ellenitoumpas/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb></Users/ellenitoumpas/Library/TinyTeX/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmbx12.pfb></Users/ellenitoumpas/Library/TinyTeX/texmf-dist/font
 s/type1/public/amsfonts/cm/cmitt10.pfb></Users/ellenitoumpas/Library/TinyTeX/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/ellenitoumpas/Library
-/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/ellenitoum
-pas/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/
-ellenitoumpas/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/ellenitoumpas/Librar
+y/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/ellenitou
+mpas/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></User
+s/ellenitoumpas/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.
 pfb></Users/ellenitoumpas/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmti12.pfb></Users/ellenitoumpas/Library/TinyTeX/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmtt12.pfb>
-Output written on MATH2269_final_project.pdf (22 pages, 493183 bytes).
+s/cm/cmr8.pfb></Users/ellenitoumpas/Library/TinyTeX/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb></Users/ellenitoumpas/Library/TinyTeX/texmf-dist/font
+s/type1/public/amsfonts/cm/cmti12.pfb></Users/ellenitoumpas/Library/TinyTeX/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on MATH2269_final_project.pdf (39 pages, 17680181 bytes).
 PDF statistics:
- 359 PDF objects out of 1000 (max. 8388607)
- 316 compressed objects within 4 object streams
- 112 named destinations out of 1000 (max. 500000)
- 248 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 472 PDF objects out of 1000 (max. 8388607)
+ 375 compressed objects within 4 object streams
+ 134 named destinations out of 1000 (max. 500000)
+ 299 words of extra memory for PDF output out of 10000 (max. 10000000)
 
