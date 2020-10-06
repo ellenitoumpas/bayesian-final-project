@@ -13,7 +13,8 @@
 #' @return
 #' @export
 #' @examples
-prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_mu, beta3_var, beta4_mu, beta4_var, beta5_mu, beta5_var){
+prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_mu, beta3_var, beta4_mu, beta4_var, beta5_mu, beta5_var, 
+                               beta6_mu, beta6_var, beta7_mu, beta7_var, beta8_mu, beta8_var){
   
   modelString <- paste0("
   
@@ -48,6 +49,9 @@ prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_m
     zbeta[3] ~ dnorm(",beta3_mu,"/xsd[3], 1/(",beta3_var,"/xsd[3]^2))
     zbeta[4] ~ dnorm(",beta4_mu,"/xsd[4], 1/(",beta4_var,"/xsd[4]^2))
     zbeta[5] ~ dnorm(",beta5_mu,"/xsd[5], 1/(",beta5_var,"/xsd[5]^2))
+    zbeta[6] ~ dnorm(",beta6_mu,"/xsd[6], 1/(",beta5_var,"/xsd[6]^2))
+    zbeta[7] ~ dnorm(",beta7_mu,"/xsd[7], 1/(",beta5_var,"/xsd[7]^2))
+    zbeta[8] ~ dnorm(",beta8_mu,"/xsd[8], 1/(",beta5_var,"/xsd[8]^2))
     zVar ~ dgamma(0.01, 0.001)
     
     # Transform to original scale
@@ -56,11 +60,11 @@ prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_m
     tau <- zVar * (ysd) ^ 2
     
     # Predictions
-    pred[1] <- beta0 + beta[1] * xPred[1, 1] + beta[2] * xPred[1, 2] + beta[3] * xPred[1, 3] + beta[4] * xPred[1, 4] + beta[5] * xPred[1, 5]
-    pred[2] <- beta0 + beta[1] * xPred[2, 1] + beta[2] * xPred[2, 2] + beta[3] * xPred[2, 3] + beta[4] * xPred[2, 4] + beta[5] * xPred[2, 5]
-    pred[3] <- beta0 + beta[1] * xPred[3, 1] + beta[2] * xPred[3, 2] + beta[3] * xPred[3, 3] + beta[4] * xPred[3, 4] + beta[5] * xPred[3, 5]
-    pred[4] <- beta0 + beta[1] * xPred[4, 1] + beta[2] * xPred[4, 2] + beta[3] * xPred[4, 3] + beta[4] * xPred[4, 4] + beta[5] * xPred[4, 5]
-    pred[5] <- beta0 + beta[1] * xPred[5, 1] + beta[2] * xPred[5, 2] + beta[3] * xPred[5, 3] + beta[4] * xPred[5, 4] + beta[5] * xPred[5, 5]
+    # pred[1] <- beta0 + beta[1] * xPred[1, 1] + beta[2] * xPred[1, 2] + beta[3] * xPred[1, 3] + beta[4] * xPred[1, 4] + beta[5] * xPred[1, 5]
+    # pred[2] <- beta0 + beta[1] * xPred[2, 1] + beta[2] * xPred[2, 2] + beta[3] * xPred[2, 3] + beta[4] * xPred[2, 4] + beta[5] * xPred[2, 5]
+    # pred[3] <- beta0 + beta[1] * xPred[3, 1] + beta[2] * xPred[3, 2] + beta[3] * xPred[3, 3] + beta[4] * xPred[3, 4] + beta[5] * xPred[3, 5]
+    # pred[4] <- beta0 + beta[1] * xPred[4, 1] + beta[2] * xPred[4, 2] + beta[3] * xPred[4, 3] + beta[4] * xPred[4, 4] + beta[5] * xPred[4, 5]
+    # pred[5] <- beta0 + beta[1] * xPred[5, 1] + beta[2] * xPred[5, 2] + beta[3] * xPred[5, 3] + beta[4] * xPred[5, 4] + beta[5] * xPred[5, 5]
     
   }" )
   
@@ -104,7 +108,7 @@ smryMCMC_HD = function( codaSamples, compVal = NULL,  saveName=NULL) {
   # summaryInfo = rbind( summaryInfo , 
   #                      "tau" = summarizePost( mcmcMat[,"tau"] ) )
   
-  if (!is.null(saveName))(write.csv(summaryInfo, file=paste0('OUTPUTS/',saveName,"_SummaryInfo.csv")))
+  if (!is.null(saveName))(write.csv(summaryInfo, file=paste0(here(),'/OUTPUTS/SUMMARY/',saveName,"_SummaryInfo.csv")))
   
   return( summaryInfo )
 }
@@ -150,11 +154,11 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   
   tau = mcmcMat[,"tau"]
   
-  pred1 = mcmcMat[,"pred[1]"] 
-  pred2 = mcmcMat[,"pred[2]"] 
-  pred3 = mcmcMat[,"pred[3]"] 
-  pred4 = mcmcMat[,"pred[4]"] 
-  pred5 = mcmcMat[,"pred[5]"] 
+  # pred1 = mcmcMat[,"pred[1]"] 
+  # pred2 = mcmcMat[,"pred[2]"] 
+  # pred3 = mcmcMat[,"pred[3]"] 
+  # pred4 = mcmcMat[,"pred[4]"] 
+  # pred5 = mcmcMat[,"pred[5]"] 
   
   #-----------------------------------------------------------------------------
   # Compute R^2 for credible parameters:
@@ -217,7 +221,7 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   
   # Original scale:
   panelCount = 1
-  panelCount = decideOpenGraph( panelCount, saveName=paste0('POSTERIOR/',saveName,"Post_Beta"))
+  panelCount = decideOpenGraph( panelCount, saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"Post_Beta"))
   
   if(!is.na(compVal[["beta0"]])){
     histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]) , main="Intercept", compVal = as.numeric(compVal["beta0"] ))
@@ -226,68 +230,68 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   }
   
   for (bIdx in 1:ncol(beta)) {
-    panelCount = decideOpenGraph( panelCount, saveName=paste0('POSTERIOR/',saveName,"Post_Beta"))
+    panelCount = decideOpenGraph( panelCount, saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"Post_Beta"))
     if (!is.na(compVal[paste0("beta[",bIdx,"]")])) {
       histInfo = plotPost(beta[,bIdx] , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[.(bIdx)]) , main=xName[bIdx], compVal = as.numeric(compVal[paste0("beta[",bIdx,"]")]))
     } else{
       histInfo = plotPost( beta[,bIdx] , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[.(bIdx)]) , main=xName[bIdx])
     }
   }
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"Post_Beta") )
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"Post_Beta"))
   
   
   
   panelCount = 1
-  panelCount = decideOpenGraph(panelCount, saveName=paste0('POSTERIOR/',saveName,"PostMarg"))
+  panelCount = decideOpenGraph(panelCount, saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMarg"))
   histInfo = plotPost( tau , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(tau) , main=paste("Scale") )
   
-  panelCount = decideOpenGraph( panelCount, saveName=paste0('POSTERIOR/',saveName,"PostMarg"))
+  panelCount = decideOpenGraph( panelCount, saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMarg"))
   histInfo = plotPost( Rsq , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(R^2) , main=paste("Prop Var Accntd") )
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"PostMarg") )
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/', saveName,"PostMarg") )
   
   
   
-  panelCount = 1
-  panelCount = decideOpenGraph( panelCount ,  saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred1 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred1" , main="Prediction 1" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred2 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred2" , main="Prediction 2" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred3 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred3" , main="Prediction 3" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred4 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred4" , main="Prediction 4" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred5 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred5" , main="Prediction 5" ) # Added by Demirhan
-
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"Post_Pred") )
+  # panelCount = 1
+  # panelCount = decideOpenGraph( panelCount ,  saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMarg") )
+  # histInfo = plotPost( pred1 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred1" , main="Prediction 1" ) # Added by Demirhan
+  # 
+  # panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMarg") )
+  # histInfo = plotPost( pred2 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred2" , main="Prediction 2" ) # Added by Demirhan
+  # 
+  # panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMarg") )
+  # histInfo = plotPost( pred3 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred3" , main="Prediction 3" ) # Added by Demirhan
+  # 
+  # panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMarg") )
+  # histInfo = plotPost( pred4 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred4" , main="Prediction 4" ) # Added by Demirhan
+  # 
+  # panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMarg") )
+  # histInfo = plotPost( pred5 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred5" , main="Prediction 5" ) # Added by Demirhan
+  # 
+  # panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/', saveName,"Post_Pred") )
   
   
   
   # Standardized scale:
   panelCount = 1
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ") )
+  panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMargZ") )
   histInfo = plotPost( zbeta0 , cex.lab = 1.75, showCurve=showCurve , xlab=bquote(z*beta[0]) , main="Intercept" )
   
   for ( bIdx in 1:ncol(beta) ) {
-    panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ") )
+    panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMargZ") )
     histInfo = plotPost( zbeta[,bIdx] , cex.lab = 1.75 , showCurve=showCurve, xlab=bquote(z*beta[.(bIdx)]) , main=xName[bIdx] )
   }
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"PostMargZ") )
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/', saveName,"PostMargZ") )
   
   
   
   panelCount = 1
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ2"))
+  panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMargZ2"))
   histInfo = plotPost( zVar , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(z*tau) , main=paste("Scale"))
   
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ") )
+  panelCount = decideOpenGraph( panelCount , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',saveName,"PostMargZ") )
   histInfo = plotPost( Rsq , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(R^2) , main=paste("Prop Var Accntd") )
   
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"PostMargZ2") )
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/', saveName,"PostMargZ2") )
   
   #-----------------------------------------------------------------------------
 }
@@ -337,7 +341,7 @@ run_JAGS_model <- function(parallel = FALSE,
     runJagsOut <- runjags::run.jags(method = "parallel",
                                     model = model_file,
                                     monitor = recorded_params,
-                                    data = data_list ,
+                                    data = data_list,
                                     inits = inits_list ,
                                     n.chains = number_chains,
                                     adapt = number_adaptation_steps,
@@ -361,12 +365,11 @@ run_JAGS_model <- function(parallel = FALSE,
     coda_samples = coda.samples(jagsModel, variable.names = recorded_params, n.iter = chain_iterations)
     
   }
-  
-  print(colnames(coda_samples[[1]]))
+
   
   # Saving the diagnotic test for each parameter
   for (names in colnames(coda_samples[[1]])){
-    diagMCMC(coda_samples , parName = names, saveName = paste0('images/',trial_version,'_names'))
+    diagMCMC(coda_samples , parName = names, saveName = paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',trial_version,'_names'))
   }
   
   summary_info <- smryMCMC_HD(codaSamples = coda_samples, compVal = comp_val, saveName = trial_version)
@@ -438,6 +441,7 @@ mv_data_subsampling <- function(data, n_sample){
     for (i in 1:length(dimensions)) {
       
       colname = dimensions[i]
+      
       if (class(data[[colname]]) %in% c("numeric") && 
           sum(data[[colname]] == as.integer(data[[colname]]),na.rm = TRUE) == 0) {
         # Numerical variable. Histogram with Rice's Rule

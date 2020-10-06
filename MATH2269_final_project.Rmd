@@ -97,20 +97,6 @@ inspect_data(data_cleaned)
 
 ```
 
-data_cleaned %>% 
-  select(temperature, pm10, pm10a, wd, ws, dow, hour, winddire) %>%
-    head(5) %>%
-    format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-    kableExtra::landscape() %>%
-    kableExtra::row_spec(0, angle = 90)
-
-data_cleaned %>%
-  select(years, yn80, roll_temp, yn50, north, north1, yn60, weekdays, mornings) %>%
-    head(5) %>%
-    format_table(p_caption = "Inspecting the first six rows of the data.", text_size = 6)  %>%
-    kableExtra::landscape() %>%
-    kableExtra::row_spec(0, angle = 90)
-
 
 
 #### Datatypes
@@ -226,7 +212,7 @@ data_cleaned %>%
 
 data_cleaned %>%
   filter(is.na(roll_temp)) %>%
-  select(date_day, date_local_time, roll_temp, yn80) %>%
+  select(date_day, date_local_time, roll_temp, pm10) %>%
   format_table(p_caption = "Missing roll temperate values")
 
 ```
@@ -412,6 +398,8 @@ dens_plot
 
 ```
 
+#### Correlation matrix of predictors
+
 ```{r, fig.cap= "Numeric Variable Correlation Heatmap", echo=FALSE, message=FALSE, warning=FALSE}
 
 # Correlation Heatmap of all variables
@@ -466,27 +454,291 @@ ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
 visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
                                temperature,  roll_temp,
                                wd, ws, weekdays,
-                               pm10, yn80),
+                               pm10),
                         aes(colour = factor(yn80)))
-
 visual_matrix
 
 ```
 
-#### Correlation matrix of predictors
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-
-# Insert correlation heat map
-# test old and newly created features and subset columns to desired ones for final analysis
-
-```
 
 ### Subsampling
 
+```{r}
+
+
+# Set temporary values for subsampling trials 
+training_data <- data_cleaned %>% 
+  mutate(pm10 = if_else(pm10 < 0, 0, pm10)) %>% 
+  filter(!(date_day %in% c(ymd('2018-12-28'), ymd('2018-12-29'), ymd('2018-12-30'), ymd('2018-12-31')))) %>% 
+  select('rf_cum_3_day','temperature', 'ws', 'deg_from_north', 'dow', 'working_days', 'hour', 'pre_peak_hour', 'pm10') %>% 
+  mutate(dow = as.numeric(dow), 
+         working_days = as.numeric(working_days), 
+         pre_peak_hour = as.numeric(pre_peak_hour))
+
+prediction_data <- data_cleaned %>% 
+  mutate(pm10 = if_else(pm10 < 0, 0, pm10)) %>% 
+  filter(date_day %in% c(ymd('2018-12-28'), ymd('2018-12-29'), ymd('2018-12-30'), ymd('2018-12-31'))) %>% 
+  select('rf_cum_3_day','temperature', 'ws', 'deg_from_north', 'dow', 'working_days', 'hour', 'pre_peak_hour')   %>% 
+  mutate(dow = as.numeric(dow), 
+         working_days = as.numeric(working_days), 
+         pre_peak_hour = as.numeric(pre_peak_hour))
+
+# Select variables
+# training_independant_data <- training[,c('rf_cum_3_day','temperature', 'ws', 'deg_from_north', 'dow', 'working_days', 'hour', 'pre_peak_hour', 'pm10')]
+predictor_variable <- 'pm10'
+
+# Mean specification
+mu <- c(-40, 40, 0, -40, 0, 20, 0, 20)
+
+# Variance specification
+var  <- c(1/4,1/2,1/10,1/2,1/10,1/2,1/10,1/2)
+
+# Set up prediction values
+xPred = as.matrix(array(NA, dim = c(nrow(prediction_data), length(colnames(prediction_data)))))
+
+for(i in 1:nrow(prediction_data)){
+  xPred[i,] = c(prediction_data[[i,1]],	
+                prediction_data[[i,2]],	
+                prediction_data[[i,3]],	
+                prediction_data[[i,4]],	
+                prediction_data[[i,5]],	
+                prediction_data[[i,6]],	
+                prediction_data[[i,7]],	
+                prediction_data[[i,8]])
+}
+
+
+# Parameters to use
+use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in_steps = 200, thinning_steps = 3)
+
+
+```
+
+
+
 #### Subsample size trials
 
+```{r}
+
+trial_type <- "subsample_size"
+
+if(hasnt_run(trial_type)){
+
+  # Set seeds
+  seed_value <- sample(1:10000, 20, replace=F)
+  write.csv(seed_value, paste0(here(),"/OUTPUTS/SEEDS/",trial_type,"_seeds.csv"), row.names = FALSE)
+  
+  # Set up sample size trial values
+  sample_size_list <- c(100, 500, 1000, 2000, 2500, 5000)
+  
+  # Set up trial df and set up columns
+  subsample_size_trials <- expand.grid(sampling_size = sample_size_list, seed = seed_value)
+  subsample_size_trials[c(paste0(colnames(training_data),"_p_value"), "duration")] <- 0
+  subsample_size_trials['trial_number'] <- 1:nrow(subsample_size_trials)
+
+  # Added more trials later
+  sample_size_list_more <- c(7500, 10000)
+  subsample_size_trials_more <- expand.grid(sampling_size = sample_size_list_more, seed = seed_value)
+  subsample_size_trials_more[c(paste0(colnames(training_data),"_p_value"), "duration")] <- 0
+  subsample_size_trials_more['trial_number'] <- (1+nrow(subsample_size_trials)):(nrow(subsample_size_trials_more)+nrow(subsample_size_trials))
+  old_n <- nrow(subsample_size_trials)
+  subsample_size_trials <- rbind(subsample_size_trials,subsample_size_trials_more)
+  
+  
+  # Run Subsampling trials
+  # for(row in 1:nrow(subsample_size_trials)){
+  for(row in 1:nrow(subsample_size_trials)){
+    
+    print(paste0('Running trial ',row))
+    
+    # Running subsample size trial
+    returned_values <- run_subsample_trial(trial_df = subsample_size_trials, row_num = row, 
+                                                              full_sample = training_data, trial_name = 'subsampling_size')
+    
+    returned_candidate_sample_selected <- returned_values$candidate_sample_selected
+    subsample_size_trials <- returned_values$trial_df
+    print('Candidate sample selected')
+    
+    # Deal with 0 pm10 levels
+    returned_candidate_sample_selected$pm10 <- returned_candidate_sample_selected$pm10 + 0.1 
+    
+    # Select initial values based on candidate subsample
+    sd_rf_cum_3_day <-   sd(returned_candidate_sample_selected$rf_cum_3_day)
+    sd_temperature <-   sd(returned_candidate_sample_selected$temperature)
+    sd_ws <-   sd(returned_candidate_sample_selected$ws)
+    sd_deg_from_north <-   sd(returned_candidate_sample_selected$deg_from_north)
+    sd_dow <-   sd(returned_candidate_sample_selected$dow)
+    sd_working_days <-   sd(returned_candidate_sample_selected$working_days)
+    sd_hour <-   sd(returned_candidate_sample_selected$hour)
+    sd_pre_peak_hour <-   sd(returned_candidate_sample_selected$pre_peak_hour)
+    sd_pm10 <-   sd(returned_candidate_sample_selected$pm10)
+    
+    initial_values_list <- c(0.1,
+                             mean(returned_candidate_sample_selected$rf_cum_3_day)/sd_rf_cum_3_day, 
+                             mean(returned_candidate_sample_selected$temperature)/sd_temperature, 
+                             mean(returned_candidate_sample_selected$ws)/sd_ws, 
+                             mean(returned_candidate_sample_selected$deg_from_north)/sd_deg_from_north, 
+                             mean(returned_candidate_sample_selected$dow)/sd_dow, 
+                             mean(returned_candidate_sample_selected$working_days)/sd_working_days, 
+                             mean(returned_candidate_sample_selected$hour)/sd_hour,
+                             mean(returned_candidate_sample_selected$pre_peak_hour)/sd_pre_peak_hour,
+                             0.01)
+
+    # Run JAGS model with candidate sample
+    returned_values <- run_subsample_size_JAGS_trial(data = returned_candidate_sample_selected, 
+                                                     predictor = "pm10", 
+                                                     predictions = xPred, 
+                                                     mu_list = mu, 
+                                                     var_list = var,
+                                                     initial_values = initial_values_list, 
+                                                     params = use_parameters, 
+                                                     trial_num = row)
+    print('JAGS model run')
+    
+    # Save time elapsed for the model - Store
+    subsample_size_trials[row, "duration"] <- returned_values['time_elapsed']
+    write.csv(subsample_size_trials, paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), row.names = FALSE)
+  
+    # Save RData 
+    save.image(file = "subsample_size_trials.RData")
+    
+    # Reset
+    graphics.off()
+    
+  }
+  
+  subsample_size_trials <- subsample_size_trials %>% 
+    mutate(mean_p_value = rowMeans(subsample_size_trials[c('rf_cum_3_day_p_value', 'temperature_p_value', 'ws_p_value', 'deg_from_north_p_value', 'dow_p_value', 
+                                                           'working_days_p_value', 'hour_p_value', 'pre_peak_hour_p_value', 'pm10_p_value')]))
+   
+  write.csv(subsample_size_trials, paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), row.names = FALSE)
+
+} else {
+  
+  print('Already run')
+  
+}
+
+```
+
+```{r}
+
+subsample_size_trials <- read.csv(paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), stringsAsFactors = FALSE) %>% 
+  arrange(trial_number)
+
+sample_data <- subsample_size_trials %>% 
+  select(c(trial_number, sampling_size, duration, mean_p_value)) %>% 
+  arrange(trial_number) %>% 
+  mutate(sampling_size = factor(sampling_size, levels = c('100', '500', '1000', '2000', '2500', '5000', '7500', '10000'))) 
+
+sample_data  %>% 
+  head(25) %>% 
+  format_table(p_caption = "First 25 records of the results from the subsample size trials")
+
+```
+
+
+```{r, fig.cap = "Scatter plot of all trials", echo=FALSE, message=FALSE, warning=FALSE}
+
+ggplot(sample_data, aes(x = duration, y = mean_p_value, color = sampling_size)) +
+  geom_point() +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  labs(x = "Model duration (sec)",
+      y = "Mean p-value",
+      title = "Duration of MCMC trial vs resulting mean p-value")
+
+```
+```{r}
+
+sample_data %>% 
+  group_by(sampling_size) %>% 
+  summarise(mean_p_value = mean(mean_p_value), 
+            mean_duration = mean(duration)) %>% 
+  format_table(p_caption = "Full set of results from the subsample size trials")
+
+```
+
+
 #### Subsample selection trials
+
+```{r}
+
+trial_type <- "subsample_selection"
+
+if(hasnt_run(trial_type)){
+
+  # Set seeds
+  seed_value <- sample(1:10000, 100, replace=F)
+  write.csv(seed_value, paste0(here(),"/OUTPUTS/SEEDS/",trial_type,"_seeds.csv"), row.names = FALSE)
+  
+  # Set up sample size trial values
+  sample_size_list <- c(1000)
+  
+  # Set up trial df and set up columns
+  subsample_selection_trials <- expand.grid(sampling_size = sample_size_list, seed = seed_value)
+  subsample_selection_trials[c(paste0(colnames(training_data),"_p_value"), "duration")] <- 0
+  subsample_selection_trials['trial_number'] <- 1:nrow(subsample_selection_trials)
+  
+  # Run Subsampling trials
+  for(row in 1:nrow(subsample_selection_trials)){
+    
+    print(paste0('Running trial ',row))
+    
+    # Running subsample size trial
+    returned_values <- run_subsample_trial(trial_df = subsample_selection_trials, row_num = row, 
+                                                              full_sample = training_data, trial_name = trial_type)
+    subsample_selection_trials <- returned_values$trial_df
+
+    # Save time elapsed for the model - Store
+    write.csv(subsample_selection_trials, paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), row.names = FALSE)
+  
+    # Save RData 
+    save.image(file = "subsample_selection_trials.RData")
+  }
+  
+  
+  # When selecting all candidate subsamples, a mean p-value for each trial is calculated
+   subsample_selection_trials <- subsample_selection_trials %>% 
+    mutate(mean_p_value = rowMeans(subsample_selection_trials[c('rf_cum_3_day_p_value', 'temperature_p_value', 'ws_p_value', 
+                                                                'deg_from_north_p_value', 'dow_p_value', 'working_days_p_value', 
+                                                                'hour_p_value', 'pre_peak_hour_p_value', 'pm10_p_value')]))
+   
+   # These results are saved
+  write.csv(subsample_selection_trials, paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), row.names = FALSE)
+  
+
+} else {
+  
+  print('Already run')
+  
+}
+
+
+```
+
+```{r}
+
+subsample_selection_trials <- read.csv(paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), stringsAsFactors = FALSE) %>% 
+  select('trial_number', 'mean_p_value','rf_cum_3_day_p_value', 'temperature_p_value', 'ws_p_value', 'deg_from_north_p_value', 
+         'dow_p_value', 'working_days_p_value', 'hour_p_value', 'pre_peak_hour_p_value', 'pm10_p_value')
+
+subsample_selection_trials %>% 
+  arrange(desc(mean_p_value)) %>% 
+  `colnames<-`(gsub("_", " ",colnames(subsample_selection_trials))) %>% 
+  head(5) %>% 
+  format_table(p_caption = "The top five candidate subselections in the subsample selection trials.", width = TRUE) 
+
+```
+
+```{r}
+
+subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_TRIAL/subsample_selection_trial_candidate_subsample_7.csv'))
+
+```
+
+
 
 ### Mathematical model
 

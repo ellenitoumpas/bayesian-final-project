@@ -53,10 +53,6 @@ data.frame(column = character(), nrows = integer()) %>%
   	filter(pm10 < 0) %>%
   	nrow()) %>%
 
-  add_row(column = 'pm10a', nrows = data_cleaned %>%
-  	filter(pm10a < 0) %>%
-  	nrow()) %>%
-
   add_row(column = 'wd', nrows = data_cleaned %>%
   	filter(wd < 0) %>%
 	rbind(data_cleaned %>%
