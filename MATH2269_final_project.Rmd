@@ -459,16 +459,14 @@ ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
 ```
 
 
+```{r Correlation Matrix, echo=FALSE, fig.cap="", fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
 
-```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
-
-# Visualisation Matrix
-visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
-                               temperature,  roll_temp,
-                               wd, ws, weekdays,
-                               pm10, yn80),
-                        aes(colour = factor(yn80)))
-
+data_corr_matrix <- data_cleaned %>% select(rainfall_mm, rf_cum_3_day,temperature,roll_temp,wd,ws,weekdays,pm10, dow)
+visual_matrix <- GGally::ggpairs(
+  data_corr_matrix,
+  aes(color=data_corr_matrix$dow),
+  title = "Correlation Matrix",
+  cardinality_threshold = 16)
 visual_matrix
 
 ```
