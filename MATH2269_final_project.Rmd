@@ -44,28 +44,8 @@ source(here('functions', 'DBDA2E-utilities.R'))
 
 graphics.off() # This closes all of R's graphics windows.
 options(scipen = 999)
-
-library(vroom)
-library(dplyr)
-library(lubridate)
-library(purrr)
-library(janitor)
-library(gridExtra)
-library(rjags)
-library(ks)
-library(timeDate)
-
-
-# OR (this allows us to install packages as we go, kind of like a cheap docker image)
-
-#required_pkgs <- c(
-#  'vroom', 'tidyverse', 'lubridate', 'purrr', 'janitor', 'tsibble',
-#  'gridExtra', 'rjags', 'ks', 'hrbrthemes', 'here', 'GGally'
-#)
-
-# lock_n_load_libraries(required_pkgs)
-
-# lock_n_load_libraries(packages)
+packages <- scan("requirements.txt", what="", sep="\n")
+lock_n_load_libraries(packages)
 
 ```
 
