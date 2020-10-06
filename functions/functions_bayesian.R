@@ -13,7 +13,8 @@
 #' @return
 #' @export
 #' @examples
-prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_mu, beta3_var, beta4_mu, beta4_var, beta5_mu, beta5_var){
+prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_mu, beta3_var, beta4_mu, beta4_var, beta5_mu, beta5_var, 
+                               beta6_mu, beta6_var, beta7_mu, beta7_var, beta8_mu, beta8_var, num_predictions){
   
   modelString <- paste0("
   
@@ -48,6 +49,9 @@ prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_m
     zbeta[3] ~ dnorm(",beta3_mu,"/xsd[3], 1/(",beta3_var,"/xsd[3]^2))
     zbeta[4] ~ dnorm(",beta4_mu,"/xsd[4], 1/(",beta4_var,"/xsd[4]^2))
     zbeta[5] ~ dnorm(",beta5_mu,"/xsd[5], 1/(",beta5_var,"/xsd[5]^2))
+    zbeta[6] ~ dnorm(",beta6_mu,"/xsd[6], 1/(",beta5_var,"/xsd[6]^2))
+    zbeta[7] ~ dnorm(",beta7_mu,"/xsd[7], 1/(",beta5_var,"/xsd[7]^2))
+    zbeta[8] ~ dnorm(",beta8_mu,"/xsd[8], 1/(",beta5_var,"/xsd[8]^2))
     zVar ~ dgamma(0.01, 0.001)
     
     # Transform to original scale
@@ -56,11 +60,15 @@ prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_m
     tau <- zVar * (ysd) ^ 2
     
     # Predictions
-    pred[1] <- beta0 + beta[1] * xPred[1, 1] + beta[2] * xPred[1, 2] + beta[3] * xPred[1, 3] + beta[4] * xPred[1, 4] + beta[5] * xPred[1, 5]
-    pred[2] <- beta0 + beta[1] * xPred[2, 1] + beta[2] * xPred[2, 2] + beta[3] * xPred[2, 3] + beta[4] * xPred[2, 4] + beta[5] * xPred[2, 5]
-    pred[3] <- beta0 + beta[1] * xPred[3, 1] + beta[2] * xPred[3, 2] + beta[3] * xPred[3, 3] + beta[4] * xPred[3, 4] + beta[5] * xPred[3, 5]
-    pred[4] <- beta0 + beta[1] * xPred[4, 1] + beta[2] * xPred[4, 2] + beta[3] * xPred[4, 3] + beta[4] * xPred[4, 4] + beta[5] * xPred[4, 5]
-    pred[5] <- beta0 + beta[1] * xPred[5, 1] + beta[2] * xPred[5, 2] + beta[3] * xPred[5, 3] + beta[4] * xPred[5, 4] + beta[5] * xPred[5, 5]
+    pred[1] <- beta0 + beta[1] * xPred[1, 1] + beta[2] * xPred[1,2] + beta[3] * xPred[1,3] + beta[4] * xPred[1,4] + beta[5] * xPred[1,5] + beta[6] * xPred[1,6] + beta[7] * xPred[1, 7] + beta[8] * xPred[1, 8]    
+    pred[2] <- beta0 + beta[1] * xPred[2, 1] + beta[2] * xPred[2,2] + beta[3] * xPred[2,3] + beta[4] * xPred[2,4] + beta[5] * xPred[2,5] + beta[6] * xPred[2,6] + beta[7] * xPred[2, 7] + beta[8] * xPred[2, 8]    
+    pred[10] <- beta0 + beta[1] * xPred[10, 1] + beta[2] * xPred[10,2] + beta[3] * xPred[10,3] + beta[4] * xPred[10,4] + beta[5] * xPred[10,5] + beta[6] * xPred[10,6] + beta[7] * xPred[10, 7] + beta[8] * xPred[10, 8]    
+    pred[20] <- beta0 + beta[1] * xPred[20, 1] + beta[2] * xPred[20,2] + beta[3] * xPred[20,3] + beta[4] * xPred[20,4] + beta[5] * xPred[20,5] + beta[6] * xPred[20,6] + beta[7] * xPred[20, 7] + beta[8] * xPred[20, 8]    
+    pred[30] <- beta0 + beta[1] * xPred[30, 1] + beta[2] * xPred[30,2] + beta[3] * xPred[30,3] + beta[4] * xPred[30,4] + beta[5] * xPred[30,5] + beta[6] * xPred[30,6] + beta[7] * xPred[30, 7] + beta[8] * xPred[30, 8]    
+    pred[40] <- beta0 + beta[1] * xPred[40, 1] + beta[2] * xPred[40,2] + beta[3] * xPred[40,3] + beta[4] * xPred[40,4] + beta[5] * xPred[40,5] + beta[6] * xPred[40,6] + beta[7] * xPred[40, 7] + beta[8] * xPred[40, 8]    
+    pred[50] <- beta0 + beta[1] * xPred[50, 1] + beta[2] * xPred[50,2] + beta[3] * xPred[50,3] + beta[4] * xPred[50,4] + beta[5] * xPred[50,5] + beta[6] * xPred[50,6] + beta[7] * xPred[50, 7] + beta[8] * xPred[50, 8]    
+    pred[60] <- beta0 + beta[1] * xPred[60, 1] + beta[2] * xPred[60,2] + beta[3] * xPred[60,3] + beta[4] * xPred[60,4] + beta[5] * xPred[60,5] + beta[6] * xPred[60,6] + beta[7] * xPred[60, 7] + beta[8] * xPred[60, 8]    
+    pred[70] <- beta0 + beta[1] * xPred[70, 1] + beta[2] * xPred[70,2] + beta[3] * xPred[70,3] + beta[4] * xPred[70,4] + beta[5] * xPred[70,5] + beta[6] * xPred[70,6] + beta[7] * xPred[70, 7] + beta[8] * xPred[70, 8]    
     
   }" )
   
@@ -81,7 +89,7 @@ prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_m
 #' @export
 #'
 #' @examples
-smryMCMC_HD = function( codaSamples, compVal = NULL,  saveName=NULL) {
+smryMCMC_HD = function(codaSamples, compVal = NULL,  saveName=NULL) {
   
   summaryInfo = NULL
   mcmcMat = as.matrix(codaSamples,chains=TRUE)
@@ -101,10 +109,10 @@ smryMCMC_HD = function( codaSamples, compVal = NULL,  saveName=NULL) {
   }
   rownames(summaryInfo) = paramName
   
-  # summaryInfo = rbind( summaryInfo , 
-  #                      "tau" = summarizePost( mcmcMat[,"tau"] ) )
+  subDir <- paste0(here(),'/OUTPUTS/SUMMARY/',toupper(saveName),"/")
+  if(!file.exists(subDir))(dir.create(file.path(subDir), showWarnings = FALSE))
   
-  if (!is.null(saveName))(write.csv(summaryInfo, file=paste0('OUTPUTS/',saveName,"_SummaryInfo.csv")))
+  if (!is.null(saveName))(write.csv(summaryInfo, file=paste0(subDir,saveName,"_SummaryInfo.csv")))
   
   return( summaryInfo )
 }
@@ -129,7 +137,7 @@ smryMCMC_HD = function( codaSamples, compVal = NULL,  saveName=NULL) {
 #' @examples
 plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
                         showCurve=FALSE ,  pairsPlot=FALSE , compVal = NULL,
-                        saveName=NULL , saveType="jpg" ){
+                        saveName=NULL , saveType="jpg"){
   y = data[,yName]
   x = as.matrix(data[,xName])
   
@@ -150,11 +158,11 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   
   tau = mcmcMat[,"tau"]
   
-  pred1 = mcmcMat[,"pred[1]"] 
-  pred2 = mcmcMat[,"pred[2]"] 
-  pred3 = mcmcMat[,"pred[3]"] 
-  pred4 = mcmcMat[,"pred[4]"] 
-  pred5 = mcmcMat[,"pred[5]"] 
+  # Set up predictions
+  # number_predictions <- length(grep("^pred", colnames(mcmcMat)))
+  number_predictions <- c(1,2,10,20,30,40,50,60,70)
+  for (i in number_predictions)(assign(paste0("pred",i), mcmcMat[,paste0("pred[",i,"]")]))
+  
   
   #-----------------------------------------------------------------------------
   # Compute R^2 for credible parameters:
@@ -215,9 +223,13 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
     }
   }
   
+  subDir <- paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',toupper(saveName),"/")
+  if(!file.exists(subDir))(dir.create(file.path(subDir), showWarnings = FALSE))
+  
+  
   # Original scale:
   panelCount = 1
-  panelCount = decideOpenGraph( panelCount, saveName=paste0('POSTERIOR/',saveName,"Post_Beta"))
+  panelCount = decideOpenGraph( panelCount, saveName=paste0(subDir,saveName,"Post_Beta"))
   
   if(!is.na(compVal[["beta0"]])){
     histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]) , main="Intercept", compVal = as.numeric(compVal["beta0"] ))
@@ -226,68 +238,53 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   }
   
   for (bIdx in 1:ncol(beta)) {
-    panelCount = decideOpenGraph( panelCount, saveName=paste0('POSTERIOR/',saveName,"Post_Beta"))
+    panelCount = decideOpenGraph( panelCount, saveName=paste0(subDir,saveName,"Post_Beta"))
     if (!is.na(compVal[paste0("beta[",bIdx,"]")])) {
       histInfo = plotPost(beta[,bIdx] , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[.(bIdx)]) , main=xName[bIdx], compVal = as.numeric(compVal[paste0("beta[",bIdx,"]")]))
     } else{
       histInfo = plotPost( beta[,bIdx] , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[.(bIdx)]) , main=xName[bIdx])
     }
   }
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"Post_Beta") )
   
-  
-  
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(subDir,saveName,"Post_Beta"))
+
   panelCount = 1
-  panelCount = decideOpenGraph(panelCount, saveName=paste0('POSTERIOR/',saveName,"PostMarg"))
+  panelCount = decideOpenGraph(panelCount, saveName=paste0(subDir,saveName,"PostMarg"))
   histInfo = plotPost( tau , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(tau) , main=paste("Scale") )
   
-  panelCount = decideOpenGraph( panelCount, saveName=paste0('POSTERIOR/',saveName,"PostMarg"))
+  panelCount = decideOpenGraph( panelCount, saveName=paste0(subDir,saveName,"PostMarg"))
   histInfo = plotPost( Rsq , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(R^2) , main=paste("Prop Var Accntd") )
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"PostMarg") )
-  
-  
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(subDir, saveName,"PostMarg") )
   
   panelCount = 1
-  panelCount = decideOpenGraph( panelCount ,  saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred1 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred1" , main="Prediction 1" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred2 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred2" , main="Prediction 2" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred3 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred3" , main="Prediction 3" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred4 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred4" , main="Prediction 4" ) # Added by Demirhan
-  
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMarg") )
-  histInfo = plotPost( pred5 , cex.lab = 1.75 , showCurve=showCurve , xlab="pred5" , main="Prediction 5" ) # Added by Demirhan
-
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"Post_Pred") )
-  
-  
+  predictions <- c(1,2,10,20,30,40,50,60,70)
+  for (i in predictions){
+    panelCount = decideOpenGraph( panelCount ,  saveName=paste0(subDir,saveName,"Post_Pred"))
+    histInfo = plotPost(get(paste0("pred",i)) , cex.lab = 1.75 , showCurve=showCurve , xlab=paste0("pred",i) , main=paste0("Prediction ",i))
+  }
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(subDir, saveName,"Post_Pred") )
   
   # Standardized scale:
   panelCount = 1
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ") )
+  panelCount = decideOpenGraph( panelCount , saveName=paste0(subDir,saveName,"PostMargZ") )
   histInfo = plotPost( zbeta0 , cex.lab = 1.75, showCurve=showCurve , xlab=bquote(z*beta[0]) , main="Intercept" )
   
   for ( bIdx in 1:ncol(beta) ) {
-    panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ") )
+    panelCount = decideOpenGraph( panelCount , saveName=paste0(subDir,saveName,"PostMargZ") )
     histInfo = plotPost( zbeta[,bIdx] , cex.lab = 1.75 , showCurve=showCurve, xlab=bquote(z*beta[.(bIdx)]) , main=xName[bIdx] )
   }
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"PostMargZ") )
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(subDir, saveName,"PostMargZ") )
   
   
   
   panelCount = 1
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ2"))
+  panelCount = decideOpenGraph( panelCount , saveName=paste0(subDir,saveName,"PostMargZ2"))
   histInfo = plotPost( zVar , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(z*tau) , main=paste("Scale"))
   
-  panelCount = decideOpenGraph( panelCount , saveName=paste0('POSTERIOR/',saveName,"PostMargZ") )
+  panelCount = decideOpenGraph( panelCount , saveName=paste0(subDir,saveName,"PostMargZ") )
   histInfo = plotPost( Rsq , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(R^2) , main=paste("Prop Var Accntd") )
   
-  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0('POSTERIOR/', saveName,"PostMargZ2") )
+  panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(subDir, saveName,"PostMargZ2") )
   
   #-----------------------------------------------------------------------------
 }
@@ -337,7 +334,7 @@ run_JAGS_model <- function(parallel = FALSE,
     runJagsOut <- runjags::run.jags(method = "parallel",
                                     model = model_file,
                                     monitor = recorded_params,
-                                    data = data_list ,
+                                    data = data_list,
                                     inits = inits_list ,
                                     n.chains = number_chains,
                                     adapt = number_adaptation_steps,
@@ -361,12 +358,13 @@ run_JAGS_model <- function(parallel = FALSE,
     coda_samples = coda.samples(jagsModel, variable.names = recorded_params, n.iter = chain_iterations)
     
   }
-  
-  print(colnames(coda_samples[[1]]))
+
+  subDir <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_version),"/")
+  if(!file.exists(subDir))(dir.create(file.path(subDir), showWarnings = FALSE))
   
   # Saving the diagnotic test for each parameter
   for (names in colnames(coda_samples[[1]])){
-    diagMCMC(coda_samples , parName = names, saveName = paste0('images/',trial_version,'_names'))
+    diagMCMC(coda_samples , parName = names, saveName = paste0(subDir,trial_version,'_names'))
   }
   
   summary_info <- smryMCMC_HD(codaSamples = coda_samples, compVal = comp_val, saveName = trial_version)
@@ -438,6 +436,7 @@ mv_data_subsampling <- function(data, n_sample){
     for (i in 1:length(dimensions)) {
       
       colname = dimensions[i]
+      
       if (class(data[[colname]]) %in% c("numeric") && 
           sum(data[[colname]] == as.integer(data[[colname]]),na.rm = TRUE) == 0) {
         # Numerical variable. Histogram with Rice's Rule
@@ -503,98 +502,79 @@ mv_data_subsampling <- function(data, n_sample){
 
 
 
-#' Title
-#'
-#' @param i 
-#' @param file_path 
-#'
-#' @return
+#' @title 
+#' @description 
+#' @param trial_name 
+#' @return data.frame
 #' @export
-#'
 #' @examples
-view_summary_table <- function(i, file_path){
-  summary <- read.csv(paste0(file_path,'Trial_',i,'_SummaryInfo.csv'))
-  rownames(summary) <- summary$X 
-  summary %>% select(-c(X))
+view_summary_table <- function(trial_name){
+  file_path <- paste0(here(),'/OUTPUTS/SUMMARY/',toupper(trial_name),"/")
+  summary <- read.csv(paste0(file_path,trial_name,"_SummaryInfo.csv"), stringsAsFactors = FALSE)
+  return(summary)
 }
 
 
 
 #' Title
 #'
-#' @param i 
-#' @param file_path 
-#'
+#' @param trial_name 
 #' @return
 #' @export
-#'
 #' @examples
-view_diagnostics_images <- function(i, file_path){
-  knitr::include_graphics(c(paste0(file_path,'Trial_',i,'_namesDiagbeta0.jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[1].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[2].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[3].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[4].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[5].jpg'),
-                            paste0(file_path,'Trial_',i,'_namesDiagtau.jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[1].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[2].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[3].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[4].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[5].jpg')))
-}
+view_regression_diagnostics_images <- function(trial_name){
+  file_path <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_name),"/")
+  knitr::include_graphics(c(paste0(file_path,trial_name,'_namesDiagbeta0.jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagbeta[1].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagbeta[2].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagbeta[3].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagbeta[4].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagbeta[5].jpg'),
+                            paste0(file_path,trial_name,'_namesDiagbeta[6].jpg'),
+                            paste0(file_path,trial_name,'_namesDiagbeta[7].jpg'),
+                            paste0(file_path,trial_name,'_namesDiagbeta[8].jpg'),
+                            paste0(file_path,trial_name,'_namesDiagtau.jpg')))
+  }
 
-#' Title
-#'
-#' @param i 
-#' @param file_path 
-#'
+
+#' @title
+#' @description 
+#' @param trial_name 
 #' @return
 #' @export
-#'
 #' @examples
-view_regression_diagnostics_images <- function(i, file_path){
-  knitr::include_graphics(c(paste0(file_path,'Trial_',i,'_namesDiagbeta0.jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[1].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[2].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[3].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[4].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagbeta[5].jpg'),
-                            paste0(file_path,'Trial_',i,'_namesDiagtau.jpg')))
+view_prediction_diagnostics_images <- function(trial_name){
+  file_path <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_name),"/")
+  knitr::include_graphics(c(paste0(file_path,trial_name,'_namesDiagpred[1].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagpred[2].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagpred[10].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagpred[20].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagpred[30].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagpred[40].jpg'), 
+                            paste0(file_path,trial_name,'_namesDiagpred[50].jpg'),
+                            paste0(file_path,trial_name,'_namesDiagpred[60].jpg'),
+                            paste0(file_path,trial_name,'_namesDiagpred[70].jpg')))
 }
 
 
-#' Title
-#'
-#' @param i 
-#' @param file_path 
-#'
+
+#' @title
+#' @description 
+#' @param trial_name 
 #' @return
 #' @export
-#'
 #' @examples
-view_prediction_diagnostics_images <- function(i, file_path){
-  knitr::include_graphics(c(paste0(file_path,'Trial_',i,'_namesDiagpred[1].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[2].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[3].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[4].jpg'), 
-                            paste0(file_path,'Trial_',i,'_namesDiagpred[5].jpg')))
-}
-
-
-#' Title
-#'
-#' @param i 
-#' @param file_path 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-view_posterior_images <- function(i, file_path){
-  knitr::include_graphics(c(paste0(file_path,'Trial_',i,'Post_Beta1.jpg'), 
-                            paste0(file_path,'Trial_',i,'Post_Pred1.jpg'), 
-                            paste0(file_path,'Trial_',i,'PostMarg1.jpg')))
+view_posterior_images <- function(trial_name){
+  
+  file_path <- paste0(here(),'/OUTPUTS/IMAGES/POSTERIOR_DIAGNOSTICS/',toupper(trial_name),"/")
+  knitr::include_graphics(c(paste0(file_path,trial_name,'Post_Beta1.jpg'),
+                            paste0(file_path,trial_name,'Post_Beta2.jpg'),
+                            paste0(file_path,trial_name,'Post_Pred1.jpg'),
+                            paste0(file_path,trial_name,'Post_Pred2.jpg'),
+                            paste0(file_path,trial_name,'PostMarg1.jpg'),
+                            paste0(file_path,trial_name,'PostMargZ1.jpg'),
+                            paste0(file_path,trial_name,'PostMargZ2.jpg'),
+                            paste0(file_path,trial_name,'PostMargZ21.jpg')))
 }
 
 
