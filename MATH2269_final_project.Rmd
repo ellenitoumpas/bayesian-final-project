@@ -61,7 +61,6 @@ data_cleaned <- data %>% janitor::clean_names()
 
 ```
 
-
 ```{r}
 
 data_cleaned <- data_cleaned %>% 
