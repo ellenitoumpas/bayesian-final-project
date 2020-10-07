@@ -94,7 +94,6 @@ data.frame(columns = integer(), rows = integer()) %>%
 source(here('src', 'data', 'inspect_data.R'))
 inspect_data(data_cleaned)
 
-
 ```
 
 
