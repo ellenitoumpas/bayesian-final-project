@@ -31,9 +31,10 @@ knitr::opts_chunk$set(fig.pos = 'H')
 
 ```{r Source Functions, message=FALSE, warning=FALSE, include=FALSE}
 
+if (!requireNamespace('here'))
+  install.packages('here')
 library('here')
-library('hrbrthemes')
-library('ggplot2')
+source(here('functions', 'functions_packages.R'))
 source(here('functions', 'functions_generic.R'))
 source(here('functions', 'functions_bayesian.R'))
 source(here('functions', 'DBDA2E-utilities.R'))
