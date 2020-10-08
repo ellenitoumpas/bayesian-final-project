@@ -61,7 +61,6 @@ data_cleaned <- data %>% janitor::clean_names()
 
 ```
 
-
 ```{r}
 
 data_cleaned <- data_cleaned %>% 
@@ -95,27 +94,6 @@ data.frame(columns = integer(), rows = integer()) %>%
 source(here('src', 'data', 'inspect_data.R'))
 inspect_data(data_cleaned)
 
-
-```
-
-
-
-#### Datatypes
-
-The datatypes for each variable can be found below (after variable datatypes were set on import). Numerical variables that are actually binary values or an identifier were transformed to a factor.
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-sapply(data_cleaned, class) %>%
-  as.data.frame() %>%
-  mutate(date_local_time = "POSIXct POSIXt") %>%
-  unique() %>%
-  as.matrix() %>%
-  t() %>%
-  as.data.frame() %>%
-  `colnames<-`(c("class")) %>%
-  format_table(p_caption = "Data types")
-
 ```
 
 #### Data Preprocessing
@@ -136,6 +114,37 @@ data_cleaned %>%
 As confirmed above, the **id** is a unique identifier, and it is therefore removed from the dataset.
 
 Regarding the other variables removed, we have determined $PM_{10}$ as our target variable, the remain proposed target variables ($PM_{10}a, yn_{80}, yn_{60},  yn_{50}$) are therfore discarded.
+
+keeping: id, rainfall_mm, rf_cum_2_day - rf_cum_7_day, date_day, date_local_time, site, temperature, wd, ws, dow, hour, winddire, years, roll_temp, north, north1, weekdays, mornings,
+
+
+# Data Description
+
+| Feature                     | type    | description                                        | bayesian belief                     |
+|-----------------------------|---------|----------------------------------------------------|-------------------------------------|
+| id                          | double  |                                                    |                                     |
+| rainfall_mm                 | double  |                                                    | medium degree                       |
+| rf_cum_2_day - rf_cum_7_day | double  |                                                    |                                     |
+| date_day                    | date    |                                                    |                                     |
+| date_local_time             | dttm    |                                                    |                                     |
+| site                        | chr     |                                                    |                                     |
+| temperature                 | double  |                                                    | medium degree                       |
+| pm10                        | double  | Target variable - measurement from the air station |                                     |
+| pm10a                       | double  | transformed `pm10`                                 |                                     |
+| wd                          | double  | Wind direction                                     | from the North with a medium degree |
+| ws                          | double  |                                                    |                                     |
+| dow                         | chr     |                                                    |                                     |
+| hour                        | double  |                                                    | low degree of belief <br/> - the hours before peak hour are when trucks tend to focus on moving. <br/>, there is a low degree of belief             |
+| winddire                    | chr     |                                                    |                                     |
+| years                       | double  |                                                    |                                     |
+| yn80                        | boolean | `pm10` > `80`. binary if the `pm10` hit over `80`  |                                     |
+| roll_temp                   | double  |                                                    |                                     |
+| yn50                        | boolean | `pm10` > `60`. if `pm10` hit over `60`             |                                     |
+| north                       | boolean |                                                    |                                     |
+| north1                      | boolean |                                                    |                                     |
+| yn60                        | boolean | `pm10` > `50`. when `pm10` hits over `50`          |                                     |
+| weekdays                    | boolean |                                                    |                                     |
+| mornings                    | boolean |                                                    |                                     |
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -241,7 +250,6 @@ To check whether there are errors (including typos or unexpected values) in the 
 
 ```{r message=FALSE, warning=FALSE}
 
-
 for (col in colnames(data_cleaned)) {
   
   if (class(data_cleaned[[col]])[1] %in% c('factor', 'ordered', 'character')) {
@@ -258,9 +266,6 @@ for (col in colnames(data_cleaned)) {
       paste0(collapse = ", ") %>%
       stringr::str_trunc(width = 800, side = "right", ellipsis = "... (truncated)") %>%
       cat()
-
-    cat("\n")
-    cat("\n")
 
   }
 }
@@ -753,6 +758,11 @@ subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 
 
 ### Mathematical model
+
+### Possible target variables
+
+`pm10` is target variable
+`yn80` possible target variable
 
 ### Prior specification
 
