@@ -580,6 +580,8 @@ sample_data %>%
 ```{r}
 
 trial_type <- "subsample_selection"
+sample_size_list <- c(1000)
+data_cleaned <- subsample_selection(data_cleaned, trial_type, sample_size_list)
 
 ```
 
