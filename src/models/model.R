@@ -1,17 +1,10 @@
-#' @title Math model
-#' @description 
-#' @param 
-#' @param 
-#' @return 
-#' @export
-#' @examples
+library('here')
+source(here('src', 'model', 'model_fine_tune.R'))
+source(here('src', 'model', 'model_math.R'))
+source(here('src', 'model', 'model_posterior.R'))
+source(here('src', 'model', 'model_prior.R'))
+source(here('src', 'constants.R'))
 
-model_math <- function(df){
-
-  # TODO: make the function do something. It currently returns the original dataframe
-  return(df)
-  
-}
 
 #' @title Get Initial Values
 #' @description
@@ -44,11 +37,10 @@ get_initial_values <- function(df){
     mean(df$pre_peak_hour) / sd_pre_peak_hour,
     0.01
   )
-  
+
   return(initial_values_list)
 }
 
-model
 
 #' @title Prior specification
 #' @description 
@@ -59,7 +51,6 @@ model
 #' @examples
 
 model_prior <- function(df){
-
   # TODO: make the function do something. It currently returns the original dataframe
   return(df)
   
@@ -77,7 +68,7 @@ model_posterior <- function(df){
 
   # TODO: make the function do something. It currently returns the original dataframe
   return(df)
-  
+
 }
 
 
@@ -96,7 +87,7 @@ model_efficiency <- function(df){
   
 }
 
-#' @title Model efficiency
+#' @title Model adapt steps
 #' @description 
 #' @param 
 #' @param 
@@ -111,7 +102,7 @@ model_adapt_steps <- function(df){
   
 }
 
-#' @title Model burn_in steps
+#' @title Model burn in steps
 #' @description 
 #' @param 
 #' @param 
@@ -170,19 +161,3 @@ model_initial_values <- function(df){
   return(df)
   
 }
-
-#' @title Model fine tuning
-#' @description 
-#' @param 
-#' @param 
-#' @return 
-#' @export
-#' @examples
-
-model_fine_tuning <- function(df){
-
-  # TODO: make the function do something. It currently returns the original dataframe
-  return(df)
-  
-}
-
