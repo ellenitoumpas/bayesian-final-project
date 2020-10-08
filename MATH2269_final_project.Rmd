@@ -466,26 +466,28 @@ ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
 ### Subsampling
 
 
+features <- c('rf_cum_3_day','temperature','ws','deg_from_north','dow','working_days','hour','pre_peak_hour','pm10')
+predictor_variable <- 'pm10'
+
+train_test_split <- function(df, features, target) {
+  features_ <- if(hasArg(target)) { features } else { features[-length(features)] }
+  df %<>%
+    mutate(pm10 = if_else(pm10 < 0, 0, pm10)) %>%
+    filter(!(date_day %in% c(ymd('2018-12-28'), ymd('2018-12-29'), ymd('2018-12-30'), ymd('2018-12-31')))) %>%
+    select_(.dots = features_) %>%
+    mutate(dow = as.numeric(dow),
+       working_days = as.numeric(working_days),
+       pre_peak_hour = as.numeric(pre_peak_hour))
+  return(df)
+}
+
+training_data  <- train_test_split(df=data_cleaned, features, target = predictor_variable)
+prediction_data <- train_test_split(df=data_cleaned, features)
 
 
-```{r Temporary values for subsampling trials}
+```
 
-# Set temporary values for subsampling trials 
-training_data <- data_cleaned %>% 
-  mutate(pm10 = if_else(pm10 < 0, 0, pm10)) %>% 
-  filter(!(date_day %in% c(ymd('2018-12-28'), ymd('2018-12-29'), ymd('2018-12-30'), ymd('2018-12-31')))) %>% 
-  select('rf_cum_3_day','temperature', 'ws', 'deg_from_north', 'dow', 'working_days', 'hour', 'pre_peak_hour', 'pm10') %>% 
-  mutate(dow = as.numeric(dow), 
-         working_days = as.numeric(working_days), 
-         pre_peak_hour = as.numeric(pre_peak_hour))
-
-prediction_data <- data_cleaned %>% 
-  mutate(pm10 = if_else(pm10 < 0, 0, pm10)) %>% 
-  filter(date_day %in% c(ymd('2018-12-28'), ymd('2018-12-29'), ymd('2018-12-30'), ymd('2018-12-31'))) %>% 
-  select('rf_cum_3_day','temperature', 'ws', 'deg_from_north', 'dow', 'working_days', 'hour', 'pre_peak_hour')   %>% 
-  mutate(dow = as.numeric(dow), 
-         working_days = as.numeric(working_days), 
-         pre_peak_hour = as.numeric(pre_peak_hour))
+```{r}
 
 # Mean specification
 mu <- c(-40, 40, 0, -40, 0, 20, 0, 20)
@@ -519,6 +521,9 @@ for(i in 1:nrow(prediction_data)){
                 prediction_data[[i,7]],	
                 prediction_data[[i,8]])
 }
+
+# Parameters to use
+use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in_steps = 200, thinning_steps = 3)
 
 ```
 
