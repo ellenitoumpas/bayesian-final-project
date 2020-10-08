@@ -1,3 +1,4 @@
+library('ggplot2')
 
 # GGPLOT theme for plot consistency
 assignment_plot_theme <- theme_minimal() +
@@ -212,57 +213,6 @@ hasnt_run <- function(test){
   !(list.files(path = paste0(here(),"/OUTPUTS/TRIAL_INFO/")) %>% 
       grep(pattern = test) %>% 
       any())
-}
-
-
-# Run the subsample size trials
-#' Title
-#'
-#' @param trial_df 
-#' @param row_num 
-#' @param full_sample 
-#' @param trial_name 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-run_subsample_trial <- function(trial_df, row_num, full_sample, trial_name){
-  
-  # Set randomised seed
-  set.seed(trial_df[row_num,'seed'])
-  
-  # Create candidate subsample, 
-  candidate_sample_selected <- mv_data_subsampling(data = full_sample, n_sample = trial_df[row_num,'sampling_size'])
-  print('candidate_sample_selected')
-  
-  # Saving directory
-  subDir <- paste0(here(),'/OUTPUTS/SAMPLES/',toupper(trial_name),'_TRIAL/')
-  
-  # If directory doesn't exist create directory
-  if(!file.exists(subDir))(dir.create(file.path(subDir), showWarnings = FALSE))
-  
-  # Store candidate subsample selected
-  write.csv(candidate_sample_selected, paste0(subDir,trial_name,'_trial_candidate_subsample_', stringr::str_pad(row_num, width = "0", side = "left", pad = "0"),'.csv'), row.names = FALSE)
-  
-  
-  # Run ks.test on paired variables
-  for (col in colnames(full_sample)){
-    
-    print(paste0('Testing ',col))
-    
-    ks_results <- stats::ks.test(candidate_sample_selected[[col]], full_sample[[col]])
-    trial_df[row_num, paste0(col,"_p_value")] <- ks_results$p.value
-    
-    print(paste0('\n'))
-    
-  }
-  
-  returned_values <- list(candidate_sample_selected, trial_df)
-  names(returned_values) <- c('candidate_sample_selected', 'trial_df')
-  
-  return(returned_values)
-  
 }
 
 
