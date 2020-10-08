@@ -96,26 +96,6 @@ inspect_data(data_cleaned)
 
 ```
 
-
-
-#### Datatypes
-
-The datatypes for each variable can be found below (after variable datatypes were set on import). Numerical variables that are actually binary values or an identifier were transformed to a factor.
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-sapply(data_cleaned, class) %>%
-  as.data.frame() %>%
-  mutate(date_local_time = "POSIXct POSIXt") %>%
-  unique() %>%
-  as.matrix() %>%
-  t() %>%
-  as.data.frame() %>%
-  `colnames<-`(c("class")) %>%
-  format_table(p_caption = "Data types")
-
-```
-
 #### Data Preprocessing
 
 ##### Removing unique identifier
