@@ -16,7 +16,9 @@ source(here('constants.R'))
 #' @examples
 get_initial_values <- function(df, method = "likelihood-mean"){
   
-  if(method == "likelihood-mean"){
+  isMethod = !missing(method)
+  if(method == "likelihood-mean" || !isMethod) {
+    if(!isMethod) { print('Method not specified, using likelihood-mean') }
     
     # Initial value of intercept
     initial_values_list <- c(0.1)
