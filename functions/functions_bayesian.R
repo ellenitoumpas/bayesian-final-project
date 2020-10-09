@@ -525,6 +525,27 @@ view_summary_table <- function(trial_name){
 #' Title
 #'
 #' @param trial_name 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+view_trial_info <- function(trial_name){
+  
+  file_path <- paste0(here(),'/OUTPUTS/TRIAL_INFO/') 
+  trial_info <- read.csv(paste0(file_path,trial_name,"_details.csv"), stringsAsFactors = FALSE)
+  
+  return(trial_info)
+  
+}
+
+
+
+
+
+#' Title
+#'
+#' @param trial_name 
 #' @return
 #' @export
 #' @examples
