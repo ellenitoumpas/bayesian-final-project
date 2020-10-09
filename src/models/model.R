@@ -8,38 +8,34 @@ source(here('constants.R'))
 
 
 #' @title Get Initial Values
-#' @description
-#' @param
-#' @param
-#' @return
+#' @description For the initial values 
+#' @param df the training data dataframe
+#' @param method a string determing which method to use
+#' @return list
 #' @export
 #' @examples
-
-get_initial_values <- function(df){
-  # Select initial values based on candidate subsample
-  sd_rf_cum_3_day <- sd(df$rf_cum_3_day)
-  sd_temperature <- sd(df$temperature)
-  sd_ws <- sd(df$ws)
-  sd_deg_from_north <- sd(df$deg_from_north)
-  sd_dow <- sd(df$dow)
-  sd_working_days <- sd(df$working_days)
-  sd_hour <- sd(df$hour)
-  sd_pre_peak_hour <- sd(df$pre_peak_hour)
-  sd_pm10 <- sd(df$pm10) # CHECKME: sd_pm10 isn't used anywhere
-
-  initial_values_list <- c(0.1,
-    mean(df$rf_cum_3_day) / sd_rf_cum_3_day,
-    mean(df$temperature) / sd_temperature,
-    mean(df$ws) / sd_ws,
-    mean(df$deg_from_north) / sd_deg_from_north,
-    mean(df$dow) / sd_dow,
-    mean(df$working_days) / sd_working_days,
-    mean(df$hour) / sd_hour,
-    mean(df$pre_peak_hour) / sd_pre_peak_hour,
-    0.01
-  )
-
+get_initial_values <- function(df, method = "likelihood-mean"){
+  
+  isMethod = !missing(method)
+  if(method == "likelihood-mean" || !isMethod) {
+    if(!isMethod) { print('Method not specified, using likelihood-mean') }
+    
+    # Initial value of intercept
+    initial_values_list <- c(0.1)
+    
+    # Initial value for each independant variable regression parameter
+    for (col in colnames(df))(initial_values_list <- c(initial_values_list, (mean(df[[col]])/sd(df[[col]]))))
+    
+    # Initial value of variance
+    variance <- 0.01
+    initial_values_list <- c(initial_values_list, variance)
+    
+  }
+  
+  # If there is a hypothesis for another method of calculating initial values add it as a possible here with a 'method' so we can call it
+  
   return(initial_values_list)
+  
 }
 
 
