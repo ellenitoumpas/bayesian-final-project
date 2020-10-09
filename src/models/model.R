@@ -1,9 +1,9 @@
 library('here')
-source(here('src', 'model', 'model_fine_tune.R'))
-source(here('src', 'model', 'model_math.R'))
-source(here('src', 'model', 'model_posterior.R'))
-source(here('src', 'model', 'model_prior.R'))
-source(here('src', 'model', 'model_string.R'))
+source(here('src', 'models', 'model_fine_tune.R'))
+source(here('src', 'models', 'model_math.R'))
+source(here('src', 'models', 'model_posterior.R'))
+source(here('src', 'models', 'model_prior.R'))
+source(here('src', 'models', 'model_string.R'))
 source(here('constants.R'))
 
 

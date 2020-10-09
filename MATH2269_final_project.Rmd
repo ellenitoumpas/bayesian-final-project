@@ -612,8 +612,8 @@ subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 
 ```{r Mathematical model}
 
-# source(here('src', 'model', 'model.R'))
-# data_cleaned <- model_math(subsampled_data)
+source(here('src', 'models', 'model.R'))
+data_cleaned <- model_math(data_cleaned)
 
 ```
 
