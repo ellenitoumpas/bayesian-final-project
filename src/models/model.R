@@ -27,7 +27,8 @@ get_initial_values <- function(df, method = "likelihood-mean"){
     for (col in colnames(df))(initial_values_list <- c(initial_values_list, (mean(df[[col]])/sd(df[[col]]))))
     
     # Initial value of variance
-    initial_values_list <- c(initial_values_list, 0.01)
+    variance <- 0.01
+    initial_values_list <- c(initial_values_list, variance)
     
   }
   
