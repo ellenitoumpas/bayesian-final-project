@@ -1,8 +1,8 @@
 library('here')
 library('dplyr')
 source(here('functions', 'functions_generic.R'))
-# source(here('functions', 'functions_packages.R'))
-# lock_n_load_libraries(packages)
+source(here('constants.R')) # seed_value
+
 #' @title Subsample
 #' @description 
 #' @param 
@@ -80,7 +80,6 @@ subsample_size <- function(training_data, trial_type){
 if(hasnt_run(trial_type)){
 
   # Set seeds
-  seed_value <- sample(1:10000, 20, replace=F)
   write.csv(seed_value, paste0(here(),"/OUTPUTS/SEEDS/",trial_type,"_seeds.csv"), row.names = FALSE)
   
   # Set up sample size trial values
@@ -230,5 +229,5 @@ subsample_selection <- function(data_cleaned, trial_type, sample_size_list) {
     
   }
 
-  
+  return(subsample_selection_trials)
 }
