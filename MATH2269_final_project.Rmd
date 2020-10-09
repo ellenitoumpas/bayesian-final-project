@@ -485,21 +485,16 @@ training_data  <- train_split(df=data_cleaned, features, target = predictor_vari
 prediction_data <- test_split(df=data_cleaned, features)
 
 ```
+```{r Parameters to use from constants.R file}
 
-```{r}
-
-# Mean specification
-mu <- c(-40, 40, 0, -40, 0, 20, 0, 20)
-
-# Variance specification
-var  <- c(1/4,1/2,1/10,1/2,1/10,1/2,1/10,1/2)
-
-# Parameters to use
-use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in_steps = 200, thinning_steps = 3)
+use_parameters <- list(
+  number_chains = number_chains,
+  number_adaptation_steps = number_adaptation_steps,
+  burn_in_steps = burn_in_steps,
+  thinning_steps = thinning_steps
+)
 
 ```
-
-
 
 ```{r Set values for all trials}
 
@@ -519,9 +514,6 @@ for(i in 1:nrow(prediction_data)){
                 prediction_data[[i,7]],	
                 prediction_data[[i,8]])
 }
-
-# Parameters to use
-use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in_steps = 200, thinning_steps = 3)
 
 ```
 
@@ -631,15 +623,12 @@ subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 
 # data_cleaned <- model_prior(subsampled_data)
 
-# Mean specification
-mu <- c(-40, 40, 0, -40, 0, 20, 0, 20)
+### Model
 
 # Variance specification
 var  <- c(1/4,1/2,1/10,1/2,1/10,1/2,1/10,1/2)
 
 ```
-
-
 
 ```{r Initial Values}
 
@@ -647,30 +636,25 @@ initial_values_list <- get_initial_values(subsampled_data)
 
 ```
 
-# CHECKME:
+<!-- CHECKME: This looks like it needs to be updated every time? -->
 #### model_001_gamma_gamma_c3_a500_b500_t3
 
 ```{r}
 
-trial_type <- "model_001_gamma_gamma_c3_a500_b500_t3"
-
-# Parameters to use
-use_parameters <- list(number_chains = 3, number_adaptation_steps = 500, burn_in_steps = 500, thinning_steps = 3)
-
 # CHECKME: This is an expensive function, ensure it's not run when knitting, etc
-if(hasnt_run(trial_type)){
+if(hasnt_run(model_trial_type)){
 
     # Run JAGS model with candidate sample
     returned_values <- setup_run_JAGS_trial(data = subsampled_data, predictor = "pm10", predictions = xPred, mu_list = mus,
                                             var_list = vars, initial_values = initial_values_list, params = use_parameters,
-                                            par_trial_name = trial_type, num_predictions = nrow(xPred))
+                                            par_trial_name = model_trial_type, num_predictions = nrow(xPred))
 
     # Reset
     graphics.off()
 
 } else {
   
-  print(paste0(trial_type,' already run'))
+  print(paste0(model_trial_type,' already run'))
   
 }
 
