@@ -502,16 +502,22 @@ mv_data_subsampling <- function(data, n_sample){
 
 
 
-#' @title 
-#' @description 
-#' @param trial_name 
+#' @title View model summary table
+#' @description After a model is run the summary is stored in a text file. With this script we can view the trial's summary. 
+#' @param trial_name the name of the trial
 #' @return data.frame
 #' @export
 #' @examples
 view_summary_table <- function(trial_name){
-  file_path <- paste0(here(),'/OUTPUTS/SUMMARY/',toupper(trial_name),"/")
+  
+  file_path <- paste0(here(),'/OUTPUTS/SUMMARY/',toupper(trial_name),"/") 
+  
   summary <- read.csv(paste0(file_path,trial_name,"_SummaryInfo.csv"), stringsAsFactors = FALSE)
+  summary <- summary %>% 
+    select(-c('CompVal', 'PcntGtCompVal', 'ROPElow', 'ROPEhigh', 'PcntLtROPE', 'PcntInROPE', 'PcntGtROPE'))
+  
   return(summary)
+  
 }
 
 

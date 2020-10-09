@@ -629,7 +629,18 @@ subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 
 ```{r Prior specification}
 
+# Not working yet
 # data_cleaned <- model_prior(subsampled_data)
+
+# Elleni comment....can we plot 4 plots per independant variable testing and demonstrating the effect of mu and variance on normal distribution and its relationship to degree of belief. 
+
+# Use this function: 
+# lower: is the x-axis lower limit
+# upper: is the x-axis upper limit
+# mean: self explanotary 
+# sd: self explanotary 
+
+normal_distribution_plot(lower, upper, mean, sd)
 
 # Mean specification
 mu <- c(-40, 40, 0, -40, 0, 20, 0, 20)
@@ -643,7 +654,7 @@ var  <- c(1/4,1/2,1/10,1/2,1/10,1/2,1/10,1/2)
 
 ```{r Initial Values}
 
-initial_values_list <- get_initial_values(subsampled_data)
+initial_values_list <- get_initial_values(subsampled_data, method = "likelihood-mean")
 
 ```
 
@@ -655,15 +666,24 @@ initial_values_list <- get_initial_values(subsampled_data)
 trial_type <- "model_001_gamma_gamma_c3_a500_b500_t3"
 
 # Parameters to use
-use_parameters <- list(number_chains = 3, number_adaptation_steps = 500, burn_in_steps = 500, thinning_steps = 3)
+use_parameters <- list(number_chains = 3, 
+                       number_adaptation_steps = 500, 
+                       burn_in_steps = 500, 
+                       thinning_steps = 3)
 
 # CHECKME: This is an expensive function, ensure it's not run when knitting, etc
 if(hasnt_run(trial_type)){
 
     # Run JAGS model with candidate sample
-    returned_values <- setup_run_JAGS_trial(data = subsampled_data, predictor = "pm10", predictions = xPred, mu_list = mus,
-                                            var_list = vars, initial_values = initial_values_list, params = use_parameters,
-                                            par_trial_name = trial_type, num_predictions = nrow(xPred))
+    returned_values <- setup_run_JAGS_trial(data = subsampled_data, 
+                                            predictor = "pm10", 
+                                            predictions = xPred, 
+                                            mu_list = mus,
+                                            var_list = vars, 
+                                            initial_values = initial_values_list, 
+                                            params = use_parameters,
+                                            par_trial_name = trial_type, 
+                                            num_predictions = nrow(xPred))
 
     # Reset
     graphics.off()
@@ -676,19 +696,24 @@ if(hasnt_run(trial_type)){
 
 ```
 
-```{r Regression Diagnostics, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width=10}
+```{r Regression Diagnostics, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "The regression parameter model diagnostics for trial model_001_gamma_gamma_c3_a500_b500_t3.", fig.width=10}
 
 view_regression_diagnostics_images(trial_type)
 
 ```
 
-```{r Prediction Diagnostics, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width = 10}
+
+
+
+
+
+```{r Prediction Diagnostics, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "A sample of the prediction model diagnostics for trial model_001_gamma_gamma_c3_a500_b500_t3.", fig.width = 10}
 
 view_prediction_diagnostics_images(trial_type)
 
 ```
 
-```{r Posterior Images, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width = 10}
+```{r Posterior Images, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "The posteriod distribution for trial model_001_gamma_gamma_c3_a500_b500_t3.", fig.width = 10}
 
 view_posterior_images(trial_type)
 
@@ -696,7 +721,7 @@ view_posterior_images(trial_type)
 
 ```{r Summary Table}
 
-view_summary_table(trial_type) %>% format_table(p_caption="", size)
+view_summary_table(trial_type) %>% format_table(p_caption="", text_size = 7)
 
 ```
 
@@ -714,7 +739,7 @@ view_summary_table(trial_type) %>% format_table(p_caption="", size)
 
 ```{r Experiments to improve model efficiency}
 
-data_cleaned <- model_efficiency(data_cleaned)
+# data_cleaned <- model_efficiency(data_cleaned)
 
 ```
 
@@ -722,7 +747,7 @@ data_cleaned <- model_efficiency(data_cleaned)
 
 ```{r Isolated experiments on adapt steps}
 
-data_cleaned <- model_adapt_steps(data_cleaned)
+# data_cleaned <- model_adapt_steps(data_cleaned)
 
 ```
 
@@ -730,7 +755,7 @@ data_cleaned <- model_adapt_steps(data_cleaned)
 
 ```{r Isolated experiments on burn in steps}
 
-data_cleaned <- model_burn_in_steps(data_cleaned)
+# data_cleaned <- model_burn_in_steps(data_cleaned)
 
 ```
 
@@ -738,7 +763,7 @@ data_cleaned <- model_burn_in_steps(data_cleaned)
 
 ```{r Isolated experiments on thinning steps}
 
-data_cleaned <- model_thinning_steps(data_cleaned)
+# data_cleaned <- model_thinning_steps(data_cleaned)
 
 ```
 
@@ -746,7 +771,7 @@ data_cleaned <- model_thinning_steps(data_cleaned)
 
 ```{r Isolated experiments on number of saved steps}
 
-data_cleaned <- model_saved_steps(data_cleaned)
+# data_cleaned <- model_saved_steps(data_cleaned)
 
 ```
 
@@ -754,7 +779,7 @@ data_cleaned <- model_saved_steps(data_cleaned)
 
 ```{r Isolated experiments with initial values}
 
-data_cleaned <- model_initial_values(data_cleaned)
+# data_cleaned <- model_initial_values(data_cleaned)
 
 ```
 
@@ -762,7 +787,7 @@ data_cleaned <- model_initial_values(data_cleaned)
 
 ```{r Model fine-tuning}
 
-data_cleaned <- model_fine_tuning(data_cleaned)
+# data_cleaned <- model_fine_tuning(data_cleaned)
 
 ```
 
@@ -770,7 +795,7 @@ data_cleaned <- model_fine_tuning(data_cleaned)
 
 ```{r Prior sensitivity analysis}
 
-data_cleaned <- model_prior(data_cleaned)
+# data_cleaned <- model_prior(data_cleaned)
 
 ```
 
@@ -778,7 +803,7 @@ data_cleaned <- model_prior(data_cleaned)
 
 ```{r Posterior Inferences}
 
-data_cleaned <- model_posterior(data_cleaned)
+# data_cleaned <- model_posterior(data_cleaned)
 
 ```
 
