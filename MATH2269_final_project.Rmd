@@ -529,6 +529,7 @@ use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in
 #### Subsample size trials
 
 ```{r Subsample size trials}
+
 trial_type <- "subsample_size"
 subsample_size(training_data, trial_type)
 
@@ -579,16 +580,19 @@ sample_data %>%
 ```{r}
 
 trial_type <- "subsample_selection"
+
 sample_size_list <- c(1000)
-data_cleaned <- subsample_selection(data_cleaned, trial_type, sample_size_list)
+subsample_selection(data_cleaned, trial_type, sample_size_list)
 
 ```
 
 ```{r}
 
-subsample_selection_trials <- read.csv(paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), stringsAsFactors = FALSE) %>% 
-  select('trial_number', 'mean_p_value','rf_cum_3_day_p_value', 'temperature_p_value', 'ws_p_value', 'deg_from_north_p_value', 
-         'dow_p_value', 'working_days_p_value', 'hour_p_value', 'pre_peak_hour_p_value', 'pm10_p_value')
+subsample_selection_trials <- read.csv(paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), 
+                                       stringsAsFactors = FALSE) %>% 
+  select('trial_number', 'mean_p_value','rf_cum_3_day_p_value', 'temperature_p_value', 'ws_p_value', 
+         'deg_from_north_p_value', 'dow_p_value', 'working_days_p_value', 'hour_p_value', 
+         'pre_peak_hour_p_value', 'pm10_p_value')
 
 subsample_selection_trials %>% 
   arrange(desc(mean_p_value)) %>% 
@@ -612,13 +616,12 @@ subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 ### Possible target variables
 
 `pm10` is target variable
-`yn80` possible target variable
+`yn80` possible target variable - *No, we have decided on pm10 only.*
 
 ```{r Mathematical model}
 
-source(here('src', 'model', 'model.R'))
-
-data_cleaned <- model_math(data_cleaned)
+# source(here('src', 'model', 'model.R'))
+# data_cleaned <- model_math(subsampled_data)
 
 ```
 
@@ -626,18 +629,21 @@ data_cleaned <- model_math(data_cleaned)
 
 ```{r Prior specification}
 
-data_cleaned <- model_prior(data_cleaned)
-
-```
+# data_cleaned <- model_prior(subsampled_data)
 
 # Mean specification
 mu <- c(-40, 40, 0, -40, 0, 20, 0, 20)
 
 # Variance specification
 var  <- c(1/4,1/2,1/10,1/2,1/10,1/2,1/10,1/2)
+
+```
+
+
+
 ```{r Initial Values}
 
-initial_values_list <- get_initial_values(data_cleaned)
+initial_values_list <- get_initial_values(subsampled_data)
 
 ```
 
