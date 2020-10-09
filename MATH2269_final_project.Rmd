@@ -270,6 +270,10 @@ for (col in colnames(data_cleaned)) {
       paste0(collapse = ", ") %>%
       stringr::str_trunc(width = 800, side = "right", ellipsis = "... (truncated)") %>%
       cat()
+    
+    cat("\n")
+    cat("\n")
+    
 
   }
 }
@@ -477,11 +481,10 @@ features <- c('rf_cum_3_day','temperature','ws','deg_from_north','dow','working_
 predictor_variable <- 'pm10'
 
 source(here('src', 'data', 'train_test.R'))
-training_data  <- train_test_split(df=data_cleaned, features, target = predictor_variable)
-prediction_data <- train_test_split(df=data_cleaned, features)
+training_data  <- train_split(df=data_cleaned, features, target = predictor_variable)
+prediction_data <- test_split(df=data_cleaned, features)
 
 ```
-
 ```{r Parameters to use from constants.R file}
 
 use_parameters <- list(
@@ -514,12 +517,6 @@ for(i in 1:nrow(prediction_data)){
 
 ```
 
-```{r Subsampling}
-
-source(here('src', 'data', 'subsample.R'))
-data_cleaned <- subsample(data_cleaned, training_data)
-
-```
 
 #### Subsample size trials
 
@@ -657,7 +654,6 @@ if(hasnt_run(model_trial_type)){
 
 ```
 
-
 ```{r Regression Diagnostics, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width=10}
 
 view_regression_diagnostics_images(trial_type)
@@ -670,8 +666,6 @@ view_prediction_diagnostics_images(trial_type)
 
 ```
 
-
-
 ```{r Posterior Images, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap= "", fig.width = 10}
 
 view_posterior_images(trial_type)
@@ -683,6 +677,16 @@ view_posterior_images(trial_type)
 view_summary_table(trial_type) %>% format_table(p_caption="", size)
 
 ```
+
+
+
+
+
+
+
+
+
+
 
 ### Experiments to improve model efficiency
 
