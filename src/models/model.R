@@ -3,7 +3,7 @@ source(here('src', 'models', 'model_fine_tune.R'))
 source(here('src', 'models', 'model_math.R'))
 source(here('src', 'models', 'model_posterior.R'))
 source(here('src', 'models', 'model_prior.R'))
-source(here('src', 'models', 'model_string.R'))
+# source(here('src', 'models', 'model_string.R'))
 source(here('constants.R'))
 
 
@@ -25,24 +25,26 @@ get_initial_values <- function(df, method = "likelihood-mean", intercept = 0.1, 
       
       if(!isMethod) { print('Method not specified, using likelihood-mean') }
       
-      if(method == "likelihood-mean"){
+        if(method == "likelihood-mean"){
         
-        # Initial value of intercept
-        initial_values_list <- c(intercept)
+          # Initial value of intercept
+          initial_values_list <- c(intercept)
       
-        # Initial value for each independant variable regression parameter
-        for (col in colnames(df)){
-          if(col != pred)(initial_values_list <- c(initial_values_list, (mean(df[[col]])/sd(df[[col]]))))
-        }
+          # Initial value for each independant variable regression parameter
+          for (col in colnames(df)){
+            if(col != pred)(initial_values_list <- c(initial_values_list, (mean(df[[col]])/sd(df[[col]]))))
+          }
       
-        # Initial value of variance
-        initial_values_list <- c(initial_values_list, variance)
+          # Initial value of variance
+          initial_values_list <- c(initial_values_list, variance)
       
       }
+    }
 
     } else {
       print("You need to supply the prediction variable.")    
   }
+  
   
   # If there is a hypothesis for another method of calculating initial values add it as a possible here with a 'method' so we can call it
   
