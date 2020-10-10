@@ -232,27 +232,24 @@ hasnt_run <- function(test){
 #' @examples
 setup_run_JAGS_trial <- function(data, predictor, predictions, mu_list, var_list, initial_values, params, par_trial_name, num_predictions){
 
-  trial_info <- data.frame(trial_name = character(), mu01 = double(), mu02 = double(), mu03 = double(), mu04 = double(),
-                           mu05 = double(), mu06 = double(), mu07 = double(), mu08 = double(), var01 = double(),
-                           var02 = double(), var03 = double(), var04 = double(), var05 = double(), var06 = double(),
-                           var07 = double(), var08 = double(), number_chains = integer(), number_adaptation_steps = integer(), 
-                           burn_in_steps = integer(), thinning_steps = integer(), initial_values_list01 = double(), 
-                           initial_values_list02 = double(), initial_values_list03 = double(), initial_values_list04 = double(),
-                           initial_values_list05 = double(), initial_values_list06 = double(), initial_values_list07 = double(), 
-                           initial_values_list08 = double(), initial_values_list09 = double(), initial_values_list10 = double(), 
-                           duration = double(), stringsAsFactors = FALSE) %>% 
-    add_row(trial_name = par_trial_name, mu01 = mu_list[1], mu02 = mu_list[2], mu03 = mu_list[3], mu04 = mu_list[4], mu05 = mu_list[5], 
-             mu06 = mu_list[6], mu07 = mu_list[7], mu08 = mu_list[8], var01 = var_list[1], var02 = var_list[2], var03 = var_list[3],
-             var04 = var_list[4], var05 = var_list[5], var06 = var_list[6], var07 = var_list[7], var08 = var_list[8],
-             number_chains = params$number_chains,  number_adaptation_steps = params$number_adaptation_steps, 
-             burn_in_steps = params$burn_in_steps,  thinning_steps = params$thinning_steps, 
-             initial_values_list01 = initial_values[1], initial_values_list02 = initial_values[2], 
-             initial_values_list03 = initial_values[3], initial_values_list04 = initial_values[4], 
-             initial_values_list05 = initial_values[5], initial_values_list06 = initial_values[6], 
-             initial_values_list07 = initial_values[7], initial_values_list08 = initial_values[8], 
-             initial_values_list09 = initial_values[9], initial_values_list10 = initial_values[10], 
-             duration = 0)
+  # Setting up and saving trial data frame info
+  trial_info <- as.data.frame(matrix(ncol = 0, nrow = 0))
+  
+  trial_info$trial_name <- par_trial_name
+  
+  for(i in 1:length(mu_list))(trial_info[[paste0('mu',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- mu_list[i])
+  for(i in 1:length(var_list))(trial_info[[paste0('var',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- var_list[i])
+  
+  trial_info$number_chains <- params$number_chains
+  trial_info$number_adaptation_steps <- params$number_adaptation_steps
+  trial_info$burn_in_steps <- params$burn_in_steps
+  trial_info$thinning_steps <- params$thinning_steps
+  
+  for(i in 1:length(initial_values))(trial_info[[paste0('initial_values_list',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- initial_values[i])
+  
+  trial_info$duration = 0
 
+  
   # Split independant and dependant variables
   y_data <- data[[predictor]]
   x_data <- as.matrix(data[,!(colnames(data) %in% predictor)])

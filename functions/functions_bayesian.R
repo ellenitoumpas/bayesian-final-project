@@ -2,25 +2,71 @@ source(here('src', 'models', 'model_string.R'))
 
 #' @title Prepare model
 #' @description Creates the model ready to deliver to JAGS
-#' @param beta1_mu prior specification
-#' @param beta1_var prior specification 
-#' @param beta2_mu prior specification
-#' @param beta2_var prior specification
-#' @param beta3_mu prior specification
-#' @param beta3_var prior specification
-#' @param beta4_mu prior specification
-#' @param beta4_var prior specification
-#' @param beta5_mu prior specification
-#' @param beta5_var prior specification
+#' @param mu_list
+#' @param var_list prior specification
+#' @param num_predictions
 #' @return
 #' @export
 #' @examples
-prepare_JAGS_model <- function(beta1_mu, beta1_var, beta2_mu, beta2_var, beta3_mu, beta3_var, beta4_mu, beta4_var, beta5_mu, beta5_var, 
-                               beta6_mu, beta6_var, beta7_mu, beta7_var, beta8_mu, beta8_var, num_predictions){
+prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
   
+  modelString <- paste0("
+  
+  # Scaling data 
 
-  # modelString is imported from /src/models/model_string.R  
-  writeLines(modelString, con = "TEMPmodel.txt") # write to file
+  data {
+    ysd <- sd(y)
+    for ( i in 1:Ntotal ) {
+      zy[i] <- y[i] / ysd
+    }
+    
+    for ( j in 1:Nx ) {
+      xsd[j] <-   sd(x[,j])
+      for ( i in 1:Ntotal ) {
+        zx[i,j] <- x[i,j] / xsd[j]
+      }
+    }
+  }
+
+  # Outlining the model
+  model{
+    for (i in 1:Ntotal) {
+      zy[i] ~ dgamma((mu[i]^2)/ zVar, mu[i]/ zVar) # Use sample variance as an estimate of the population variance
+      mu[i] <- zbeta0 + sum(zbeta[1:Nx] * zx[i,1:Nx])
+    }
+    
+  zbeta0 ~ dnorm(0, 1/2^2)")
+  
+  for(i in 1:length(mu_list)){
+      modelString <- paste0(modelString, "\n  zbeta[",i,"] ~ dnorm(",mu_list[i],"/xsd[",i,"], 1/(",var_list[i],"/xsd[",i,"]^2))")
+  }
+  
+             
+  modelString <- paste0(modelString,
+  "\n  zVar ~ dgamma(0.01, 0.001)
+  
+  # Transform to original scale
+  beta[1:Nx] <- (zbeta[1:Nx]/ xsd[1:Nx]) * ysd
+  beta0 <- zbeta0 * ysd
+  tau <- zVar * (ysd) ^ 2
+  
+  # Predictions
+  ")
+
+  # Write predictions
+  for(pred in 1:num_predictions){
+    modelString <- paste0(modelString, "\n  pred[",pred,"] <- beta0 ")
+    for(mu in 1:length(mu_list)){
+      modelString <- paste0(modelString, "+ beta[",mu,"] * xPred[",pred,", ",mu,"] ")
+    }
+  }
+  
+  # Finish model string
+  modelString <- paste0(modelString,"\n\n}")
+  
+  # Write to file
+  writeLines(modelString, con = "TEMPmodel.txt") 
+
   
 }
 
