@@ -5,6 +5,7 @@ gridExtra
 here
 hrbrthemes
 janitor
+kableExtra
 ks
 languageserver
 lintr
@@ -13,5 +14,6 @@ purrr
 rjags
 rticles
 tidyverse
+timeDate
 tsibble
 vroom
