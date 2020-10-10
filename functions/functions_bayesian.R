@@ -1,3 +1,5 @@
+source(here('src', 'models', 'model_string.R'))
+
 #' @title Prepare model
 #' @description Creates the model ready to deliver to JAGS
 #' @param mu_list
@@ -64,6 +66,7 @@ prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
   
   # Write to file
   writeLines(modelString, con = "TEMPmodel.txt") 
+
   
 }
 
