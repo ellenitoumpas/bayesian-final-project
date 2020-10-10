@@ -507,18 +507,23 @@ use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in
 predictor_variable <- 'pm10'
 
 # Set up prediction values
-xPred = array(NA, dim = c(nrow(prediction_data), length(colnames(prediction_data))))
 
-for(i in 1:nrow(prediction_data)){
-  xPred[i,] = c(prediction_data[[i,1]],	
-                prediction_data[[i,2]],	
-                prediction_data[[i,3]],	
-                prediction_data[[i,4]],	
-                prediction_data[[i,5]],	
-                prediction_data[[i,6]],	
-                prediction_data[[i,7]],	
-                prediction_data[[i,8]])
+
+set_prediction_matrix(prediction_data)
+
+
+
+set_prediction_matrix <- function(pred_data, pred_value = NULL){
+  
+  if(is.null(pred_value))(pred_value <- c(1:nrow(pred_data)))
+  
+  xPred = array(NA, dim = c(nrow(pred_data), length(colnames(pred_data))))
+  
+  for(i in 1:nrow(pred_data))(xPred[i,] = c(pred_data[i,]))
+  
+  return(xPred)
 }
+
 
 # Parameters to use
 use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in_steps = 200, thinning_steps = 3)
