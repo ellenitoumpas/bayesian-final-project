@@ -1,4 +1,4 @@
-source(here('src', 'models', 'model_string.R'))
+# source(here('src', 'models', 'model_string.R'))
 
 #' @title Prepare model
 #' @description Creates the model ready to deliver to JAGS
@@ -41,7 +41,6 @@ prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
       modelString <- paste0(modelString, "\n  zbeta[",i,"] ~ dnorm(",mu_list[i],"/xsd[",i,"], 1/(",var_list[i],"/xsd[",i,"]^2))")
   }
   
-             
   modelString <- paste0(modelString,
   "\n  zVar ~ dgamma(0.01, 0.001)
   
@@ -67,21 +66,39 @@ prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
   # Write to file
   writeLines(modelString, con = "TEMPmodel.txt") 
 
+}
+
+
+#' @title Prepare prediction matrix
+#' @description A full prediction dataframe and a vector of subset indices can be passed to the function.
+#' @param pred_data The full prediction dataframe
+#' @param pred_values The subset of indices
+#' @return matrix
+#' @export
+#' @examples
+set_prediction_matrix <- function(pred_data, pred_values = NULL){
+  
+  if(is.null(pred_values))(pred_values <- c(1:nrow(pred_data)))
+  xPred = array(NA, dim = c(length(pred_values), length(colnames(pred_data))))
+  
+  for(r in 1:length(pred_values)){
+    new_list <- c()
+    for(c in 1:length(colnames(pred_data)))(new_list <- c(new_list, pred_data[[pred_values[r],c]]))
+    xPred[r, ] <- new_list
+  }
+  
+  return(xPred)
   
 }
 
 
-
-
-
-#' Title
+#' @title smryMCMC function from text book
+#' @description CREDIT TO AUTHOR: TODO: INSERT AUTHOR CREDIT
 #' @param codaSamples 
 #' @param compVal 
 #' @param saveName 
-#'
 #' @return
 #' @export
-#'
 #' @examples
 smryMCMC_HD = function(codaSamples, compVal = NULL,  saveName=NULL) {
   
