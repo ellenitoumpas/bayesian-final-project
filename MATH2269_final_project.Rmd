@@ -62,7 +62,7 @@ data_cleaned <- data %>% janitor::clean_names()
 
 ```
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 
 data_cleaned <- data_cleaned %>%
   mutate(
@@ -77,10 +77,15 @@ data_cleaned <- data_cleaned %>%
 
 ```
 
+To begin the analysis we first import the Brooklyn air data. The column names are cleaned and the ordinal variables are converted to factors with their levels and orders set.
 
 ### A descriptive look
 
+Before commencing with the analysis a descriptive look at the data is performed. This enables us to capture an understanding of the data and address any data quality issues. 
+
 #### Dimensions
+
+In Table **xx** below we can see the original data contains `r dim(data_cleaned)[2]` columns and `r dim(data_cleaned)[1]` records.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -89,6 +94,8 @@ data.frame(columns = integer(), rows = integer()) %>%
   format_table(p_caption = "Dimenions")
 
 ```
+
+In Table **xx** below we can see the first few records from the imported dataset.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, size = 'tiny', out.extra='angle=90', size = 'tiny'}
 
@@ -150,6 +157,12 @@ keeping: id, rainfall_mm, rf_cum_2_day - rf_cum_7_day, date_day, date_local_time
 | weekdays                    | boolean |                                                    |                                     |
 | mornings                    | boolean |                                                    |                                     |
 
+
+TODO: Talk about what target variables we had the choice of and why we chose these. 
+
+`pm10` is target variable
+`yn80` possible target variable - *No, we have decided on pm10 only.*
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 data_cleaned <- data_cleaned %>% select(-id, -yn50, -yn60, -yn80, -pm10a)
@@ -198,14 +211,20 @@ par(mar=c(5.1,4.1,2.1,2.1))
 
 For the numerical values in the dataset an impossible value check is performed.
 
-<!-- ELLENI TODO: I didn't think PM10 levels could be below 0. In the impossible value check below we can see 118 records with negative PM10 levels. I need to check this with Maj Britte. For now leave as is. -->
-
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 source(here('src', 'data', 'impossible_values.R'))
 impossible_values(data_cleaned)
 
 ```
+
+```{r}
+
+data_cleaned <- data_cleaned %>% mutate(pm10 = if_else(pm10 < 0 , 0, pm10))
+
+```
+
+
 
 ##### Missing values
 
@@ -240,13 +259,6 @@ data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
 
 ```
 
-##### Feature engineering
-
-```{r}
-
-# Do we need to create any new features from the data set?
-
-```
 
 ##### Categorical Features
 
@@ -280,7 +292,7 @@ for (col in colnames(data_cleaned)) {
 
 ```
 
-##### Any categorical descriptive feature encoded
+##### Any categorical descriptive feature encoded/ Feature engineering
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -476,66 +488,52 @@ ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
 
 ### Subsampling
 
-```{r Split features into training and test}
-features <- c('rf_cum_3_day','temperature','ws','deg_from_north','dow','working_days','hour','pre_peak_hour','pm10')
-predictor_variable <- 'pm10'
+```{r Split features into training and test, echo=FALSE, message=FALSE, warning=FALSE}
 
-source(here('src', 'data', 'train_test.R'))
-training_data  <- train_split(df=data_cleaned, features, target = predictor_variable)
-prediction_data <- test_split(df=data_cleaned, features)
-
-```
-```{r Parameters to use from constants.R file}
-
-use_parameters <- list(
-  number_chains = number_chains,
-  number_adaptation_steps = number_adaptation_steps,
-  burn_in_steps = burn_in_steps,
-  thinning_steps = thinning_steps
-)
+# Moved to constants.R?
+# features <- c('rf_cum_3_day','temperature','ws','deg_from_north','dow','working_days','hour','pre_peak_hour','pm10')
+# predictor_variable <- 'pm10'
+# 
+# source(here('src', 'data', 'train_test.R'))
+# 
+# training_data  <- train_split(df=data_cleaned, features, target = predictor_variable)
+# prediction_data <- test_split(df=data_cleaned, features)
 
 ```
 
-```{r Set values for all trials}
+```{r Set values for all trials, echo=FALSE, message=FALSE, warning=FALSE}
 
-# Select variables
-predictor_variable <- 'pm10'
-
-# Set up prediction values
-
-
-set_prediction_matrix(prediction_data)
-
-
-
-set_prediction_matrix <- function(pred_data, pred_value = NULL){
-  
-  if(is.null(pred_value))(pred_value <- c(1:nrow(pred_data)))
-  
-  xPred = array(NA, dim = c(nrow(pred_data), length(colnames(pred_data))))
-  
-  for(i in 1:nrow(pred_data))(xPred[i,] = c(pred_data[i,]))
-  
-  return(xPred)
-}
-
-
-# Parameters to use
-use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in_steps = 200, thinning_steps = 3)
+# Moved to constants.R?
+# # Select variables
+# predictor_variable <- 'pm10'
+# 
+# # Set up prediction values
+# xPred <- set_prediction_matrix(prediction_data, pred_values = c(1, 2, 10, 20, 30, 40, 50, 60))
+# 
+# # Parameters to use
+# use_parameters <- list(number_chains = 3, number_adaptation_steps = 200, burn_in_steps = 200, thinning_steps = 3)
+# 
+# # Or use 
+# use_parameters <- list(
+#   number_chains = number_chains,
+#   number_adaptation_steps = number_adaptation_steps,
+#   burn_in_steps = burn_in_steps,
+#   thinning_steps = thinning_steps
+# )
 
 ```
 
 
 #### Subsample size trials
 
-```{r Subsample size trials}
+```{r Subsample size trials, echo=FALSE, message=FALSE, warning=FALSE}
 
 trial_type <- "subsample_size"
 subsample_size(training_data, trial_type)
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 subsample_size_trials <- read.csv(paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), stringsAsFactors = FALSE) %>% 
   arrange(trial_number)
@@ -564,7 +562,7 @@ ggplot(sample_data, aes(x = duration, y = mean_p_value, color = sampling_size)) 
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 sample_data %>% 
   group_by(sampling_size) %>% 
@@ -577,7 +575,7 @@ sample_data %>%
 
 #### Subsample selection trials
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 trial_type <- "subsample_selection"
 
@@ -586,7 +584,7 @@ subsample_selection(data_cleaned, trial_type, sample_size_list)
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 subsample_selection_trials <- read.csv(paste0(here(),'/OUTPUTS/TRIAL_INFO/',trial_type,'_trials.csv'), 
                                        stringsAsFactors = FALSE) %>% 
@@ -602,21 +600,30 @@ subsample_selection_trials %>%
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_TRIAL/subsample_selection_trial_candidate_subsample_7.csv'))
-
-subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
+# Moved to constants.R?
+# subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_TRIAL/subsample_selection_trial_candidate_subsample_7.csv'))
 
 ```
 
 
 ### Mathematical model
 
+```{r}
+
+```
+
+
+TODO: After talking about the model and reconfirming the likelihood type we need to talk about how the pm10 levels can not be 0 (as gamma APPROACHES 0.) When running the JAGS model WITH 0s it caused issues, therefore a decision was made to add 0.01 to all pm10 readings.
+
+```{r}
+subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
+```
+
+
 ### Possible target variables
 
-`pm10` is target variable
-`yn80` possible target variable - *No, we have decided on pm10 only.*
 
 ```{r Mathematical model}
 
