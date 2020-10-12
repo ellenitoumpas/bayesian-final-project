@@ -460,17 +460,54 @@ ggplot(melted_cor_matrix, aes(Var2, Var1, fill = value)) +
 
 ```
 
-
+# Visualisation Matrix
 
 ```{r, fig.cap = "", echo=FALSE, message=FALSE, warning=FALSE}
 
 # Visualisation Matrix
-# visual_matrix <- GGally::ggpairs(data_cleaned %>% select(rainfall_mm, rf_cum_3_day,
-#                                temperature,  roll_temp,
-#                                wd, ws, weekdays,
-#                                pm10),
-#                         aes(colour = factor(yn80)))
-# visual_matrix
+data_cleaned %>%
+  select(pm10,
+         rf_cum_3_day,
+         temperature,
+         hour,
+         wd,
+         ws,
+         weekdays) %>%
+  ggpairs(
+    .,
+    title = "PM10 Against Selected Variables",
+    lower = list(
+      continuous = wrap(
+        "smooth",
+        alpha = 0.1,
+        size = 0.1,
+        fill = 'orange',
+        col = 'orange'
+      ),
+      discrete = "blank",
+      combo = "blank"
+    ),
+    diag = list(
+      discrete = "barDiag",
+      continuous = wrap(
+        "densityDiag",
+        alpha = 0.5,
+        fill = 'orange',
+        col = 'orange'
+      )
+    ),
+    upper = list(
+      combo = wrap(
+        "box_no_facet",
+        alpha = 0.5,
+        fill = 'orange',
+        col = 'orange'
+      ),
+      continuous = wrap("cor", size = 4, align_percent =
+                          0.8)
+    )
+  ) +
+  theme(panel.grid.major = element_blank())
 
 ```
 
