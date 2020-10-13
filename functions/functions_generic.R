@@ -238,7 +238,8 @@ setup_run_JAGS_trial <- function(data,
                                  initial_values, 
                                  params, 
                                  par_trial_name, 
-                                 num_predictions){
+                                 num_predictions,
+                                 zero_intercept){
 
   # Setting up and saving trial data frame info
   trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))
@@ -274,10 +275,16 @@ setup_run_JAGS_trial <- function(data,
   # Prepare JAGS model
   prepare_JAGS_model(mu_list = mu_list,
                      var_list = var_list,
-                     num_predictions = num_predictions)
+                     num_predictions = num_predictions,
+                     zero_intercept = zero_intercept)
   
   # Set up monitoring parameters
   parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred")
+  
+  if (zero_intercept == T) {
+    parameters <- parameters[!parameters %in% c('beta0', 'zbeta0')]
+  }
+  
   
   # Set up BLANK comparison values
   compVal <- data.frame("beta0" = NA, 
@@ -292,6 +299,10 @@ setup_run_JAGS_trial <- function(data,
                         "tau" = NA , 
                         check.names = FALSE)
   
+  if (zero_intercept == T) {
+    compVal <- compVal %>% select(-beta0)
+  }
+  
   # Set initial values
   if(!is.null(initial_values)){
     initsList <- list(
@@ -303,6 +314,9 @@ setup_run_JAGS_trial <- function(data,
     initsList <- NULL
   }
   
+  if (zero_intercept == T) {
+    initsList$zbeta0 <- NULL
+  }
   
   # Run the JAGS model
   returned_values <- run_JAGS_model(parallel = TRUE, 

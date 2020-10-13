@@ -8,7 +8,10 @@
 #' @return
 #' @export
 #' @examples
-prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
+prepare_JAGS_model <- function(mu_list, 
+                               var_list, 
+                               num_predictions,
+                               zero_intercept = F){
   
   modelString <- paste0("
   
@@ -31,11 +34,21 @@ prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
   # Outlining the model
   model{
     for (i in 1:Ntotal) {
-      zy[i] ~ dgamma((mu[i]^2)/ zVar, zVar/mu[i]) # Use sample variance as an estimate of the population variance
-      mu[i] <- zbeta0 + sum(zbeta[1:Nx] * zx[i,1:Nx])
+      zy[i] ~ dgamma((mu[i]^2)/ zVar, zVar/mu[i]) # Use sample variance as an estimate of the population variance")
+  
+  if (zero_intercept == T) {
+    modelString <- paste0(modelString,  "\nmu[i] <- sum(zbeta[1:Nx] * zx[i,1:Nx])
     }
-    
-  zbeta0 ~ dnorm(0, 1/2^2)")
+    ") } else {
+      modelString <- paste0(modelString, "\nmu[i] <- zbeta0 + sum(zbeta[1:Nx] * zx[i,1:Nx])
+    }
+    ")  
+    }
+  
+  if (zero_intercept == T) {
+    modelString <- paste0(modelString, "") } else {
+      modelString <- paste0(modelString, "zbeta0 ~ dnorm(0, 1/2^2)")  
+    }
   
   for(i in 1:length(mu_list)){
       modelString <- paste0(modelString, "\n  zbeta[",i,"] ~ dnorm(",mu_list[i],"/xsd[",i,"], 1/(",var_list[i],"/xsd[",i,"]^2))")
@@ -43,20 +56,25 @@ prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
   
   modelString <- paste0(modelString,
   "\n  zVar ~ dgamma(0.01, 0.001)
-  
   # Transform to original scale
-  beta[1:Nx] <- (zbeta[1:Nx]/ xsd[1:Nx]) * ysd
-  beta0 <- zbeta0 * ysd
-  tau <- zVar * (ysd) ^ 2
+  beta[1:Nx] <- (zbeta[1:Nx]/ xsd[1:Nx]) * ysd")
+  
+  if (zero_intercept == T) {
+    modelString <- paste0(modelString, "") } else {
+      modelString <- paste0(modelString, "\nbeta0 <- zbeta0 * ysd")
+    }
+  
+  modelString <- paste0(modelString,
+  "\ntau <- zVar * (ysd) ^ 2
   
   # Predictions
   ")
 
   # Write predictions
   for(pred in 1:num_predictions){
-    modelString <- paste0(modelString, "\n  pred[",pred,"] <- beta0 ")
+    modelString <- paste0(modelString, "\n  pred[",pred,"] <- ", if(zero_intercept == T) {"0"} else {"beta + "})
     for(mu in 1:length(mu_list)){
-      modelString <- paste0(modelString, "+ beta[",mu,"] * xPred[",pred,", ",mu,"] ")
+      modelString <- paste0(modelString, " + beta[",mu,"] * xPred[",pred,", ",mu,"] ")
     }
   }
   
@@ -156,13 +174,13 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   
   chainLength = NROW( mcmcMat )
   
-  zbeta0 = mcmcMat[,"zbeta0"]
+  # zbeta0 = mcmcMat[,"zbeta0"]
   zbeta  = mcmcMat[,grep("^zbeta$|^zbeta\\[",colnames(mcmcMat))]
   
   if (ncol(x)==1) { zbeta = matrix( zbeta, ncol=1) }
   
   zVar = mcmcMat[,"zVar"]
-  beta0 = mcmcMat[,"beta0"]
+  # beta0 = mcmcMat[,"beta0"]
   beta  = mcmcMat[,grep("^beta$|^beta\\[",colnames(mcmcMat))]
   
   if (ncol(x)==1){ beta = matrix( beta, ncol=1)}
@@ -195,8 +213,11 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
       if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
       text(0.5, 0.5, txt, cex=1.25 ) # was cex=cex.cor*r
     }
-    pairs( cbind( beta0 , beta , tau )[plotIdx,] ,
-           labels=c( "beta[0]" , 
+    pairs( cbind( 
+      # beta0 , 
+      beta , tau )[plotIdx,] ,
+           labels=c( 
+             # "beta[0]" , 
                      paste0("beta[",1:ncol(beta),"]\n",xName) , 
                      expression(tau) ) , 
            lower.panel=panel.cor , col="skyblue" )
@@ -242,11 +263,11 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   panelCount = 1
   panelCount = decideOpenGraph( panelCount, saveName=paste0(subDir,saveName,"Post_Beta"))
   
-  if(!is.na(compVal[["beta0"]])){
-    histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]) , main="Intercept", compVal = as.numeric(compVal["beta0"] ))
-  } else {  
+  # if(!is.na(compVal[["beta0"]])){
+  #   histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]) , main="Intercept", compVal = as.numeric(compVal["beta0"] ))
+  # } else {  
     histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]), main="Intercept")
-  }
+  # }
   
   for (bIdx in 1:ncol(beta)) {
     panelCount = decideOpenGraph( panelCount, saveName=paste0(subDir,saveName,"Post_Beta"))
@@ -278,7 +299,7 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   # Standardized scale:
   panelCount = 1
   panelCount = decideOpenGraph( panelCount , saveName=paste0(subDir,saveName,"PostMargZ") )
-  histInfo = plotPost( zbeta0 , cex.lab = 1.75, showCurve=showCurve , xlab=bquote(z*beta[0]) , main="Intercept" )
+  # histInfo = plotPost( zbeta0 , cex.lab = 1.75, showCurve=showCurve , xlab=bquote(z*beta[0]) , main="Intercept" )
   
   for ( bIdx in 1:ncol(beta) ) {
     panelCount = decideOpenGraph( panelCount , saveName=paste0(subDir,saveName,"PostMargZ") )
@@ -562,7 +583,8 @@ view_trial_info <- function(trial_name){
 #' @examples
 view_regression_diagnostics_images <- function(trial_name){
   file_path <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_name),"/")
-  knitr::include_graphics(c(paste0(file_path,trial_name,'_namesDiagbeta0.jpg'), 
+  knitr::include_graphics(c(
+    # paste0(file_path,trial_name,'_namesDiagbeta0.jpg'), 
                             paste0(file_path,trial_name,'_namesDiagbeta[1].jpg'), 
                             paste0(file_path,trial_name,'_namesDiagbeta[2].jpg'), 
                             paste0(file_path,trial_name,'_namesDiagbeta[3].jpg'), 
@@ -570,7 +592,7 @@ view_regression_diagnostics_images <- function(trial_name){
                             paste0(file_path,trial_name,'_namesDiagbeta[5].jpg'),
                             paste0(file_path,trial_name,'_namesDiagbeta[6].jpg'),
                             paste0(file_path,trial_name,'_namesDiagbeta[7].jpg'),
-                            paste0(file_path,trial_name,'_namesDiagbeta[8].jpg'),
+                            # paste0(file_path,trial_name,'_namesDiagbeta[8].jpg'),
                             paste0(file_path,trial_name,'_namesDiagtau.jpg')))
   }
 
