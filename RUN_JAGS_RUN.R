@@ -84,6 +84,12 @@ subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_
 
 names(subsampled_data)
 
+# grab best priors so far, restructure days of week to sunday as 0
+subsampled_data <- subsampled_data %>% as_tibble() %>%  
+  dplyr::mutate(dow = case_when(
+    dow == 7 ~ 0,
+    TRUE ~ as.double(dow)
+))
 # remove hour
 subsampled_data <-subsampled_data %>%  select(-hour)
 
@@ -96,24 +102,24 @@ colnames(xPred) <- NULL
 
 #------------------------------------------------------------------------------#
 # Set Priors here"
-mus <- c(0, # rain
-         0, # temp
-         0, # ws
-         0, # deg_from_north
-         0, # dow
-         0, # working_days
+mus <- c(-1, # rain
+         1, # temp
+         1, # ws
+         -1, # deg_from_north
+         1, # dow
+         1, # working_days
          # 0, # hour
-         0) #pre_peak
+         1) #pre_peak
 
 
-vars  <- c(1/100, 
-           1/100, 
-           1/100, 
-           1/100, 
-           1/100, 
-           1/100, 
+vars  <- c(1/1000, 
+           1/1000, 
+           1/1000, 
+           1/1000, 
+           1/1000, 
+           1/1000, 
            # 1/10, 
-           1/100) #pre_peak
+           1/1000) #pre_peak
 
 # Set Hyper Params here:
 nChains <- 3
@@ -123,7 +129,9 @@ thinningSteps <- 5
 
 #------------------------------------------------------------------------------#
 
-trial_type <- glue::glue('model0noninf2_003_gamma_gamma_c{nChains}_b{burnInSteps}_a{adaptSteps}_t{thinningSteps}')
+model_name <- 'model0inf3e'
+
+trial_type <- glue::glue('{model_name}_001_gamma_gamma_c{nChains}_b{burnInSteps}_a{adaptSteps}_t{thinningSteps}')
 
 # Create Init values list:
 initial_values <- get_initial_values(subsampled_data, method = "likelihood-mean", pred = "pm10")
@@ -221,12 +229,15 @@ runJagsOut <- runjags::run.jags(method = "parallel",
                                 thin = thinningSteps , 
                                 summarise = F, 
                                 plots = F)
-trial_info$duration <- proc.time() - start_time
+time <- proc.time() - start_time
+trial_info$duration <- time[3]
 saveRDS(runJagsOut,
         glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
 
 write_csv(trial_info,
           glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
+
+# runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
 
 coda_samples <- coda::as.mcmc.list(runJagsOut)
 
