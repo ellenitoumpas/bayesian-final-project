@@ -230,10 +230,18 @@ hasnt_run <- function(test){
 #' @export
 #'
 #' @examples
-setup_run_JAGS_trial <- function(data, predictor, predictions, mu_list, var_list, initial_values, params, par_trial_name, num_predictions){
+setup_run_JAGS_trial <- function(data, 
+                                 predictor, 
+                                 predictions, 
+                                 mu_list, 
+                                 var_list, 
+                                 initial_values, 
+                                 params, 
+                                 par_trial_name, 
+                                 num_predictions){
 
   # Setting up and saving trial data frame info
-  trial_info <- as.data.frame(matrix(ncol = 0, nrow = 0))
+  trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))
   
   trial_info$trial_name <- par_trial_name
   
@@ -264,22 +272,25 @@ setup_run_JAGS_trial <- function(data, predictor, predictions, mu_list, var_list
   )
   
   # Prepare JAGS model
-  prepare_JAGS_model(beta1_mu = mu_list[1], beta1_var = var_list[1],
-                     beta2_mu = mu_list[2], beta2_var = var_list[2],
-                     beta3_mu = mu_list[3], beta3_var = var_list[3],
-                     beta4_mu = mu_list[4], beta4_var = var_list[4],
-                     beta5_mu = mu_list[5], beta5_var = var_list[5],
-                     beta6_mu = mu_list[6], beta6_var = var_list[6],
-                     beta7_mu = mu_list[7], beta7_var = var_list[7],
-                     beta8_mu = mu_list[8], beta8_var = var_list[8], 
-                     num_predictions)
+  prepare_JAGS_model(mu_list = mu_list,
+                     var_list = var_list,
+                     num_predictions = num_predictions)
   
   # Set up monitoring parameters
   parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred")
   
   # Set up BLANK comparison values
-  compVal <- data.frame("beta0" = NA, "beta[1]" = NA, "beta[2]" = NA,  "beta[3]" = NA, "beta[4]" =  NA,  "beta[5]" =  NA, 
-                        "beta[6]" =  NA, "beta[7]" =  NA, "beta[8]" =  NA, "tau" = NA , check.names = FALSE)
+  compVal <- data.frame("beta0" = NA, 
+                        "beta[1]" = NA, 
+                        "beta[2]" = NA,  
+                        "beta[3]" = NA, 
+                        "beta[4]" =  NA,  
+                        "beta[5]" =  NA, 
+                        "beta[6]" =  NA, 
+                        "beta[7]" =  NA, 
+                        # "beta[8]" =  NA, 
+                        "tau" = NA , 
+                        check.names = FALSE)
   
   # Set initial values
   if(!is.null(initial_values)){
@@ -313,7 +324,9 @@ setup_run_JAGS_trial <- function(data, predictor, predictions, mu_list, var_list
   
   # Save time elapsed for the model - Store
   trial_info[1,'duration'] <- returned_values['time_elapsed']
-  write.csv(trial_info, paste0(here(),'/OUTPUTS/TRIAL_INFO/',par_trial_name,'_details.csv'), row.names = FALSE)
+  write.csv(trial_info, paste0(here(),'/OUTPUTS/TRIAL_INFO/',
+                               par_trial_name,
+                               '_details.csv'), row.names = FALSE)
   
   # Save RData 
   save.image(file = paste0(here(),'/OUTPUTS/RData/',par_trial_name,".RData"))

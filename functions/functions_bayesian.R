@@ -31,7 +31,7 @@ prepare_JAGS_model <- function(mu_list, var_list, num_predictions){
   # Outlining the model
   model{
     for (i in 1:Ntotal) {
-      zy[i] ~ dgamma((mu[i]^2)/ zVar, mu[i]/ zVar) # Use sample variance as an estimate of the population variance
+      zy[i] ~ dgamma((mu[i]^2)/ zVar, zVar/mu[i]) # Use sample variance as an estimate of the population variance
       mu[i] <- zbeta0 + sum(zbeta[1:Nx] * zx[i,1:Nx])
     }
     
