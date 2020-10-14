@@ -77,19 +77,20 @@ features <- c(
   )
 predictor <- 'pm10'
 
-training_data  <- train_split(df=data_cleaned, features, target = predictor_variable)
-ground_truths <- test_split(df=data_cleaned, features, target = predictor_variable)['pm10']
-prediction_data <- test_split(df=data_cleaned, features)
+test_split_df <- test_split(df=data_cleaned, features, target = predictor_variable)
+prediction_data <- test_split_df %>% select(-pm10)
+ground_truths <- test_split_df %>% select(pm10)
 
-# FIXME:
 # Set up prediction values
 subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_TRIAL/subsample_selection_trial_candidate_subsample_7.csv'))
 
-names(subsampled_data)
-
-# FIXME: why are we doing a data-transform after splitting?
-# FIXME: column hour doesn't exist
+# subsampled data and prediction data are from differing csvs
 # grab best priors so far, restructure days of week to sunday as 0
+prediction_data <- prediction_data %>% 
+  mutate(dow = case_when(
+    dow == 7 ~ 0,
+    TRUE ~ as.double(dow)
+  ))
 subsampled_data <- subsampled_data %>% as_tibble() %>%  
   dplyr::mutate(dow = case_when(
     dow == 7 ~ 0,
@@ -97,14 +98,10 @@ subsampled_data <- subsampled_data %>% as_tibble() %>%
 ))
 
 # Remove unwanted variables
-subsampled_data <-subsampled_data %>%  select(-hour)
+subsampled_data <- subsampled_data %>%  select(-hour)
 
 subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 summary(subsampled_data$pm10)
-
-# FIXME: xPred
-xPred <- as.matrix(prediction_data)
-colnames(xPred) <- NULL
 
 #------------------------------------------------------------------------------#
 # Set Priors here:
@@ -134,7 +131,7 @@ adaptSteps <- 500
 thinningSteps <- 5
 
 # Set model name:
-model_name <- 'model0inf5e'
+model_name <- 'model0inf5f'
 
 #------------------------------------------------------------------------------#
 
@@ -161,15 +158,16 @@ for(i in 1:length(initial_values))(trial_info[[paste0('initial_values_',stringr:
 
 trial_info$duration = 0
 
-# FIXME: we're splitting data now twice
 # Split independant and dependant variables
 y_data <- subsampled_data[[predictor]]
 x_data <- as.matrix(subsampled_data[,!(colnames(subsampled_data) %in% predictor)])
+xPred <- as.matrix(prediction_data)
+colnames(xPred) <- NULL
 
 # Specify data list for JAGS
 dataList <- list(
   x = x_data ,
-  # FIXME: xPredy = y_data ,
+  y = y_data ,
   xPred = xPred,
   Nx = dim(x_data)[2] ,
   Ntotal = dim(x_data)[1]
@@ -180,7 +178,7 @@ zero_intercept = TRUE
 
 # Prepare JAGS model
 prepare_JAGS_model(mu_list = mus,
-                   # FIXME: xPredvar_list = vars,
+                   var_list = vars,
                    num_predictions = nrow(xPred),
                    zero_intercept = zero_intercept)
 
