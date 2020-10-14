@@ -113,14 +113,14 @@ mus <- c(-1, # rain
          10) #pre_peak
 
 
-vars  <- c(1/2, # rain
-           1/2, # temp
+vars  <- c(10, # rain
+           10, # temp
            1/1000, # ws
-           1/2, # deg_from_north
+           10, # deg_from_north
            1/1000, # dow
-           1/100, # working_days
+           1/10, # working_days
            # 1/10, # hour
-           1/100) #pre_peak
+           1/10) #pre_peak
 
 # Set Hyper Params here:
 nChains <- 3
@@ -129,7 +129,7 @@ adaptSteps <- 500
 thinningSteps <- 5
 
 # Set model name:
-model_name <- 'model0inf5c'
+model_name <- 'model0inf5e'
 
 #------------------------------------------------------------------------------#
 
