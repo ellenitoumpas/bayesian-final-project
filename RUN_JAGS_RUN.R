@@ -11,7 +11,7 @@ source(here('functions', 'functions_bayesian.R'))
 source(here('functions', 'DBDA2E-utilities.R'))
 source(here('constants.R'))
 source(here('src', 'models', 'model.R'))
-source(here('src', 'models', 'subsample.R'))
+source(here('src', 'data', 'subsample.R'))
 source(here('src', 'data', 'train_test.R'))
 
 graphics.off() # This closes all of R's graphics windows.
