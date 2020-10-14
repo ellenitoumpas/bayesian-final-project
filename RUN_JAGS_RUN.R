@@ -3,6 +3,7 @@
 if (!requireNamespace('here'))
   install.packages('here')
 library('here')
+here()
 library('ggplot2')
 source(here('functions', 'functions_packages.R'))
 source(here('functions', 'functions_generic.R'))
@@ -10,7 +11,7 @@ source(here('functions', 'functions_bayesian.R'))
 source(here('functions', 'DBDA2E-utilities.R'))
 source(here('constants.R'))
 source(here('src', 'models', 'model.R'))
-source('~/bayesian-final-project/src/data/subsample.R')
+source(here('src', 'models', 'subsample.R'))
 source(here('src', 'data', 'train_test.R'))
 
 graphics.off() # This closes all of R's graphics windows.
@@ -61,6 +62,7 @@ data_cleaned <- data_cleaned %>%
     )
   )
 
+# FIXME: move to constants
 # JAGS time! # remove hour
 features <- c(
   'rf_cum_3_day',
@@ -70,7 +72,7 @@ features <- c(
   'dow',
   'working_days',
   # 'hour',
-  # 'pre_peak_hour',
+  'pre_peak_hour',
   'pm10'
   )
 predictor <- 'pm10'
@@ -79,11 +81,14 @@ training_data  <- train_split(df=data_cleaned, features, target = predictor_vari
 ground_truths <- test_split(df=data_cleaned, features, target = predictor_variable)['pm10']
 prediction_data <- test_split(df=data_cleaned, features)
 
+# FIXME:
 # Set up prediction values
 subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_TRIAL/subsample_selection_trial_candidate_subsample_7.csv'))
 
 names(subsampled_data)
 
+# FIXME: why are we doing a data-transform after splitting?
+# FIXME: column hour doesn't exist
 # grab best priors so far, restructure days of week to sunday as 0
 subsampled_data <- subsampled_data %>% as_tibble() %>%  
   dplyr::mutate(dow = case_when(
@@ -97,7 +102,7 @@ subsampled_data <-subsampled_data %>%  select(-hour)
 subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 summary(subsampled_data$pm10)
 
-
+# FIXME: xPred
 xPred <- as.matrix(prediction_data)
 colnames(xPred) <- NULL
 
@@ -143,6 +148,7 @@ trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))
 
 trial_info$trial_name <- trial_type
 
+# populate trial_info
 for(i in 1:length(mus))(trial_info[[paste0('mu',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- mus[i])
 for(i in 1:length(vars))(trial_info[[paste0('var',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- vars[i])
 
@@ -155,6 +161,7 @@ for(i in 1:length(initial_values))(trial_info[[paste0('initial_values_',stringr:
 
 trial_info$duration = 0
 
+# FIXME: we're splitting data now twice
 # Split independant and dependant variables
 y_data <- subsampled_data[[predictor]]
 x_data <- as.matrix(subsampled_data[,!(colnames(subsampled_data) %in% predictor)])
@@ -162,18 +169,18 @@ x_data <- as.matrix(subsampled_data[,!(colnames(subsampled_data) %in% predictor)
 # Specify data list for JAGS
 dataList <- list(
   x = x_data ,
-  y = y_data ,
+  # FIXME: xPredy = y_data ,
   xPred = xPred,
   Nx = dim(x_data)[2] ,
   Ntotal = dim(x_data)[1]
 )
 
 # Zero intercept?:
-zero_intercept = T
+zero_intercept = TRUE
 
 # Prepare JAGS model
 prepare_JAGS_model(mu_list = mus,
-                   var_list = vars,
+                   # FIXME: xPredvar_list = vars,
                    num_predictions = nrow(xPred),
                    zero_intercept = zero_intercept)
 
@@ -213,7 +220,7 @@ if(!is.null(initial_values)){
   initsList <- NULL
 }
 
-if (zero_intercept == T) {
+if (zero_intercept == TRUE) {
   initsList$zbeta0 <- NULL
 }
 
