@@ -23,13 +23,13 @@
 mu[i] <- sum(zbeta[1:Nx] * zx[i,1:Nx])
     }
     
-  zbeta[1] ~ dnorm(-1/xsd[1], 1/(5/xsd[1]^2))
-  zbeta[2] ~ dnorm(1/xsd[2], 1/(5/xsd[2]^2))
-  zbeta[3] ~ dnorm(1/xsd[3], 1/(5/xsd[3]^2))
-  zbeta[4] ~ dnorm(-1/xsd[4], 1/(5/xsd[4]^2))
-  zbeta[5] ~ dnorm(1/xsd[5], 1/(5/xsd[5]^2))
-  zbeta[6] ~ dnorm(1/xsd[6], 1/(5/xsd[6]^2))
-  zbeta[7] ~ dnorm(1/xsd[7], 1/(5/xsd[7]^2))
+  zbeta[1] ~ dnorm(-1/xsd[1], 1/(0.5/xsd[1]^2))
+  zbeta[2] ~ dnorm(1/xsd[2], 1/(0.5/xsd[2]^2))
+  zbeta[3] ~ dnorm(0/xsd[3], 1/(0.5/xsd[3]^2))
+  zbeta[4] ~ dnorm(-1/xsd[4], 1/(0.5/xsd[4]^2))
+  zbeta[5] ~ dnorm(1/xsd[5], 1/(0.5/xsd[5]^2))
+  zbeta[6] ~ dnorm(7/xsd[6], 1/(0.5/xsd[6]^2))
+  zbeta[7] ~ dnorm(9/xsd[7], 1/(0.5/xsd[7]^2))
   zVar ~ dgamma(0.01, 0.001)
   # Transform to original scale
   beta[1:Nx] <- (zbeta[1:Nx]/ xsd[1:Nx]) * ysd

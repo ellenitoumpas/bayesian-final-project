@@ -70,7 +70,7 @@ features <- c(
   'dow',
   'working_days',
   # 'hour',
-  'pre_peak_hour',
+  # 'pre_peak_hour',
   'pm10'
   )
 predictor <- 'pm10'
@@ -90,7 +90,8 @@ subsampled_data <- subsampled_data %>% as_tibble() %>%
     dow == 7 ~ 0,
     TRUE ~ as.double(dow)
 ))
-# remove hour
+
+# Remove unwanted variables
 subsampled_data <-subsampled_data %>%  select(-hour)
 
 subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
@@ -101,25 +102,25 @@ xPred <- as.matrix(prediction_data)
 colnames(xPred) <- NULL
 
 #------------------------------------------------------------------------------#
-# Set Priors here"
+# Set Priors here:
 mus <- c(-1, # rain
          1, # temp
-         1, # ws
+         0, # ws
          -1, # deg_from_north
          1, # dow
-         1, # working_days
+         7, # working_days
          # 0, # hour
-         1) #pre_peak
+         9) #pre_peak
 
 
-vars  <- c(1/1000, 
-           1/1000, 
-           1/1000, 
-           1/1000, 
-           1/1000, 
-           1/1000, 
-           # 1/10, 
-           1/1000) #pre_peak
+vars  <- c(1/2, # rain
+           1/2, # temp
+           1/2, # ws
+           1/2, # deg_from_north
+           1/2, # dow
+           1/2, # working_days
+           # 1/10, # hour
+           1/2) #pre_peak
 
 # Set Hyper Params here:
 nChains <- 3
@@ -127,9 +128,10 @@ burnInSteps <- 500
 adaptSteps <- 500
 thinningSteps <- 5
 
-#------------------------------------------------------------------------------#
+# Set model name:
+model_name <- 'model0inf5c'
 
-model_name <- 'model0inf3e'
+#------------------------------------------------------------------------------#
 
 trial_type <- glue::glue('{model_name}_001_gamma_gamma_c{nChains}_b{burnInSteps}_a{adaptSteps}_t{thinningSteps}')
 
@@ -191,7 +193,7 @@ compVal <- data.frame("beta0" = NA,
                       "beta[4]" =  NA,  
                       "beta[5]" =  NA, 
                       "beta[6]" =  NA, 
-                      "beta[7]" =  NA, 
+                      "beta[7]" =  NA,
                       # "beta[8]" =  NA, 
                       "tau" = NA , 
                       check.names = FALSE)
@@ -215,28 +217,31 @@ if (zero_intercept == T) {
   initsList$zbeta0 <- NULL
 }
 
-# Run JAGS
-start_time <- proc.time()
-runJagsOut <- runjags::run.jags(method = "parallel",
-                                model = 'TEMPmodel.txt',
-                                monitor = c("beta", "zbeta", "tau", "zVar", "pred"),
-                                data = dataList,
-                                inits = initsList ,
-                                n.chains = nChains,
-                                adapt = adaptSteps,
-                                burnin = burnInSteps ,
-                                sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
-                                thin = thinningSteps , 
-                                summarise = F, 
-                                plots = F)
-time <- proc.time() - start_time
-trial_info$duration <- time[3]
-saveRDS(runJagsOut,
-        glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
-
-write_csv(trial_info,
-          glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
-
+if (hasnt_run(trial_type)) {
+  # Run JAGS
+  start_time <- proc.time()
+  runJagsOut <- runjags::run.jags(method = "parallel",
+                                  model = 'TEMPmodel.txt',
+                                  monitor = c("beta", "zbeta", "tau", "zVar", "pred"),
+                                  data = dataList,
+                                  inits = initsList ,
+                                  n.chains = nChains,
+                                  adapt = adaptSteps,
+                                  burnin = burnInSteps ,
+                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
+                                  thin = thinningSteps , 
+                                  summarise = F, 
+                                  plots = F)
+  time <- proc.time() - start_time
+  trial_info$duration <- time[3]
+  saveRDS(runJagsOut,
+          glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
+  
+  write_csv(trial_info,
+            glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
+} else {
+  stop('Trial has been run!')
+}
 # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
 
 coda_samples <- coda::as.mcmc.list(runJagsOut)
