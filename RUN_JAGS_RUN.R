@@ -239,9 +239,7 @@ if (hasnt_run(trial_type)) {
   
   write_csv(trial_info,
             glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
-} else {
-  stop('Trial has been run!')
-}
+
 # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
 
 coda_samples <- coda::as.mcmc.list(runJagsOut)
@@ -288,5 +286,9 @@ p
 ggsave(glue::glue('OUTPUTS/IMAGES/PREDICTIONS/{trial_type}.png'),
        p,
        dpi = 200)
+
+} else {
+  stop('Trial has been run!')
+}
 
 
