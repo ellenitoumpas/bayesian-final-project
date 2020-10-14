@@ -3,6 +3,7 @@
 if (!requireNamespace('here'))
   install.packages('here')
 library('here')
+here()
 library('ggplot2')
 source(here('functions', 'functions_packages.R'))
 source(here('functions', 'functions_generic.R'))
@@ -10,7 +11,7 @@ source(here('functions', 'functions_bayesian.R'))
 source(here('functions', 'DBDA2E-utilities.R'))
 source(here('constants.R'))
 source(here('src', 'models', 'model.R'))
-source('~/bayesian-final-project/src/data/subsample.R')
+source(here('src', 'models', 'subsample.R'))
 source(here('src', 'data', 'train_test.R'))
 
 graphics.off() # This closes all of R's graphics windows.
@@ -61,6 +62,7 @@ data_cleaned <- data_cleaned %>%
     )
   )
 
+# FIXME: move to constants
 # JAGS time! # remove hour
 features <- c(
   'rf_cum_3_day',
@@ -75,51 +77,52 @@ features <- c(
   )
 predictor <- 'pm10'
 
-training_data  <- train_split(df=data_cleaned, features, target = predictor_variable)
-ground_truths <- test_split(df=data_cleaned, features, target = predictor_variable)['pm10']
-prediction_data <- test_split(df=data_cleaned, features)
+test_split_df <- test_split(df=data_cleaned, features, target = predictor_variable)
+prediction_data <- test_split_df %>% select(-pm10)
+ground_truths <- test_split_df %>% select(pm10)
 
 # Set up prediction values
 subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_TRIAL/subsample_selection_trial_candidate_subsample_7.csv'))
 
-names(subsampled_data)
-
+# subsampled data and prediction data are from differing csvs
 # grab best priors so far, restructure days of week to sunday as 0
+prediction_data <- prediction_data %>% 
+  mutate(dow = case_when(
+    dow == 7 ~ 0,
+    TRUE ~ as.double(dow)
+  ))
 subsampled_data <- subsampled_data %>% as_tibble() %>%  
   dplyr::mutate(dow = case_when(
     dow == 7 ~ 0,
     TRUE ~ as.double(dow)
 ))
-# remove hour
-subsampled_data <-subsampled_data %>%  select(-hour)
+
+# Remove unwanted variables
+subsampled_data <- subsampled_data %>%  select(-hour)
 
 subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 summary(subsampled_data$pm10)
 
-
-xPred <- as.matrix(prediction_data)
-colnames(xPred) <- NULL
-
 #------------------------------------------------------------------------------#
-# Set Priors here"
+# Set Priors here:
 mus <- c(-1, # rain
          1, # temp
          1, # ws
          -1, # deg_from_north
          1, # dow
-         1, # working_days
+         9, # working_days
          # 0, # hour
-         1) #pre_peak
+         10) #pre_peak
 
 
-vars  <- c(1/1000, 
-           1/1000, 
-           1/1000, 
-           1/1000, 
-           1/1000, 
-           1/1000, 
-           # 1/10, 
-           1/1000) #pre_peak
+vars  <- c(10, # rain
+           10, # temp
+           1/1000, # ws
+           10, # deg_from_north
+           1/1000, # dow
+           1/10, # working_days
+           # 1/10, # hour
+           1/10) #pre_peak
 
 # Set Hyper Params here:
 nChains <- 3
@@ -127,9 +130,10 @@ burnInSteps <- 500
 adaptSteps <- 500
 thinningSteps <- 5
 
-#------------------------------------------------------------------------------#
+# Set model name:
+model_name <- 'model0inf5f'
 
-model_name <- 'model0inf3e'
+#------------------------------------------------------------------------------#
 
 trial_type <- glue::glue('{model_name}_001_gamma_gamma_c{nChains}_b{burnInSteps}_a{adaptSteps}_t{thinningSteps}')
 
@@ -141,6 +145,7 @@ trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))
 
 trial_info$trial_name <- trial_type
 
+# populate trial_info
 for(i in 1:length(mus))(trial_info[[paste0('mu',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- mus[i])
 for(i in 1:length(vars))(trial_info[[paste0('var',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- vars[i])
 
@@ -156,6 +161,8 @@ trial_info$duration = 0
 # Split independant and dependant variables
 y_data <- subsampled_data[[predictor]]
 x_data <- as.matrix(subsampled_data[,!(colnames(subsampled_data) %in% predictor)])
+xPred <- as.matrix(prediction_data)
+colnames(xPred) <- NULL
 
 # Specify data list for JAGS
 dataList <- list(
@@ -167,7 +174,7 @@ dataList <- list(
 )
 
 # Zero intercept?:
-zero_intercept = T
+zero_intercept = TRUE
 
 # Prepare JAGS model
 prepare_JAGS_model(mu_list = mus,
@@ -191,7 +198,7 @@ compVal <- data.frame("beta0" = NA,
                       "beta[4]" =  NA,  
                       "beta[5]" =  NA, 
                       "beta[6]" =  NA, 
-                      "beta[7]" =  NA, 
+                      "beta[7]" =  NA,
                       # "beta[8]" =  NA, 
                       "tau" = NA , 
                       check.names = FALSE)
@@ -211,49 +218,54 @@ if(!is.null(initial_values)){
   initsList <- NULL
 }
 
-if (zero_intercept == T) {
+if (zero_intercept == TRUE) {
   initsList$zbeta0 <- NULL
 }
 
-# Run JAGS
-start_time <- proc.time()
-runJagsOut <- runjags::run.jags(method = "parallel",
-                                model = 'TEMPmodel.txt',
-                                monitor = c("beta", "zbeta", "tau", "zVar", "pred"),
-                                data = dataList,
-                                inits = initsList ,
-                                n.chains = nChains,
-                                adapt = adaptSteps,
-                                burnin = burnInSteps ,
-                                sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
-                                thin = thinningSteps , 
-                                summarise = F, 
-                                plots = F)
-time <- proc.time() - start_time
-trial_info$duration <- time[3]
-saveRDS(runJagsOut,
-        glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
-
-write_csv(trial_info,
-          glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
+if (hasnt_run(trial_type)) {
+  # Run JAGS
+  start_time <- proc.time()
+  runJagsOut <- runjags::run.jags(method = "parallel",
+                                  model = 'TEMPmodel.txt',
+                                  monitor = c("beta", "zbeta", "tau", "zVar", "pred"),
+                                  data = dataList,
+                                  inits = initsList ,
+                                  n.chains = nChains,
+                                  adapt = adaptSteps,
+                                  burnin = burnInSteps ,
+                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
+                                  thin = thinningSteps , 
+                                  summarise = F, 
+                                  plots = F)
+  time <- proc.time() - start_time
+  trial_info$duration <- time[3]
+  saveRDS(runJagsOut,
+          glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
+  
+  write_csv(trial_info,
+            glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
 
 # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
 
 coda_samples <- coda::as.mcmc.list(runJagsOut)
 
-diagMCMC(coda_samples, parName = 'beta[1]')
-diagMCMC(coda_samples, parName = 'beta[2]')
-diagMCMC(coda_samples, parName = 'beta[3]')
-diagMCMC(coda_samples, parName = 'beta[4]')
-diagMCMC(coda_samples, parName = 'beta[5]')
-diagMCMC(coda_samples, parName = 'beta[6]')
-diagMCMC(coda_samples, parName = 'beta[7]')
-diagMCMC(coda_samples, parName = 'tau')
+subDir <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_type),"/")
 
-diagMCMC(coda_samples, parName = 'pred[1]')
-diagMCMC(coda_samples, parName = 'pred[10]')
-diagMCMC(coda_samples, parName = 'pred[20]')
-diagMCMC(coda_samples, parName = 'pred[30]')
+dir.create(subDir)
+
+diagMCMC(coda_samples, parName = 'beta[1]', saveName = paste0(subDir, 'beta1'))
+diagMCMC(coda_samples, parName = 'beta[2]', saveName = paste0(subDir, 'beta2'))
+diagMCMC(coda_samples, parName = 'beta[3]', saveName = paste0(subDir, 'beta3'))
+diagMCMC(coda_samples, parName = 'beta[4]', saveName = paste0(subDir, 'beta4'))
+diagMCMC(coda_samples, parName = 'beta[5]', saveName = paste0(subDir, 'beta5'))
+diagMCMC(coda_samples, parName = 'beta[6]', saveName = paste0(subDir, 'beta6'))
+diagMCMC(coda_samples, parName = 'beta[7]', saveName = paste0(subDir, 'beta7'))
+diagMCMC(coda_samples, parName = 'tau', saveName = paste0(subDir, 'tau'))
+
+diagMCMC(coda_samples, parName = 'pred[1]', saveName = paste0(subDir, 'pred1'))
+diagMCMC(coda_samples, parName = 'pred[10]', saveName = paste0(subDir, 'pred10'))
+diagMCMC(coda_samples, parName = 'pred[20]', saveName = paste0(subDir, 'pred20'))
+diagMCMC(coda_samples, parName = 'pred[30]', saveName = paste0(subDir, 'pred30'))
 
 # test ground truths
 summaryInfo <- smryMCMC_HD(coda_samples,
@@ -279,5 +291,9 @@ p
 ggsave(glue::glue('OUTPUTS/IMAGES/PREDICTIONS/{trial_type}.png'),
        p,
        dpi = 200)
+
+} else {
+  stop('Trial has been run!')
+}
 
 
