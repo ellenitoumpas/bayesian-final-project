@@ -105,22 +105,22 @@ colnames(xPred) <- NULL
 # Set Priors here:
 mus <- c(-1, # rain
          1, # temp
-         0, # ws
+         1, # ws
          -1, # deg_from_north
          1, # dow
-         7, # working_days
+         9, # working_days
          # 0, # hour
-         9) #pre_peak
+         10) #pre_peak
 
 
 vars  <- c(1/2, # rain
            1/2, # temp
-           1/2, # ws
+           1/1000, # ws
            1/2, # deg_from_north
-           1/2, # dow
-           1/2, # working_days
+           1/1000, # dow
+           1/100, # working_days
            # 1/10, # hour
-           1/2) #pre_peak
+           1/100) #pre_peak
 
 # Set Hyper Params here:
 nChains <- 3
@@ -246,19 +246,23 @@ if (hasnt_run(trial_type)) {
 
 coda_samples <- coda::as.mcmc.list(runJagsOut)
 
-diagMCMC(coda_samples, parName = 'beta[1]')
-diagMCMC(coda_samples, parName = 'beta[2]')
-diagMCMC(coda_samples, parName = 'beta[3]')
-diagMCMC(coda_samples, parName = 'beta[4]')
-diagMCMC(coda_samples, parName = 'beta[5]')
-diagMCMC(coda_samples, parName = 'beta[6]')
-diagMCMC(coda_samples, parName = 'beta[7]')
-diagMCMC(coda_samples, parName = 'tau')
+subDir <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_type),"/")
 
-diagMCMC(coda_samples, parName = 'pred[1]')
-diagMCMC(coda_samples, parName = 'pred[10]')
-diagMCMC(coda_samples, parName = 'pred[20]')
-diagMCMC(coda_samples, parName = 'pred[30]')
+dir.create(subDir)
+
+diagMCMC(coda_samples, parName = 'beta[1]', saveName = paste0(subDir, 'beta1'))
+diagMCMC(coda_samples, parName = 'beta[2]', saveName = paste0(subDir, 'beta2'))
+diagMCMC(coda_samples, parName = 'beta[3]', saveName = paste0(subDir, 'beta3'))
+diagMCMC(coda_samples, parName = 'beta[4]', saveName = paste0(subDir, 'beta4'))
+diagMCMC(coda_samples, parName = 'beta[5]', saveName = paste0(subDir, 'beta5'))
+diagMCMC(coda_samples, parName = 'beta[6]', saveName = paste0(subDir, 'beta6'))
+diagMCMC(coda_samples, parName = 'beta[7]', saveName = paste0(subDir, 'beta7'))
+diagMCMC(coda_samples, parName = 'tau', saveName = paste0(subDir, 'tau'))
+
+diagMCMC(coda_samples, parName = 'pred[1]', saveName = paste0(subDir, 'pred1'))
+diagMCMC(coda_samples, parName = 'pred[10]', saveName = paste0(subDir, 'pred10'))
+diagMCMC(coda_samples, parName = 'pred[20]', saveName = paste0(subDir, 'pred20'))
+diagMCMC(coda_samples, parName = 'pred[30]', saveName = paste0(subDir, 'pred30'))
 
 # test ground truths
 summaryInfo <- smryMCMC_HD(coda_samples,
