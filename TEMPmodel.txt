@@ -23,13 +23,11 @@
 mu[i] <- sum(zbeta[1:Nx] * zx[i,1:Nx])
     }
     
-  zbeta[1] ~ dnorm(-1/xsd[1], 1/(10/xsd[1]^2))
-  zbeta[2] ~ dnorm(1/xsd[2], 1/(10/xsd[2]^2))
-  zbeta[3] ~ dnorm(1/xsd[3], 1/(0.001/xsd[3]^2))
-  zbeta[4] ~ dnorm(-1/xsd[4], 1/(10/xsd[4]^2))
-  zbeta[5] ~ dnorm(1/xsd[5], 1/(0.001/xsd[5]^2))
-  zbeta[6] ~ dnorm(9/xsd[6], 1/(0.1/xsd[6]^2))
-  zbeta[7] ~ dnorm(10/xsd[7], 1/(0.1/xsd[7]^2))
+  zbeta[1] ~ dnorm(-1/xsd[1], 1/(100/xsd[1]^2))
+  zbeta[2] ~ dnorm(1/xsd[2], 1/(100/xsd[2]^2))
+  zbeta[3] ~ dnorm(-1/xsd[3], 1/(100/xsd[3]^2))
+  zbeta[4] ~ dnorm(1/xsd[4], 1/(100/xsd[4]^2))
+  zbeta[5] ~ dnorm(1/xsd[5], 1/(100/xsd[5]^2))
   zVar ~ dgamma(0.01, 0.001)
   # Transform to original scale
   beta[1:Nx] <- (zbeta[1:Nx]/ xsd[1:Nx]) * ysd
@@ -37,89 +35,15 @@ tau <- zVar * (ysd) ^ 2
   
   # Predictions
   
-  pred[1] <- 0 + beta[1] * xPred[1, 1]  + beta[2] * xPred[1, 2]  + beta[3] * xPred[1, 3]  + beta[4] * xPred[1, 4]  + beta[5] * xPred[1, 5]  + beta[6] * xPred[1, 6]  + beta[7] * xPred[1, 7] 
-  pred[2] <- 0 + beta[1] * xPred[2, 1]  + beta[2] * xPred[2, 2]  + beta[3] * xPred[2, 3]  + beta[4] * xPred[2, 4]  + beta[5] * xPred[2, 5]  + beta[6] * xPred[2, 6]  + beta[7] * xPred[2, 7] 
-  pred[3] <- 0 + beta[1] * xPred[3, 1]  + beta[2] * xPred[3, 2]  + beta[3] * xPred[3, 3]  + beta[4] * xPred[3, 4]  + beta[5] * xPred[3, 5]  + beta[6] * xPred[3, 6]  + beta[7] * xPred[3, 7] 
-  pred[4] <- 0 + beta[1] * xPred[4, 1]  + beta[2] * xPred[4, 2]  + beta[3] * xPred[4, 3]  + beta[4] * xPred[4, 4]  + beta[5] * xPred[4, 5]  + beta[6] * xPred[4, 6]  + beta[7] * xPred[4, 7] 
-  pred[5] <- 0 + beta[1] * xPred[5, 1]  + beta[2] * xPred[5, 2]  + beta[3] * xPred[5, 3]  + beta[4] * xPred[5, 4]  + beta[5] * xPred[5, 5]  + beta[6] * xPred[5, 6]  + beta[7] * xPred[5, 7] 
-  pred[6] <- 0 + beta[1] * xPred[6, 1]  + beta[2] * xPred[6, 2]  + beta[3] * xPred[6, 3]  + beta[4] * xPred[6, 4]  + beta[5] * xPred[6, 5]  + beta[6] * xPred[6, 6]  + beta[7] * xPred[6, 7] 
-  pred[7] <- 0 + beta[1] * xPred[7, 1]  + beta[2] * xPred[7, 2]  + beta[3] * xPred[7, 3]  + beta[4] * xPred[7, 4]  + beta[5] * xPred[7, 5]  + beta[6] * xPred[7, 6]  + beta[7] * xPred[7, 7] 
-  pred[8] <- 0 + beta[1] * xPred[8, 1]  + beta[2] * xPred[8, 2]  + beta[3] * xPred[8, 3]  + beta[4] * xPred[8, 4]  + beta[5] * xPred[8, 5]  + beta[6] * xPred[8, 6]  + beta[7] * xPred[8, 7] 
-  pred[9] <- 0 + beta[1] * xPred[9, 1]  + beta[2] * xPred[9, 2]  + beta[3] * xPred[9, 3]  + beta[4] * xPred[9, 4]  + beta[5] * xPred[9, 5]  + beta[6] * xPred[9, 6]  + beta[7] * xPred[9, 7] 
-  pred[10] <- 0 + beta[1] * xPred[10, 1]  + beta[2] * xPred[10, 2]  + beta[3] * xPred[10, 3]  + beta[4] * xPred[10, 4]  + beta[5] * xPred[10, 5]  + beta[6] * xPred[10, 6]  + beta[7] * xPred[10, 7] 
-  pred[11] <- 0 + beta[1] * xPred[11, 1]  + beta[2] * xPred[11, 2]  + beta[3] * xPred[11, 3]  + beta[4] * xPred[11, 4]  + beta[5] * xPred[11, 5]  + beta[6] * xPred[11, 6]  + beta[7] * xPred[11, 7] 
-  pred[12] <- 0 + beta[1] * xPred[12, 1]  + beta[2] * xPred[12, 2]  + beta[3] * xPred[12, 3]  + beta[4] * xPred[12, 4]  + beta[5] * xPred[12, 5]  + beta[6] * xPred[12, 6]  + beta[7] * xPred[12, 7] 
-  pred[13] <- 0 + beta[1] * xPred[13, 1]  + beta[2] * xPred[13, 2]  + beta[3] * xPred[13, 3]  + beta[4] * xPred[13, 4]  + beta[5] * xPred[13, 5]  + beta[6] * xPred[13, 6]  + beta[7] * xPred[13, 7] 
-  pred[14] <- 0 + beta[1] * xPred[14, 1]  + beta[2] * xPred[14, 2]  + beta[3] * xPred[14, 3]  + beta[4] * xPred[14, 4]  + beta[5] * xPred[14, 5]  + beta[6] * xPred[14, 6]  + beta[7] * xPred[14, 7] 
-  pred[15] <- 0 + beta[1] * xPred[15, 1]  + beta[2] * xPred[15, 2]  + beta[3] * xPred[15, 3]  + beta[4] * xPred[15, 4]  + beta[5] * xPred[15, 5]  + beta[6] * xPred[15, 6]  + beta[7] * xPred[15, 7] 
-  pred[16] <- 0 + beta[1] * xPred[16, 1]  + beta[2] * xPred[16, 2]  + beta[3] * xPred[16, 3]  + beta[4] * xPred[16, 4]  + beta[5] * xPred[16, 5]  + beta[6] * xPred[16, 6]  + beta[7] * xPred[16, 7] 
-  pred[17] <- 0 + beta[1] * xPred[17, 1]  + beta[2] * xPred[17, 2]  + beta[3] * xPred[17, 3]  + beta[4] * xPred[17, 4]  + beta[5] * xPred[17, 5]  + beta[6] * xPred[17, 6]  + beta[7] * xPred[17, 7] 
-  pred[18] <- 0 + beta[1] * xPred[18, 1]  + beta[2] * xPred[18, 2]  + beta[3] * xPred[18, 3]  + beta[4] * xPred[18, 4]  + beta[5] * xPred[18, 5]  + beta[6] * xPred[18, 6]  + beta[7] * xPred[18, 7] 
-  pred[19] <- 0 + beta[1] * xPred[19, 1]  + beta[2] * xPred[19, 2]  + beta[3] * xPred[19, 3]  + beta[4] * xPred[19, 4]  + beta[5] * xPred[19, 5]  + beta[6] * xPred[19, 6]  + beta[7] * xPred[19, 7] 
-  pred[20] <- 0 + beta[1] * xPred[20, 1]  + beta[2] * xPred[20, 2]  + beta[3] * xPred[20, 3]  + beta[4] * xPred[20, 4]  + beta[5] * xPred[20, 5]  + beta[6] * xPred[20, 6]  + beta[7] * xPred[20, 7] 
-  pred[21] <- 0 + beta[1] * xPred[21, 1]  + beta[2] * xPred[21, 2]  + beta[3] * xPred[21, 3]  + beta[4] * xPred[21, 4]  + beta[5] * xPred[21, 5]  + beta[6] * xPred[21, 6]  + beta[7] * xPred[21, 7] 
-  pred[22] <- 0 + beta[1] * xPred[22, 1]  + beta[2] * xPred[22, 2]  + beta[3] * xPred[22, 3]  + beta[4] * xPred[22, 4]  + beta[5] * xPred[22, 5]  + beta[6] * xPred[22, 6]  + beta[7] * xPred[22, 7] 
-  pred[23] <- 0 + beta[1] * xPred[23, 1]  + beta[2] * xPred[23, 2]  + beta[3] * xPred[23, 3]  + beta[4] * xPred[23, 4]  + beta[5] * xPred[23, 5]  + beta[6] * xPred[23, 6]  + beta[7] * xPred[23, 7] 
-  pred[24] <- 0 + beta[1] * xPred[24, 1]  + beta[2] * xPred[24, 2]  + beta[3] * xPred[24, 3]  + beta[4] * xPred[24, 4]  + beta[5] * xPred[24, 5]  + beta[6] * xPred[24, 6]  + beta[7] * xPred[24, 7] 
-  pred[25] <- 0 + beta[1] * xPred[25, 1]  + beta[2] * xPred[25, 2]  + beta[3] * xPred[25, 3]  + beta[4] * xPred[25, 4]  + beta[5] * xPred[25, 5]  + beta[6] * xPred[25, 6]  + beta[7] * xPred[25, 7] 
-  pred[26] <- 0 + beta[1] * xPred[26, 1]  + beta[2] * xPred[26, 2]  + beta[3] * xPred[26, 3]  + beta[4] * xPred[26, 4]  + beta[5] * xPred[26, 5]  + beta[6] * xPred[26, 6]  + beta[7] * xPred[26, 7] 
-  pred[27] <- 0 + beta[1] * xPred[27, 1]  + beta[2] * xPred[27, 2]  + beta[3] * xPred[27, 3]  + beta[4] * xPred[27, 4]  + beta[5] * xPred[27, 5]  + beta[6] * xPred[27, 6]  + beta[7] * xPred[27, 7] 
-  pred[28] <- 0 + beta[1] * xPred[28, 1]  + beta[2] * xPred[28, 2]  + beta[3] * xPred[28, 3]  + beta[4] * xPred[28, 4]  + beta[5] * xPred[28, 5]  + beta[6] * xPred[28, 6]  + beta[7] * xPred[28, 7] 
-  pred[29] <- 0 + beta[1] * xPred[29, 1]  + beta[2] * xPred[29, 2]  + beta[3] * xPred[29, 3]  + beta[4] * xPred[29, 4]  + beta[5] * xPred[29, 5]  + beta[6] * xPred[29, 6]  + beta[7] * xPred[29, 7] 
-  pred[30] <- 0 + beta[1] * xPred[30, 1]  + beta[2] * xPred[30, 2]  + beta[3] * xPred[30, 3]  + beta[4] * xPred[30, 4]  + beta[5] * xPred[30, 5]  + beta[6] * xPred[30, 6]  + beta[7] * xPred[30, 7] 
-  pred[31] <- 0 + beta[1] * xPred[31, 1]  + beta[2] * xPred[31, 2]  + beta[3] * xPred[31, 3]  + beta[4] * xPred[31, 4]  + beta[5] * xPred[31, 5]  + beta[6] * xPred[31, 6]  + beta[7] * xPred[31, 7] 
-  pred[32] <- 0 + beta[1] * xPred[32, 1]  + beta[2] * xPred[32, 2]  + beta[3] * xPred[32, 3]  + beta[4] * xPred[32, 4]  + beta[5] * xPred[32, 5]  + beta[6] * xPred[32, 6]  + beta[7] * xPred[32, 7] 
-  pred[33] <- 0 + beta[1] * xPred[33, 1]  + beta[2] * xPred[33, 2]  + beta[3] * xPred[33, 3]  + beta[4] * xPred[33, 4]  + beta[5] * xPred[33, 5]  + beta[6] * xPred[33, 6]  + beta[7] * xPred[33, 7] 
-  pred[34] <- 0 + beta[1] * xPred[34, 1]  + beta[2] * xPred[34, 2]  + beta[3] * xPred[34, 3]  + beta[4] * xPred[34, 4]  + beta[5] * xPred[34, 5]  + beta[6] * xPred[34, 6]  + beta[7] * xPred[34, 7] 
-  pred[35] <- 0 + beta[1] * xPred[35, 1]  + beta[2] * xPred[35, 2]  + beta[3] * xPred[35, 3]  + beta[4] * xPred[35, 4]  + beta[5] * xPred[35, 5]  + beta[6] * xPred[35, 6]  + beta[7] * xPred[35, 7] 
-  pred[36] <- 0 + beta[1] * xPred[36, 1]  + beta[2] * xPred[36, 2]  + beta[3] * xPred[36, 3]  + beta[4] * xPred[36, 4]  + beta[5] * xPred[36, 5]  + beta[6] * xPred[36, 6]  + beta[7] * xPred[36, 7] 
-  pred[37] <- 0 + beta[1] * xPred[37, 1]  + beta[2] * xPred[37, 2]  + beta[3] * xPred[37, 3]  + beta[4] * xPred[37, 4]  + beta[5] * xPred[37, 5]  + beta[6] * xPred[37, 6]  + beta[7] * xPred[37, 7] 
-  pred[38] <- 0 + beta[1] * xPred[38, 1]  + beta[2] * xPred[38, 2]  + beta[3] * xPred[38, 3]  + beta[4] * xPred[38, 4]  + beta[5] * xPred[38, 5]  + beta[6] * xPred[38, 6]  + beta[7] * xPred[38, 7] 
-  pred[39] <- 0 + beta[1] * xPred[39, 1]  + beta[2] * xPred[39, 2]  + beta[3] * xPred[39, 3]  + beta[4] * xPred[39, 4]  + beta[5] * xPred[39, 5]  + beta[6] * xPred[39, 6]  + beta[7] * xPred[39, 7] 
-  pred[40] <- 0 + beta[1] * xPred[40, 1]  + beta[2] * xPred[40, 2]  + beta[3] * xPred[40, 3]  + beta[4] * xPred[40, 4]  + beta[5] * xPred[40, 5]  + beta[6] * xPred[40, 6]  + beta[7] * xPred[40, 7] 
-  pred[41] <- 0 + beta[1] * xPred[41, 1]  + beta[2] * xPred[41, 2]  + beta[3] * xPred[41, 3]  + beta[4] * xPred[41, 4]  + beta[5] * xPred[41, 5]  + beta[6] * xPred[41, 6]  + beta[7] * xPred[41, 7] 
-  pred[42] <- 0 + beta[1] * xPred[42, 1]  + beta[2] * xPred[42, 2]  + beta[3] * xPred[42, 3]  + beta[4] * xPred[42, 4]  + beta[5] * xPred[42, 5]  + beta[6] * xPred[42, 6]  + beta[7] * xPred[42, 7] 
-  pred[43] <- 0 + beta[1] * xPred[43, 1]  + beta[2] * xPred[43, 2]  + beta[3] * xPred[43, 3]  + beta[4] * xPred[43, 4]  + beta[5] * xPred[43, 5]  + beta[6] * xPred[43, 6]  + beta[7] * xPred[43, 7] 
-  pred[44] <- 0 + beta[1] * xPred[44, 1]  + beta[2] * xPred[44, 2]  + beta[3] * xPred[44, 3]  + beta[4] * xPred[44, 4]  + beta[5] * xPred[44, 5]  + beta[6] * xPred[44, 6]  + beta[7] * xPred[44, 7] 
-  pred[45] <- 0 + beta[1] * xPred[45, 1]  + beta[2] * xPred[45, 2]  + beta[3] * xPred[45, 3]  + beta[4] * xPred[45, 4]  + beta[5] * xPred[45, 5]  + beta[6] * xPred[45, 6]  + beta[7] * xPred[45, 7] 
-  pred[46] <- 0 + beta[1] * xPred[46, 1]  + beta[2] * xPred[46, 2]  + beta[3] * xPred[46, 3]  + beta[4] * xPred[46, 4]  + beta[5] * xPred[46, 5]  + beta[6] * xPred[46, 6]  + beta[7] * xPred[46, 7] 
-  pred[47] <- 0 + beta[1] * xPred[47, 1]  + beta[2] * xPred[47, 2]  + beta[3] * xPred[47, 3]  + beta[4] * xPred[47, 4]  + beta[5] * xPred[47, 5]  + beta[6] * xPred[47, 6]  + beta[7] * xPred[47, 7] 
-  pred[48] <- 0 + beta[1] * xPred[48, 1]  + beta[2] * xPred[48, 2]  + beta[3] * xPred[48, 3]  + beta[4] * xPred[48, 4]  + beta[5] * xPred[48, 5]  + beta[6] * xPred[48, 6]  + beta[7] * xPred[48, 7] 
-  pred[49] <- 0 + beta[1] * xPred[49, 1]  + beta[2] * xPred[49, 2]  + beta[3] * xPred[49, 3]  + beta[4] * xPred[49, 4]  + beta[5] * xPred[49, 5]  + beta[6] * xPred[49, 6]  + beta[7] * xPred[49, 7] 
-  pred[50] <- 0 + beta[1] * xPred[50, 1]  + beta[2] * xPred[50, 2]  + beta[3] * xPred[50, 3]  + beta[4] * xPred[50, 4]  + beta[5] * xPred[50, 5]  + beta[6] * xPred[50, 6]  + beta[7] * xPred[50, 7] 
-  pred[51] <- 0 + beta[1] * xPred[51, 1]  + beta[2] * xPred[51, 2]  + beta[3] * xPred[51, 3]  + beta[4] * xPred[51, 4]  + beta[5] * xPred[51, 5]  + beta[6] * xPred[51, 6]  + beta[7] * xPred[51, 7] 
-  pred[52] <- 0 + beta[1] * xPred[52, 1]  + beta[2] * xPred[52, 2]  + beta[3] * xPred[52, 3]  + beta[4] * xPred[52, 4]  + beta[5] * xPred[52, 5]  + beta[6] * xPred[52, 6]  + beta[7] * xPred[52, 7] 
-  pred[53] <- 0 + beta[1] * xPred[53, 1]  + beta[2] * xPred[53, 2]  + beta[3] * xPred[53, 3]  + beta[4] * xPred[53, 4]  + beta[5] * xPred[53, 5]  + beta[6] * xPred[53, 6]  + beta[7] * xPred[53, 7] 
-  pred[54] <- 0 + beta[1] * xPred[54, 1]  + beta[2] * xPred[54, 2]  + beta[3] * xPred[54, 3]  + beta[4] * xPred[54, 4]  + beta[5] * xPred[54, 5]  + beta[6] * xPred[54, 6]  + beta[7] * xPred[54, 7] 
-  pred[55] <- 0 + beta[1] * xPred[55, 1]  + beta[2] * xPred[55, 2]  + beta[3] * xPred[55, 3]  + beta[4] * xPred[55, 4]  + beta[5] * xPred[55, 5]  + beta[6] * xPred[55, 6]  + beta[7] * xPred[55, 7] 
-  pred[56] <- 0 + beta[1] * xPred[56, 1]  + beta[2] * xPred[56, 2]  + beta[3] * xPred[56, 3]  + beta[4] * xPred[56, 4]  + beta[5] * xPred[56, 5]  + beta[6] * xPred[56, 6]  + beta[7] * xPred[56, 7] 
-  pred[57] <- 0 + beta[1] * xPred[57, 1]  + beta[2] * xPred[57, 2]  + beta[3] * xPred[57, 3]  + beta[4] * xPred[57, 4]  + beta[5] * xPred[57, 5]  + beta[6] * xPred[57, 6]  + beta[7] * xPred[57, 7] 
-  pred[58] <- 0 + beta[1] * xPred[58, 1]  + beta[2] * xPred[58, 2]  + beta[3] * xPred[58, 3]  + beta[4] * xPred[58, 4]  + beta[5] * xPred[58, 5]  + beta[6] * xPred[58, 6]  + beta[7] * xPred[58, 7] 
-  pred[59] <- 0 + beta[1] * xPred[59, 1]  + beta[2] * xPred[59, 2]  + beta[3] * xPred[59, 3]  + beta[4] * xPred[59, 4]  + beta[5] * xPred[59, 5]  + beta[6] * xPred[59, 6]  + beta[7] * xPred[59, 7] 
-  pred[60] <- 0 + beta[1] * xPred[60, 1]  + beta[2] * xPred[60, 2]  + beta[3] * xPred[60, 3]  + beta[4] * xPred[60, 4]  + beta[5] * xPred[60, 5]  + beta[6] * xPred[60, 6]  + beta[7] * xPred[60, 7] 
-  pred[61] <- 0 + beta[1] * xPred[61, 1]  + beta[2] * xPred[61, 2]  + beta[3] * xPred[61, 3]  + beta[4] * xPred[61, 4]  + beta[5] * xPred[61, 5]  + beta[6] * xPred[61, 6]  + beta[7] * xPred[61, 7] 
-  pred[62] <- 0 + beta[1] * xPred[62, 1]  + beta[2] * xPred[62, 2]  + beta[3] * xPred[62, 3]  + beta[4] * xPred[62, 4]  + beta[5] * xPred[62, 5]  + beta[6] * xPred[62, 6]  + beta[7] * xPred[62, 7] 
-  pred[63] <- 0 + beta[1] * xPred[63, 1]  + beta[2] * xPred[63, 2]  + beta[3] * xPred[63, 3]  + beta[4] * xPred[63, 4]  + beta[5] * xPred[63, 5]  + beta[6] * xPred[63, 6]  + beta[7] * xPred[63, 7] 
-  pred[64] <- 0 + beta[1] * xPred[64, 1]  + beta[2] * xPred[64, 2]  + beta[3] * xPred[64, 3]  + beta[4] * xPred[64, 4]  + beta[5] * xPred[64, 5]  + beta[6] * xPred[64, 6]  + beta[7] * xPred[64, 7] 
-  pred[65] <- 0 + beta[1] * xPred[65, 1]  + beta[2] * xPred[65, 2]  + beta[3] * xPred[65, 3]  + beta[4] * xPred[65, 4]  + beta[5] * xPred[65, 5]  + beta[6] * xPred[65, 6]  + beta[7] * xPred[65, 7] 
-  pred[66] <- 0 + beta[1] * xPred[66, 1]  + beta[2] * xPred[66, 2]  + beta[3] * xPred[66, 3]  + beta[4] * xPred[66, 4]  + beta[5] * xPred[66, 5]  + beta[6] * xPred[66, 6]  + beta[7] * xPred[66, 7] 
-  pred[67] <- 0 + beta[1] * xPred[67, 1]  + beta[2] * xPred[67, 2]  + beta[3] * xPred[67, 3]  + beta[4] * xPred[67, 4]  + beta[5] * xPred[67, 5]  + beta[6] * xPred[67, 6]  + beta[7] * xPred[67, 7] 
-  pred[68] <- 0 + beta[1] * xPred[68, 1]  + beta[2] * xPred[68, 2]  + beta[3] * xPred[68, 3]  + beta[4] * xPred[68, 4]  + beta[5] * xPred[68, 5]  + beta[6] * xPred[68, 6]  + beta[7] * xPred[68, 7] 
-  pred[69] <- 0 + beta[1] * xPred[69, 1]  + beta[2] * xPred[69, 2]  + beta[3] * xPred[69, 3]  + beta[4] * xPred[69, 4]  + beta[5] * xPred[69, 5]  + beta[6] * xPred[69, 6]  + beta[7] * xPred[69, 7] 
-  pred[70] <- 0 + beta[1] * xPred[70, 1]  + beta[2] * xPred[70, 2]  + beta[3] * xPred[70, 3]  + beta[4] * xPred[70, 4]  + beta[5] * xPred[70, 5]  + beta[6] * xPred[70, 6]  + beta[7] * xPred[70, 7] 
-  pred[71] <- 0 + beta[1] * xPred[71, 1]  + beta[2] * xPred[71, 2]  + beta[3] * xPred[71, 3]  + beta[4] * xPred[71, 4]  + beta[5] * xPred[71, 5]  + beta[6] * xPred[71, 6]  + beta[7] * xPred[71, 7] 
-  pred[72] <- 0 + beta[1] * xPred[72, 1]  + beta[2] * xPred[72, 2]  + beta[3] * xPred[72, 3]  + beta[4] * xPred[72, 4]  + beta[5] * xPred[72, 5]  + beta[6] * xPred[72, 6]  + beta[7] * xPred[72, 7] 
-  pred[73] <- 0 + beta[1] * xPred[73, 1]  + beta[2] * xPred[73, 2]  + beta[3] * xPred[73, 3]  + beta[4] * xPred[73, 4]  + beta[5] * xPred[73, 5]  + beta[6] * xPred[73, 6]  + beta[7] * xPred[73, 7] 
-  pred[74] <- 0 + beta[1] * xPred[74, 1]  + beta[2] * xPred[74, 2]  + beta[3] * xPred[74, 3]  + beta[4] * xPred[74, 4]  + beta[5] * xPred[74, 5]  + beta[6] * xPred[74, 6]  + beta[7] * xPred[74, 7] 
-  pred[75] <- 0 + beta[1] * xPred[75, 1]  + beta[2] * xPred[75, 2]  + beta[3] * xPred[75, 3]  + beta[4] * xPred[75, 4]  + beta[5] * xPred[75, 5]  + beta[6] * xPred[75, 6]  + beta[7] * xPred[75, 7] 
-  pred[76] <- 0 + beta[1] * xPred[76, 1]  + beta[2] * xPred[76, 2]  + beta[3] * xPred[76, 3]  + beta[4] * xPred[76, 4]  + beta[5] * xPred[76, 5]  + beta[6] * xPred[76, 6]  + beta[7] * xPred[76, 7] 
-  pred[77] <- 0 + beta[1] * xPred[77, 1]  + beta[2] * xPred[77, 2]  + beta[3] * xPred[77, 3]  + beta[4] * xPred[77, 4]  + beta[5] * xPred[77, 5]  + beta[6] * xPred[77, 6]  + beta[7] * xPred[77, 7] 
-  pred[78] <- 0 + beta[1] * xPred[78, 1]  + beta[2] * xPred[78, 2]  + beta[3] * xPred[78, 3]  + beta[4] * xPred[78, 4]  + beta[5] * xPred[78, 5]  + beta[6] * xPred[78, 6]  + beta[7] * xPred[78, 7] 
-  pred[79] <- 0 + beta[1] * xPred[79, 1]  + beta[2] * xPred[79, 2]  + beta[3] * xPred[79, 3]  + beta[4] * xPred[79, 4]  + beta[5] * xPred[79, 5]  + beta[6] * xPred[79, 6]  + beta[7] * xPred[79, 7] 
-  pred[80] <- 0 + beta[1] * xPred[80, 1]  + beta[2] * xPred[80, 2]  + beta[3] * xPred[80, 3]  + beta[4] * xPred[80, 4]  + beta[5] * xPred[80, 5]  + beta[6] * xPred[80, 6]  + beta[7] * xPred[80, 7] 
-  pred[81] <- 0 + beta[1] * xPred[81, 1]  + beta[2] * xPred[81, 2]  + beta[3] * xPred[81, 3]  + beta[4] * xPred[81, 4]  + beta[5] * xPred[81, 5]  + beta[6] * xPred[81, 6]  + beta[7] * xPred[81, 7] 
-  pred[82] <- 0 + beta[1] * xPred[82, 1]  + beta[2] * xPred[82, 2]  + beta[3] * xPred[82, 3]  + beta[4] * xPred[82, 4]  + beta[5] * xPred[82, 5]  + beta[6] * xPred[82, 6]  + beta[7] * xPred[82, 7] 
-  pred[83] <- 0 + beta[1] * xPred[83, 1]  + beta[2] * xPred[83, 2]  + beta[3] * xPred[83, 3]  + beta[4] * xPred[83, 4]  + beta[5] * xPred[83, 5]  + beta[6] * xPred[83, 6]  + beta[7] * xPred[83, 7] 
-  pred[84] <- 0 + beta[1] * xPred[84, 1]  + beta[2] * xPred[84, 2]  + beta[3] * xPred[84, 3]  + beta[4] * xPred[84, 4]  + beta[5] * xPred[84, 5]  + beta[6] * xPred[84, 6]  + beta[7] * xPred[84, 7] 
+  pred[1] <- 0 + beta[1] * xPred[1, 1]  + beta[2] * xPred[1, 2]  + beta[3] * xPred[1, 3]  + beta[4] * xPred[1, 4]  + beta[5] * xPred[1, 5] 
+  pred[2] <- 0 + beta[1] * xPred[2, 1]  + beta[2] * xPred[2, 2]  + beta[3] * xPred[2, 3]  + beta[4] * xPred[2, 4]  + beta[5] * xPred[2, 5] 
+  pred[3] <- 0 + beta[1] * xPred[3, 1]  + beta[2] * xPred[3, 2]  + beta[3] * xPred[3, 3]  + beta[4] * xPred[3, 4]  + beta[5] * xPred[3, 5] 
+  pred[4] <- 0 + beta[1] * xPred[4, 1]  + beta[2] * xPred[4, 2]  + beta[3] * xPred[4, 3]  + beta[4] * xPred[4, 4]  + beta[5] * xPred[4, 5] 
+  pred[5] <- 0 + beta[1] * xPred[5, 1]  + beta[2] * xPred[5, 2]  + beta[3] * xPred[5, 3]  + beta[4] * xPred[5, 4]  + beta[5] * xPred[5, 5] 
+  pred[6] <- 0 + beta[1] * xPred[6, 1]  + beta[2] * xPred[6, 2]  + beta[3] * xPred[6, 3]  + beta[4] * xPred[6, 4]  + beta[5] * xPred[6, 5] 
+  pred[7] <- 0 + beta[1] * xPred[7, 1]  + beta[2] * xPred[7, 2]  + beta[3] * xPred[7, 3]  + beta[4] * xPred[7, 4]  + beta[5] * xPred[7, 5] 
+  pred[8] <- 0 + beta[1] * xPred[8, 1]  + beta[2] * xPred[8, 2]  + beta[3] * xPred[8, 3]  + beta[4] * xPred[8, 4]  + beta[5] * xPred[8, 5] 
+  pred[9] <- 0 + beta[1] * xPred[9, 1]  + beta[2] * xPred[9, 2]  + beta[3] * xPred[9, 3]  + beta[4] * xPred[9, 4]  + beta[5] * xPred[9, 5] 
+  pred[10] <- 0 + beta[1] * xPred[10, 1]  + beta[2] * xPred[10, 2]  + beta[3] * xPred[10, 3]  + beta[4] * xPred[10, 4]  + beta[5] * xPred[10, 5] 
 
 }

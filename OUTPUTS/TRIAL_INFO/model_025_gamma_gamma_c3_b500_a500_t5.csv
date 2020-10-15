@@ -1,0 +1,2 @@
+trial_name,mu01,mu02,mu03,mu04,mu05,mu06,mu07,var01,var02,var03,var04,var05,var06,var07,number_chains,number_adaptation_steps,burn_in_steps,thinning_steps,initial_values_01,initial_values_02,initial_values_03,initial_values_04,initial_values_05,initial_values_06,initial_values_07,initial_values_08,initial_values_09,duration
+model_025_gamma_gamma_c3_b500_a500_t5,-1,1,1,-1,1,9,10,10,10,0.001,10,0.001,0.1,0.1,3,500,500,5,0.1,0.5194535743951498,2.7452772375560395,1.755998880322681,1.403363002084232,1.4965730683247769,1.5681737512214695,0.577897012908658,0.01,0

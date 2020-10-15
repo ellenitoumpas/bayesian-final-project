@@ -1,5 +1,23 @@
 # source(here('src', 'models', 'model_string.R'))
 
+
+
+create_diags <- function(coda_samples, pred_list, subDir){
+  
+  beta_list <- colnames(as.matrix(coda_samples[[1]]))[grepl("^beta", colnames(as.matrix(coda_samples[[1]])))]
+  
+  for(beta in beta_list){
+    diagMCMC(coda_samples, parName = beta, saveName = paste0(subDir, gsub("\\[|\\]","",beta)))
+  }
+  
+  diagMCMC(coda_samples, parName = 'tau', saveName = paste0(subDir, 'tau'))
+  
+  for(pred in pred_list){
+    diagMCMC(coda_samples, parName = paste0('pred[',pred,']'), saveName = paste0(subDir,'pred',pred))
+  }
+}
+
+
 #' @title Prepare model
 #' @description Creates the model ready to deliver to JAGS
 #' @param mu_list
@@ -166,7 +184,10 @@ smryMCMC_HD = function(codaSamples, compVal = NULL,  saveName=NULL) {
 #' @examples
 plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
                         showCurve=FALSE ,  pairsPlot=FALSE , compVal = NULL,
-                        saveName=NULL , saveType="jpg"){
+                        saveName=NULL , saveType="jpg", number_predictions, binded_intercept = FALSE){
+  
+  # browser()
+  
   y = data[,yName]
   x = as.matrix(data[,xName])
   
@@ -188,8 +209,6 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   tau = mcmcMat[,"tau"]
   
   # Set up predictions
-  # number_predictions <- length(grep("^pred", colnames(mcmcMat)))
-  number_predictions <- c(1,2,10,20,30,40,50,60,70)
   for (i in number_predictions)(assign(paste0("pred",i), mcmcMat[,paste0("pred[",i,"]")]))
   
   
@@ -263,11 +282,15 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   panelCount = 1
   panelCount = decideOpenGraph( panelCount, saveName=paste0(subDir,saveName,"Post_Beta"))
   
-  # if(!is.na(compVal[["beta0"]])){
-  #   histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]) , main="Intercept", compVal = as.numeric(compVal["beta0"] ))
-  # } else {  
+  if(binded_intercept == FALSE){
+    # if(!is.na(compVal[["beta0"]])){
+    #   histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]) , main="Intercept", compVal = as.numeric(compVal["beta0"] ))
+    # } else {  
     histInfo = plotPost( beta0 , cex.lab = 1.75 , showCurve=showCurve , xlab=bquote(beta[0]), main="Intercept")
-  # }
+    # }
+    
+  }
+  
   
   for (bIdx in 1:ncol(beta)) {
     panelCount = decideOpenGraph( panelCount, saveName=paste0(subDir,saveName,"Post_Beta"))
@@ -289,8 +312,7 @@ plotMCMC_HD <- function(codaSamples , data , xName="x" , yName="y" ,
   panelCount = decideOpenGraph( panelCount , finished=TRUE , saveName=paste0(subDir, saveName,"PostMarg") )
   
   panelCount = 1
-  predictions <- c(1,2,10,20,30,40,50,60,70)
-  for (i in predictions){
+  for (i in number_predictions){
     panelCount = decideOpenGraph( panelCount ,  saveName=paste0(subDir,saveName,"Post_Pred"))
     histInfo = plotPost(get(paste0("pred",i)) , cex.lab = 1.75 , showCurve=showCurve , xlab=paste0("pred",i) , main=paste0("Prediction ",i))
   }

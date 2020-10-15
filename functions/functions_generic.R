@@ -17,6 +17,105 @@ assignment_multi_plot_theme <- theme_minimal() +
 
 
 
+clean_existing_data <- function(){
+  
+  data <- vroom::vroom(here('data', 'hour_extra_Brooklyn_2016_18.csv'))
+  data_cleaned <- data %>% janitor::clean_names()
+  
+  data_cleaned <- data_cleaned %>%
+    mutate(dow = factor(dow, levels = days_of_weeks, labels = days_of_weeks, ordered = TRUE),
+           winddire = factor(winddire, levels = wind_directions, labels = wind_directions, ordered = TRUE))
+  
+  data_cleaned <- data_cleaned %>% select(-id, -yn50, -yn60, -yn80, -pm10a)
+  data_cleaned <- data_cleaned[complete.cases(data_cleaned),]
+  holidays <- tsibble::holiday_aus(unique(data_cleaned$years), state = 'VIC')
+  
+  data_cleaned <- data_cleaned %>%
+    mutate(deg_from_north = case_when(wd > 180 ~ abs(wd - 360), TRUE ~ wd),
+           pre_peak_hour = case_when(
+             hour > 4 & hour < 9 ~ TRUE,
+             hour > 14 & hour < 17 ~ TRUE,
+             TRUE ~ FALSE
+           ),
+           working_days = case_when(
+             weekdays == TRUE ~ TRUE,
+             date_day %in% holidays$date ~ FALSE,
+             weekdays == FALSE ~ FALSE
+           ),
+           pm10 = case_when(
+             pm10 < 0 ~ 0,
+             TRUE ~ pm10
+           )
+    )
+}
+
+
+
+
+
+prediction_density_overlay <- function(summaryInfo_df, x_data, y_data, trial_type, sample_type){
+  
+  # Get the model coefficients out
+  coefficients <- summaryInfo_df[rownames(summaryInfo_df)[grepl("^beta", rownames(summaryInfo_df))],"Mode"]
+  
+  # Get the variance out
+  Variance <- summaryInfo_df["tau","Mode"]
+  
+  # Use the model (X*beta) to generate the mean of gamma population for each observed x vector.
+  # meanGamma <- as.matrix(cbind(rep(1,nrow(x_data)),  x_data)) %*% as.vector(coefficients)
+  meanGamma <- as.matrix(cbind(x_data)) %*% as.vector(coefficients)
+  
+  # Generate random data from the posterior distribution.
+  randomData <- rgamma(n= 231,shape=meanGamma^2/Variance, rate = meanGamma/Variance)
+  
+  # Display the density plot of observed data and posterior distribution:
+  predicted <- data.frame(elapsed = randomData)
+  observed <- data.frame(elapsed = y_data)
+  predicted$type <- "Predicted"
+  observed$type <- "Observed"
+  dataPred <- rbind(predicted, observed)
+  
+  p <- ggplot(dataPred, aes(elapsed, fill = type)) +
+    geom_density(alpha = 0.2) +
+    theme_minimal()
+  
+  ggsave(glue::glue('OUTPUTS/IMAGES/PREDICTION_DENSITY/{trial_type}_{sample_type}.png'), p, width = 5, height = 4, dpi = 200)
+  
+  return(p)
+  
+}
+
+
+
+
+predictions_visual <- function(summaryInfo_df, trial_type){
+  
+  predictions_visual <-
+    tibble(
+      predictions = summaryInfo_df[str_detect(rownames(summaryInfo_df), 'pred'), "Mean"],
+      actuals = ground_truths$pm10)
+  
+  p <- ggplot(predictions_visual, aes(x = predictions, y = actuals)) +
+    geom_point(col = 'orange', alpha = 0.5, size = 2) +
+    geom_smooth(method = 'lm', col = 'orange', fill = 'orange', alpha = 0.2) +
+    geom_abline(intercept = 0, slope = 1, col = 'red', lwd = 1, alpha = 0.5) +
+    assignment_plot_theme +
+    labs(
+      title = 'Actuals vs Predictions',
+      subtitle = paste0(trial_type, '\nRed Line is 1 to 1'))
+  
+  ggsave(glue::glue('OUTPUTS/IMAGES/PREDICTIONS/{trial_type}.png'), p, width = 5, height = 4, dpi = 200)
+  
+  p
+  
+}
+
+
+
+
+
+
+
 
 #' @title Univariate plots
 #' @description An exploration in to the distribution of univariate features. A different plot type based on the class of variable.
