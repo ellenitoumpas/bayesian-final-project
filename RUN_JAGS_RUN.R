@@ -19,6 +19,7 @@ options(scipen = 999)
 packages <- scan("requirements.txt", what="", sep="\n")
 lock_n_load_libraries(packages)
 
+# NOTE: We can remove the following lines because we're importing subsampled_data, so this can be disabled after ground_truths is fixed
 data <- vroom::vroom(here('data', 'hour_extra_Brooklyn_2016_18.csv'))
 data_cleaned <- data %>% janitor::clean_names()
 
@@ -62,6 +63,7 @@ data_cleaned <- data_cleaned %>%
     )
   )
 
+# TODO: We don't need both ground_truths prediction_data
 test_split_df <- test_split(df=data_cleaned, features, target = predictor_variable)
 prediction_data <- test_split_df %>% select(-pm10)
 ground_truths <- test_split_df %>% select(pm10)
@@ -94,6 +96,7 @@ trial_type <- glue::glue('{model_name}_001_gamma_gamma_c{nChains}_b{burnInSteps}
 
 # Create Init values list:
 initial_values <- get_initial_values(subsampled_data, method = "likelihood-mean", pred = "pm10")
+TODO: later: initial_values should be output as a constant, to avoid change
 
 # Setting up and saving trial data frame info
 trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))
@@ -114,6 +117,7 @@ for(i in 1:length(initial_values))(trial_info[[paste0('initial_values_',stringr:
 trial_info$duration = 0
 
 # Split independant and dependant variables
+# TODO: we still need to only split the data once here, not in two places
 y_data <- subsampled_data[[predictor]]
 x_data <- as.matrix(subsampled_data[,!(colnames(subsampled_data) %in% predictor)])
 xPred <- as.matrix(prediction_data)
@@ -200,6 +204,7 @@ if (hasnt_run(trial_type)) {
   write_csv(trial_info,
             glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
 
+# TODO: why is this commented out?
 # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
 
 coda_samples <- coda::as.mcmc.list(runJagsOut)
