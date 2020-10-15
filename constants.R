@@ -1,49 +1,48 @@
 # Set Priors here:
 mus <- c(-1, # rain
          1, # temp
-         1, # ws
+         # 1, # ws
          -1, # deg_from_north
-         1, # dow
-         9, # working_days
+         # 1, # dow
+         1, # working_days
          # 0, # hour
-         10) #pre_peak
+         1) #pre_peak
 
 
-vars  <- c(10, # rain
-           10, # temp
-           1/1000, # ws
-           10, # deg_from_north
-           1/1000, # dow
-           1/10, # working_days
+vars  <- c(100, # rain
+           100, # temp
+           # 1/1000, # ws
+           100, # deg_from_north
+           # 1/1000, # dow
+           # 1/10, # working_days informative
+           100, # working_days uninformative
            # 1/10, # hour
-           1/10) #pre_peak
+           100) #pre_peak
 
 # Set Hyper Params here:
 # TODO: Do we need both of these?
-model_name <- 'model0inf5f'
-model_trial_type <- "model_001_gamma_gamma_c3_a500_b500_t3"
+model_name <- 'model_037'
 
 # Set Hyper Params here:
 nChains <- number_chains <- 3
 adaptSteps <- number_adaptation_steps <- 500 # Number of steps to "tune" the samplers
 burnInSteps <- burn_in_steps <- 500
-thinningSteps <- thinning_steps <- 5
-
-#------------------------------------------------------------------------------#
+thinningSteps <- thinning_steps <- 3
 
 # FIXME: move to constants
 # JAGS time! # remove hour
 features <- c(
   'rf_cum_3_day',
   'temperature',
-  'ws',
+  # 'ws',
   'deg_from_north',
-  'dow',
+  # 'dow',
   'working_days',
   # 'hour',
   'pre_peak_hour',
   'pm10'
-  )
+)
+
 predictor <- 'pm10'
 
 
