@@ -11,16 +11,17 @@ source(here('functions', 'functions_bayesian.R'))
 source(here('functions', 'DBDA2E-utilities.R'))
 source(here('constants.R'))
 source(here('src', 'models', 'model.R'))
-source(here('src', 'models', 'subsample.R'))
+source(here('src', 'data', 'subsample.R'))
 source(here('src', 'data', 'train_test.R'))
 graphics.off() # This closes all of R's graphics windows.
 options(scipen = 999)
-packages <- scan("requirements.txt", what="", sep="\n")
+packages <- scan("requirements.txt", what = "", sep = "\n")
 lock_n_load_libraries(packages)
 
 
 fullsample_data <- clean_existing_data()
 subsample_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_TRIAL/subsample_selection_trial_candidate_subsample_7.csv'))
+
 
 # A bit more cleaning
 
@@ -41,7 +42,6 @@ training_data <- subsample_data[-c(prediction_indices), features]
 prediction_data <- subsample_data[c(prediction_indices), features] %>% select(-predictor)
 ground_truths <- subsample_data[c(prediction_indices), ] %>% select(predictor)
 
-
 #------------------------------------------------------------------------------#
 
 
@@ -49,6 +49,7 @@ trial_type <- glue::glue('{model_name}_gamma_gamma_c{nChains}_b{burnInSteps}_a{a
 
 # Create Init values list:
 initial_values <- get_initial_values(training_data, method = "likelihood-mean", pred = "pm10")
+
 # TODO: later: initial_values should be output as a constant, to avoid change
 
 # Setting up and saving trial data frame info
@@ -76,8 +77,8 @@ colnames(xPred) <- NULL
 
 # Specify data list for JAGS
 dataList <- list(
-  x = x_data ,
-  y = y_data ,
+  x = x_data,
+  y = y_data,
   xPred = xPred,
   Nx = dim(x_data)[2] ,
   Ntotal = dim(x_data)[1]
@@ -111,6 +112,7 @@ if (zero_intercept == T) {
 compVal <- data.frame("beta0" = NA)
 for(beta in 1:dim(x_data)[2]){ compVal[paste0("beta[",beta,"]")] <- NA }
 compVal[paste0("tau")] <- NA
+
 if (zero_intercept == T) {
   compVal <- compVal %>% select(-beta0)
 }
@@ -194,7 +196,6 @@ if (hasnt_run(trial_type)) {
   y_data_fullsample <- fullsample_data[[predictor]]
   p_full <- prediction_density_overlay(summaryInfo_df, x_data_fullsample, y_data_fullsample, trial_type, 'fullsample') # Actual values from fullsample compared to model values
   p_full
-  
 
 } else {
   
