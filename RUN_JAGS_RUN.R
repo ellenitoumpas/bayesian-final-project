@@ -62,21 +62,6 @@ data_cleaned <- data_cleaned %>%
     )
   )
 
-# FIXME: move to constants
-# JAGS time! # remove hour
-features <- c(
-  'rf_cum_3_day',
-  'temperature',
-  'ws',
-  'deg_from_north',
-  'dow',
-  'working_days',
-  # 'hour',
-  'pre_peak_hour',
-  'pm10'
-  )
-predictor <- 'pm10'
-
 test_split_df <- test_split(df=data_cleaned, features, target = predictor_variable)
 prediction_data <- test_split_df %>% select(-pm10)
 ground_truths <- test_split_df %>% select(pm10)
@@ -102,36 +87,6 @@ subsampled_data <- subsampled_data %>%  select(-hour)
 
 subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 summary(subsampled_data$pm10)
-
-#------------------------------------------------------------------------------#
-# Set Priors here:
-mus <- c(-1, # rain
-         1, # temp
-         1, # ws
-         -1, # deg_from_north
-         1, # dow
-         9, # working_days
-         # 0, # hour
-         10) #pre_peak
-
-
-vars  <- c(10, # rain
-           10, # temp
-           1/1000, # ws
-           10, # deg_from_north
-           1/1000, # dow
-           1/10, # working_days
-           # 1/10, # hour
-           1/10) #pre_peak
-
-# Set Hyper Params here:
-nChains <- 3
-burnInSteps <- 500
-adaptSteps <- 500
-thinningSteps <- 5
-
-# Set model name:
-model_name <- 'model0inf5f'
 
 #------------------------------------------------------------------------------#
 

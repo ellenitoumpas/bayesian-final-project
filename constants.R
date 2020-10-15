@@ -1,20 +1,53 @@
+# Set Priors here:
+mus <- c(-1, # rain
+         1, # temp
+         1, # ws
+         -1, # deg_from_north
+         1, # dow
+         9, # working_days
+         # 0, # hour
+         10) #pre_peak
 
+
+vars  <- c(10, # rain
+           10, # temp
+           1/1000, # ws
+           10, # deg_from_north
+           1/1000, # dow
+           1/10, # working_days
+           # 1/10, # hour
+           1/10) #pre_peak
+
+# Set Hyper Params here:
+# TODO: Do we need both of these?
+model_name <- 'model0inf5f'
 model_trial_type <- "model_001_gamma_gamma_c3_a500_b500_t3"
 
-number_chains = 3
-number_adaptation_steps = 500
-burn_in_steps = 500
-thinning_steps = 3
+# Set Hyper Params here:
+nChains <- number_chains <- 3
+adaptSteps <- number_adaptation_steps <- 500 # Number of steps to "tune" the samplers
+burnInSteps <- burn_in_steps <- 500
+thinningSteps <- thinning_steps <- 5
 
-adaptSteps = 1500  # Number of steps to "tune" the samplers
-burnInSteps = 12000
+#------------------------------------------------------------------------------#
 
-# Mean specification
-mus <- c(-40, 40, 0, -40, 0, 20, 0, 20)
+# FIXME: move to constants
+# JAGS time! # remove hour
+features <- c(
+  'rf_cum_3_day',
+  'temperature',
+  'ws',
+  'deg_from_north',
+  'dow',
+  'working_days',
+  # 'hour',
+  'pre_peak_hour',
+  'pm10'
+  )
+predictor <- 'pm10'
 
-# Variance specification
-vars  <- c(1/4, 1/2, 1/10, 1/2, 1/10, 1/2, 1/10, 1/2)
 
+parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred") # new
 parameters = c( "zbeta0" ,  "zbeta" , "beta0" ,  "beta" ,  "tau", "zVar") # Here beta is a vector!
 
 days_of_weeks <- c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')
