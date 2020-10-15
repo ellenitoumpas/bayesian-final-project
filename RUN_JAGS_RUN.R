@@ -16,7 +16,7 @@ source(here('src', 'data', 'train_test.R'))
 
 graphics.off() # This closes all of R's graphics windows.
 options(scipen = 999)
-packages <- scan("requirements.txt", what="", sep="\n")
+packages <- scan("requirements.txt", what = "", sep = "\n")
 lock_n_load_libraries(packages)
 
 # NOTE: We can remove the following lines because we're importing subsampled_data, so this can be disabled after ground_truths is fixed
@@ -73,12 +73,12 @@ subsampled_data <- read.csv(paste0(here(),'/OUTPUTS/SAMPLES/SUBSAMPLE_SELECTION_
 
 # subsampled data and prediction data are from differing csvs
 # grab best priors so far, restructure days of week to sunday as 0
-prediction_data <- prediction_data %>% 
+prediction_data <- prediction_data %>%
   mutate(dow = case_when(
     dow == 7 ~ 0,
     TRUE ~ as.double(dow)
   ))
-subsampled_data <- subsampled_data %>% as_tibble() %>%  
+subsampled_data <- subsampled_data %>% as_tibble() %>%
   dplyr::mutate(dow = case_when(
     dow == 7 ~ 0,
     TRUE ~ as.double(dow)
@@ -96,7 +96,7 @@ trial_type <- glue::glue('{model_name}_001_gamma_gamma_c{nChains}_b{burnInSteps}
 
 # Create Init values list:
 initial_values <- get_initial_values(subsampled_data, method = "likelihood-mean", pred = "pm10")
-TODO: later: initial_values should be output as a constant, to avoid change
+# TODO: later: initial_values should be output as a constant, to avoid change
 
 # Setting up and saving trial data frame info
 trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))
@@ -125,8 +125,8 @@ colnames(xPred) <- NULL
 
 # Specify data list for JAGS
 dataList <- list(
-  x = x_data ,
-  y = y_data ,
+  x = x_data,
+  y = y_data,
   xPred = xPred,
   Nx = dim(x_data)[2] ,
   Ntotal = dim(x_data)[1]
@@ -150,16 +150,16 @@ if (zero_intercept == T) {
 
 
 # Set up BLANK comparison values
-compVal <- data.frame("beta0" = NA, 
-                      "beta[1]" = NA, 
-                      "beta[2]" = NA,  
-                      "beta[3]" = NA, 
-                      "beta[4]" =  NA,  
-                      "beta[5]" =  NA, 
-                      "beta[6]" =  NA, 
+compVal <- data.frame("beta0" = NA,
+                      "beta[1]" = NA,
+                      "beta[2]" = NA,
+                      "beta[3]" = NA,
+                      "beta[4]" =  NA,
+                      "beta[5]" =  NA,
+                      "beta[6]" =  NA,
                       "beta[7]" =  NA,
-                      # "beta[8]" =  NA, 
-                      "tau" = NA , 
+                      # "beta[8]" =  NA,
+                      "tau" = NA,
                       check.names = FALSE)
 
 if (zero_intercept == T) {
@@ -191,16 +191,16 @@ if (hasnt_run(trial_type)) {
                                   inits = initsList ,
                                   n.chains = nChains,
                                   adapt = adaptSteps,
-                                  burnin = burnInSteps ,
-                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
-                                  thin = thinningSteps , 
-                                  summarise = F, 
-                                  plots = F)
+                                  burnin = burnInSteps,
+                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains),
+                                  thin = thinningSteps,
+                                  summarise = FALSE,
+                                  plots = FALSE)
   time <- proc.time() - start_time
   trial_info$duration <- time[3]
   saveRDS(runJagsOut,
           glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
-  
+
   write_csv(trial_info,
             glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
 
@@ -232,7 +232,7 @@ summaryInfo <- smryMCMC_HD(coda_samples,
                            compVal)
 
 summaryInfo_df <- as.data.frame(summaryInfo)
-predictions_visual <- 
+predictions_visual <-
   tibble(
     predictions = summaryInfo_df[str_detect(rownames(summaryInfo_df), 'pred'), "Mean"],
     actuals = ground_truths$pm10)
@@ -247,6 +247,7 @@ p <- ggplot(predictions_visual, aes(x = predictions, y = actuals)) +
     subtitle = paste0(trial_type, '\nRed Line is 1 to 1'))
 
 p
+
 # dir.create('OUTPUTS/IMAGES/PREDICTIONS')
 ggsave(glue::glue('OUTPUTS/IMAGES/PREDICTIONS/{trial_type}.png'),
        p,
