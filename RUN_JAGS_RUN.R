@@ -36,9 +36,18 @@ subsample_data$pm10 <- subsample_data$pm10 + 0.01
 # SEED SET FOR PREDICTION VALUES
 set.seed(1234)
 prediction_indices <- c(sample(1:nrow(subsample_data), 10, replace = FALSE))
-training_data <- subsample_data[-c(prediction_indices), features]
-prediction_data <- subsample_data[c(prediction_indices), features] %>% select(-predictor)
-ground_truths <- subsample_data[c(prediction_indices), ] %>% select(predictor)
+training_data <- subsample_data[-c(prediction_indices), features] # training dataset
+prediction_data <- subsample_data[c(prediction_indices), features] %>% select(-predictor) #testing dataset
+
+# TODO: ground_truths is no longer used below
+# ground_truths <- subsample_data[c(prediction_indices), ] %>% select(predictor) # target variable
+
+# Split independant and dependant variables
+# TODO: we still need to only split the data once here, not in two places
+y_data <- training_data[[predictor]]
+x_data <- as.matrix(training_data %>% select(-predictor))
+xPred <- as.matrix(prediction_data)
+colnames(xPred) <- NULL
 
 #------------------------------------------------------------------------------#
 
@@ -65,13 +74,6 @@ trial_info$thinning_steps <- thinningSteps
 
 for(i in 1:length(initial_values))(trial_info[[paste0('initial_values_',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- initial_values[i])
 trial_info$duration = 0
-
-# Split independant and dependant variables
-# TODO: we still need to only split the data once here, not in two places
-y_data <- training_data[[predictor]]
-x_data <- as.matrix(training_data %>% select(-predictor))
-xPred <- as.matrix(prediction_data)
-colnames(xPred) <- NULL
 
 # Specify data list for JAGS
 dataList <- list(
