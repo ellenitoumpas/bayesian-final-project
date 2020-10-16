@@ -82,13 +82,6 @@ dataList <- list(
   Ntotal = dim(x_data)[1]
 )
 
-
-
-########## SET TRUE/ FALSE HERE
-
-# Zero intercept?:
-zero_intercept = TRUE
-
 ########## RUN PARAM SETTING
 
 # Prepare JAGS model
@@ -102,10 +95,6 @@ compVal <- data.frame("beta0" = NA)
 for(beta in 1:dim(x_data)[2]){ compVal[paste0("beta[",beta,"]")] <- NA }
 compVal[paste0("tau")] <- NA
 
-if (zero_intercept == TRUE) {
-  compVal <- compVal %>% select(-beta0)
-}
-
 # Set initial values
 if(!is.null(initial_values)){
   initsList <- list(
@@ -118,6 +107,11 @@ if(!is.null(initial_values)){
 }
 
 if (zero_intercept == TRUE) {
+  # remove beta0 and zbeta0
+  parameters <- parameters[!parameters %in% c('beta0', 'zbeta0')]
+  # remove beta0 from compVal
+  compVal <- compVal %>% select(-beta0)
+  # remove beta0 from initial
   initsList$zbeta0 <- NULL
 }
 
