@@ -1,3 +1,4 @@
+
 # Set Priors here:
 mus <- c(-1, # rain
          1, # temp
