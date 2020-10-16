@@ -138,12 +138,11 @@ if (hasnt_run(trial_type)) {
   saveRDS(runJagsOut, glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
   write_csv(trial_info, glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
 
-  # TODO: why is this commented out?
-  # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
+  # uncomment to read in runJagsOut
+  # runJagsOut <- readRDS(glue::glue('OUTPUTS/RData/{trial_type}.RDS')
 
   coda_samples <- coda::as.mcmc.list(runJagsOut)
 
-  
   # Prepare subdirection for image capture
   subDir <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_type),"/")
   dir.create(subDir)
