@@ -36,8 +36,8 @@ subsample_data$pm10 <- subsample_data$pm10 + 0.01
 # SEED SET FOR PREDICTION VALUES
 set.seed(1234)
 # remove prediction indices
-prediction_indices <- c(sample(1:nrow(subsample_data), 10, replace = FALSE))
-subsample_data <- subsample_data[-c(prediction_indices), features]
+prediction_indices <- c(sample(1:nrow(subsample_data), 20, replace = FALSE))
+subsample_data <- subsample_data %>% select(-hour)
 
 # Split independant and dependant variables
 
@@ -45,8 +45,9 @@ subsample_data <- subsample_data[-c(prediction_indices), features]
 x_data <- subsample_data %>% select(-c(predictor)) %>% as.matrix()
 
 # testing dataset:
-xPred <- subsample_data[c(prediction_indices), features] %>% select(-c(predictor)) %>% as.matrix()
+xPred <- subsample_data[c(prediction_indices), ] %>% select(-c(predictor)) %>% as.matrix()
 colnames(xPred) <- NULL
+ground_truths <-  subsample_data[c(prediction_indices), ] %>% select(c(predictor))
 
 # target variable:
 y_data <- subsample_data[[predictor]]
@@ -121,8 +122,8 @@ if (hasnt_run(trial_type)) {
   # Run JAGS
   start_time <- proc.time()
   runJagsOut <- runjags::run.jags(method = "parallel",
-                                  model = 'TEMPmodel.txt',
-                                  monitor = c("beta", "zbeta", "tau", "zVar", "pred"),
+                                  model = 'TEMPmodel_interactions_v4.txt',
+                                  monitor = parameters,
                                   data = dataList,
                                   inits = initsList,
                                   n.chains = nChains,
@@ -150,9 +151,14 @@ if (hasnt_run(trial_type)) {
   # Capture diagMCMC
   prediction_indices <- 1:nrow(xPred)
   create_diags(coda_samples, prediction_indices, subDir)
-  plotMCMC_HD(codaSamples = coda_samples,  data = subsample_data, xName = colnames(dataList$x), 
-              yName = 'pm10', compVal = compVal, saveName = trial_type, 
-              number_predictions = prediction_indices, binded_intercept = zero_intercept)
+  plotMCMC_HD(codaSamples = coda_samples, 
+              data = subsample_data, 
+              xName = colnames(dataList$x), 
+              yName = 'pm10', 
+              compVal = compVal, 
+              saveName = trial_type, 
+              number_predictions = prediction_indices, 
+              binded_intercept = zero_intercept)
 
   
   # Close diags

@@ -15,16 +15,24 @@ subsampled_data <- subsampled_data %>%  select(-hour)
 subsampled_data$pm10 <- subsampled_data$pm10 + 0.01
 summary(subsampled_data$pm10)
 
-
+# init linear regression model
 lm1 <- lm(pm10 ~ .,
           data = subsampled_data)
 summary(lm1)
 
+# remove insignificant variables for linear regression 
+subsampled_data2 <- subsampled_data %>% select(-ws, -dow)
+lm1b <- lm(pm10 ~ .,
+          data = subsampled_data2)
+summary(lm1b)
 
-lm2 <- lm(pm10 ~ .^2,
+# interactions model
+lm2 <- lm(pm10 ~ . + .^2,
           data = subsampled_data)
-summary(lm2)
+summary(lm2) # note ws is now significant with interactions
+# also R squared increased from 0.23 to 0.32
 
+# Classic linear regression without considering intercept
 lm_list <- list()
 r2_vec <- vector()
 for (col in colnames(subsampled_data)[1:7]) {
@@ -36,8 +44,9 @@ for (col in colnames(subsampled_data)[1:7]) {
 }
 lm_list_df <- plyr::ldply(lm_list) 
 lm_list_df$R2 <- r2_vec
-
+# Estimates do not deviate greatly (accept for ws, but there are multiple significant ws interactions)
 lm_list_df
+summary(lm1)
 # are individual estimates similar to the multi-lin regression model estimates?
 
 # why is wind speed insignificant?

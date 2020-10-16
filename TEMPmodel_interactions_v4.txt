@@ -1,0 +1,62 @@
+
+  
+  # Scaling data 
+
+  data {
+    ysd <- sd(y)
+    for ( i in 1:Ntotal ) {
+      zy[i] <- y[i] / ysd
+    }
+    
+    for ( j in 1:Nx ) {
+      xsd[j] <-   sd(x[,j])
+      for ( i in 1:Ntotal ) {
+        zx[i,j] <- x[i,j] / xsd[j]
+      }
+    }
+  }
+
+  # Outlining the model
+  model{
+    for (i in 1:Ntotal) {
+      zy[i] ~ dgamma((mu[i]^2)/ zVar, zVar/mu[i]) # Use sample variance as an estimate of the population variance
+	  mu[i] <- sum(zbeta[1:Nx] * zx[i,1:Nx]) + (zbeta[1] * zx[i,1]) * (zbeta[4] * zx[i,4]) + (zbeta[2] * zx[i,2]) * (zbeta[3] * zx[i,3]) + (zbeta[3] * zx[i,3]) * (zbeta[7] * zx[i,7]) + (zbeta[4] * zx[i,4]) * (zbeta[6] * zx[i,6]) + (zbeta[4] * zx[i,4]) * (zbeta[7] * zx[i,7]) + (zbeta[7] * zx[i,7]) * (zbeta[6] * zx[i,6]) - zbeta[3] * zx[i,3] - zbeta[5] * zx[i,5]
+    }
+ 
+  zbeta[1] ~ dnorm(-1/xsd[1], 1/(10/xsd[1]^2))
+  zbeta[2] ~ dnorm(1/xsd[2], 1/(10/xsd[2]^2))
+  zbeta[3] ~ dnorm(-1/xsd[3], 1/(1/1000/xsd[3]^2)) #ws is insignif
+  zbeta[4] ~ dnorm(1/xsd[4], 1/(10/xsd[4]^2))
+  zbeta[5] ~ dnorm(1/xsd[5], 1/(1/1000/xsd[5]^2)) #dow is insignif
+  zbeta[6] ~ dnorm(9/xsd[6], 1/(1/10/xsd[6]^2))
+  zbeta[7] ~ dnorm(10/xsd[7], 1/(1/10/xsd[7]^2))
+  zVar ~ dgamma(0.01, 0.01)
+  
+  # Transform to original scale
+  beta[1:Nx] <- (zbeta[1:Nx]/ xsd[1:Nx]) * ysd
+  tau <- zVar * (ysd) ^ 2
+  
+  # Predictions
+ 
+  pred[1] <- 0 + beta[1] * xPred[1, 1]  + beta[2] * xPred[1, 2] + beta[4] * xPred[1, 4]  + beta[6] * xPred[1, 6]  + beta[7] * xPred[1, 7] + (beta[2] * xPred[1,2]) * (beta[3] * xPred[1,3]) + (beta[3] * xPred[1,3]) * (beta[7] * xPred[1,7]) + (beta[4] * xPred[1,4]) * (beta[6] * xPred[1,6]) + (beta[4] * xPred[1,4]) * (beta[7] * xPred[1,7]) + (beta[7] * xPred[1,7]) * (beta[6] * xPred[1,6])
+  pred[2] <- 0 + beta[1] * xPred[2, 1]  + beta[2] * xPred[2, 2] + beta[4] * xPred[2, 4]  + beta[6] * xPred[2, 6]  + beta[7] * xPred[2, 7] + (beta[2] * xPred[2,2]) * (beta[3] * xPred[2,3]) + (beta[3] * xPred[2,3]) * (beta[7] * xPred[2,7]) + (beta[4] * xPred[2,4]) * (beta[6] * xPred[2,6]) + (beta[4] * xPred[2,4]) * (beta[7] * xPred[2,7]) + (beta[7] * xPred[2,7]) * (beta[6] * xPred[2,6])
+  pred[3] <- 0 + beta[1] * xPred[3, 1]  + beta[2] * xPred[3, 2] + beta[4] * xPred[3, 4]  + beta[6] * xPred[3, 6]  + beta[7] * xPred[3, 7] + (beta[2] * xPred[3,2]) * (beta[3] * xPred[3,3]) + (beta[3] * xPred[3,3]) * (beta[7] * xPred[3,7]) + (beta[4] * xPred[3,4]) * (beta[6] * xPred[3,6]) + (beta[4] * xPred[3,4]) * (beta[7] * xPred[3,7]) + (beta[7] * xPred[3,7]) * (beta[6] * xPred[3,6])
+  pred[4] <- 0 + beta[1] * xPred[4, 1]  + beta[2] * xPred[4, 2] + beta[4] * xPred[4, 4]  + beta[6] * xPred[4, 6]  + beta[7] * xPred[4, 7] + (beta[2] * xPred[4,2]) * (beta[3] * xPred[4,3]) + (beta[3] * xPred[4,3]) * (beta[7] * xPred[4,7]) + (beta[4] * xPred[4,4]) * (beta[6] * xPred[4,6]) + (beta[4] * xPred[4,4]) * (beta[7] * xPred[4,7]) + (beta[7] * xPred[4,7]) * (beta[6] * xPred[4,6])
+  pred[5] <- 0 + beta[1] * xPred[5, 1]  + beta[2] * xPred[5, 2] + beta[4] * xPred[5, 4]  + beta[6] * xPred[5, 6]  + beta[7] * xPred[5, 7] + (beta[2] * xPred[5,2]) * (beta[3] * xPred[5,3]) + (beta[3] * xPred[5,3]) * (beta[7] * xPred[5,7]) + (beta[4] * xPred[5,4]) * (beta[6] * xPred[5,6]) + (beta[4] * xPred[5,4]) * (beta[7] * xPred[5,7]) + (beta[7] * xPred[5,7]) * (beta[6] * xPred[5,6])
+  pred[6] <- 0 + beta[1] * xPred[6, 1]  + beta[2] * xPred[6, 2] + beta[4] * xPred[6, 4]  + beta[6] * xPred[6, 6]  + beta[7] * xPred[6, 7] + (beta[2] * xPred[6,2]) * (beta[3] * xPred[6,3]) + (beta[3] * xPred[6,3]) * (beta[7] * xPred[6,7]) + (beta[4] * xPred[6,4]) * (beta[6] * xPred[6,6]) + (beta[4] * xPred[6,4]) * (beta[7] * xPred[6,7]) + (beta[7] * xPred[6,7]) * (beta[6] * xPred[6,6])
+  pred[7] <- 0 + beta[1] * xPred[7, 1]  + beta[2] * xPred[7, 2] + beta[4] * xPred[7, 4]  + beta[6] * xPred[7, 6]  + beta[7] * xPred[7, 7] + (beta[2] * xPred[7,2]) * (beta[3] * xPred[7,3]) + (beta[3] * xPred[7,3]) * (beta[7] * xPred[7,7]) + (beta[4] * xPred[7,4]) * (beta[6] * xPred[7,6]) + (beta[4] * xPred[7,4]) * (beta[7] * xPred[7,7]) + (beta[7] * xPred[7,7]) * (beta[6] * xPred[7,6])
+  pred[8] <- 0 + beta[1] * xPred[8, 1]  + beta[2] * xPred[8, 2] + beta[4] * xPred[8, 4]  + beta[6] * xPred[8, 6]  + beta[7] * xPred[8, 7] + (beta[2] * xPred[8,2]) * (beta[3] * xPred[8,3]) + (beta[3] * xPred[8,3]) * (beta[7] * xPred[8,7]) + (beta[4] * xPred[8,4]) * (beta[6] * xPred[8,6]) + (beta[4] * xPred[8,4]) * (beta[7] * xPred[8,7]) + (beta[7] * xPred[8,7]) * (beta[6] * xPred[8,6])
+  pred[9] <- 0 + beta[1] * xPred[9, 1]  + beta[2] * xPred[9, 2] + beta[4] * xPred[9, 4]  + beta[6] * xPred[9, 6]  + beta[7] * xPred[9, 7] + (beta[2] * xPred[9,2]) * (beta[3] * xPred[9,3]) + (beta[3] * xPred[9,3]) * (beta[7] * xPred[9,7]) + (beta[4] * xPred[9,4]) * (beta[6] * xPred[9,6]) + (beta[4] * xPred[9,4]) * (beta[7] * xPred[9,7]) + (beta[7] * xPred[9,7]) * (beta[6] * xPred[9,6])
+  pred[10] <- 0 + beta[1] * xPred[10, 1]  + beta[2] * xPred[10, 2] + beta[4] * xPred[10, 4]  + beta[6] * xPred[10, 6]  + beta[7] * xPred[10, 7] + (beta[2] * xPred[10,2]) * (beta[3] * xPred[10,3]) + (beta[3] * xPred[10,3]) * (beta[7] * xPred[10,7]) + (beta[4] * xPred[10,4]) * (beta[6] * xPred[10,6]) + (beta[4] * xPred[10,4]) * (beta[7] * xPred[10,7]) + (beta[7] * xPred[10,7]) * (beta[6] * xPred[10,6])
+  pred[11] <- 0 + beta[1] * xPred[11, 1]  + beta[2] * xPred[11, 2] + beta[4] * xPred[11, 4]  + beta[6] * xPred[11, 6]  + beta[7] * xPred[11, 7] + (beta[2] * xPred[11,2]) * (beta[3] * xPred[11,3]) + (beta[3] * xPred[11,3]) * (beta[7] * xPred[11,7]) + (beta[4] * xPred[11,4]) * (beta[6] * xPred[11,6]) + (beta[4] * xPred[11,4]) * (beta[7] * xPred[11,7]) + (beta[7] * xPred[11,7]) * (beta[6] * xPred[11,6])
+  pred[12] <- 0 + beta[1] * xPred[12, 1]  + beta[2] * xPred[12, 2] + beta[4] * xPred[12, 4]  + beta[6] * xPred[12, 6]  + beta[7] * xPred[12, 7] + (beta[2] * xPred[12,2]) * (beta[3] * xPred[12,3]) + (beta[3] * xPred[12,3]) * (beta[7] * xPred[12,7]) + (beta[4] * xPred[12,4]) * (beta[6] * xPred[12,6]) + (beta[4] * xPred[12,4]) * (beta[7] * xPred[12,7]) + (beta[7] * xPred[12,7]) * (beta[6] * xPred[12,6])
+  pred[13] <- 0 + beta[1] * xPred[13, 1]  + beta[2] * xPred[13, 2] + beta[4] * xPred[13, 4]  + beta[6] * xPred[13, 6]  + beta[7] * xPred[13, 7] + (beta[2] * xPred[13,2]) * (beta[3] * xPred[13,3]) + (beta[3] * xPred[13,3]) * (beta[7] * xPred[13,7]) + (beta[4] * xPred[13,4]) * (beta[6] * xPred[13,6]) + (beta[4] * xPred[13,4]) * (beta[7] * xPred[13,7]) + (beta[7] * xPred[13,7]) * (beta[6] * xPred[13,6])
+  pred[14] <- 0 + beta[1] * xPred[14, 1]  + beta[2] * xPred[14, 2] + beta[4] * xPred[14, 4]  + beta[6] * xPred[14, 6]  + beta[7] * xPred[14, 7] + (beta[2] * xPred[14,2]) * (beta[3] * xPred[14,3]) + (beta[3] * xPred[14,3]) * (beta[7] * xPred[14,7]) + (beta[4] * xPred[14,4]) * (beta[6] * xPred[14,6]) + (beta[4] * xPred[14,4]) * (beta[7] * xPred[14,7]) + (beta[7] * xPred[14,7]) * (beta[6] * xPred[14,6])
+  pred[15] <- 0 + beta[1] * xPred[15, 1]  + beta[2] * xPred[15, 2] + beta[4] * xPred[15, 4]  + beta[6] * xPred[15, 6]  + beta[7] * xPred[15, 7] + (beta[2] * xPred[15,2]) * (beta[3] * xPred[15,3]) + (beta[3] * xPred[15,3]) * (beta[7] * xPred[15,7]) + (beta[4] * xPred[15,4]) * (beta[6] * xPred[15,6]) + (beta[4] * xPred[15,4]) * (beta[7] * xPred[15,7]) + (beta[7] * xPred[15,7]) * (beta[6] * xPred[15,6])
+  pred[16] <- 0 + beta[1] * xPred[16, 1]  + beta[2] * xPred[16, 2] + beta[4] * xPred[16, 4]  + beta[6] * xPred[16, 6]  + beta[7] * xPred[16, 7] + (beta[2] * xPred[16,2]) * (beta[3] * xPred[16,3]) + (beta[3] * xPred[16,3]) * (beta[7] * xPred[16,7]) + (beta[4] * xPred[16,4]) * (beta[6] * xPred[16,6]) + (beta[4] * xPred[16,4]) * (beta[7] * xPred[16,7]) + (beta[7] * xPred[16,7]) * (beta[6] * xPred[16,6])
+  pred[17] <- 0 + beta[1] * xPred[17, 1]  + beta[2] * xPred[17, 2] + beta[4] * xPred[17, 4]  + beta[6] * xPred[17, 6]  + beta[7] * xPred[17, 7] + (beta[2] * xPred[17,2]) * (beta[3] * xPred[17,3]) + (beta[3] * xPred[17,3]) * (beta[7] * xPred[17,7]) + (beta[4] * xPred[17,4]) * (beta[6] * xPred[17,6]) + (beta[4] * xPred[17,4]) * (beta[7] * xPred[17,7]) + (beta[7] * xPred[17,7]) * (beta[6] * xPred[17,6])
+  pred[18] <- 0 + beta[1] * xPred[18, 1]  + beta[2] * xPred[18, 2] + beta[4] * xPred[18, 4]  + beta[6] * xPred[18, 6]  + beta[7] * xPred[18, 7] + (beta[2] * xPred[18,2]) * (beta[3] * xPred[18,3]) + (beta[3] * xPred[18,3]) * (beta[7] * xPred[18,7]) + (beta[4] * xPred[18,4]) * (beta[6] * xPred[18,6]) + (beta[4] * xPred[18,4]) * (beta[7] * xPred[18,7]) + (beta[7] * xPred[18,7]) * (beta[6] * xPred[18,6])
+  pred[19] <- 0 + beta[1] * xPred[19, 1]  + beta[2] * xPred[19, 2] + beta[4] * xPred[19, 4]  + beta[6] * xPred[19, 6]  + beta[7] * xPred[19, 7] + (beta[2] * xPred[19,2]) * (beta[3] * xPred[19,3]) + (beta[3] * xPred[19,3]) * (beta[7] * xPred[19,7]) + (beta[4] * xPred[19,4]) * (beta[6] * xPred[19,6]) + (beta[4] * xPred[19,4]) * (beta[7] * xPred[19,7]) + (beta[7] * xPred[19,7]) * (beta[6] * xPred[19,6])
+  pred[20] <- 0 + beta[1] * xPred[20, 1]  + beta[2] * xPred[20, 2] + beta[4] * xPred[20, 4]  + beta[6] * xPred[20, 6]  + beta[7] * xPred[20, 7] + (beta[2] * xPred[20,2]) * (beta[3] * xPred[20,3]) + (beta[3] * xPred[20,3]) * (beta[7] * xPred[20,7]) + (beta[4] * xPred[20,4]) * (beta[6] * xPred[20,6]) + (beta[4] * xPred[20,4]) * (beta[7] * xPred[20,7]) + (beta[7] * xPred[20,7]) * (beta[6] * xPred[20,6])
+
+}
