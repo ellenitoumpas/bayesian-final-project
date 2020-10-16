@@ -97,10 +97,6 @@ prepare_JAGS_model(mu_list = mus,
                    num_predictions = nrow(xPred),
                    zero_intercept = zero_intercept)
 
-if (zero_intercept == TRUE) {
-  parameters <- parameters[!parameters %in% c('beta0', 'zbeta0')]
-}
-
 # Set up BLANK comparison values
 compVal <- data.frame("beta0" = NA)
 for(beta in 1:dim(x_data)[2]){ compVal[paste0("beta[",beta,"]")] <- NA }
