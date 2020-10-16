@@ -1,3 +1,4 @@
+
 # Set Priors here:
 mus <- c(-1, # rain
          1, # temp
@@ -53,3 +54,6 @@ days_of_weeks <- c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
 wind_directions <- c('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW','NNW')
 
 seed_value <- sample(1:10000, 20, replace=F)
+
+# Zero intercept?:
+zero_intercept = TRUE

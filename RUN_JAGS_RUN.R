@@ -33,8 +33,6 @@ subsample_data <- subsample_data %>% mutate(dow = case_when(dow == 7 ~ 0, TRUE ~
 fullsample_data$pm10 <- fullsample_data$pm10 + 0.01
 subsample_data$pm10 <- subsample_data$pm10 + 0.01
 
-predictor <- 'pm10'
-
 # SEED SET FOR PREDICTION VALUES
 set.seed(1234)
 prediction_indices <- c(sample(1:nrow(subsample_data), 10, replace = FALSE))
@@ -80,17 +78,9 @@ dataList <- list(
   x = x_data,
   y = y_data,
   xPred = xPred,
-  Nx = dim(x_data)[2] ,
+  Nx = dim(x_data)[2],
   Ntotal = dim(x_data)[1]
 )
-
-
-
-########## SET TRUE/ FALSE HERE
-
-# Zero intercept?:
-zero_intercept = TRUE
-
 
 ########## RUN PARAM SETTING
 
@@ -100,22 +90,10 @@ prepare_JAGS_model(mu_list = mus,
                    num_predictions = nrow(xPred),
                    zero_intercept = zero_intercept)
 
-# Set up monitoring parameters
-parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred")
-
-if (zero_intercept == T) {
-  parameters <- parameters[!parameters %in% c('beta0', 'zbeta0')]
-}
-
-
 # Set up BLANK comparison values
 compVal <- data.frame("beta0" = NA)
 for(beta in 1:dim(x_data)[2]){ compVal[paste0("beta[",beta,"]")] <- NA }
 compVal[paste0("tau")] <- NA
-
-if (zero_intercept == T) {
-  compVal <- compVal %>% select(-beta0)
-}
 
 # Set initial values
 if(!is.null(initial_values)){
@@ -129,68 +107,70 @@ if(!is.null(initial_values)){
 }
 
 if (zero_intercept == TRUE) {
+  # remove beta0 and zbeta0
+  parameters <- parameters[!parameters %in% c('beta0', 'zbeta0')]
+  # remove beta0 from compVal
+  compVal <- compVal %>% select(-beta0)
+  # remove beta0 from initial
   initsList$zbeta0 <- NULL
 }
 
-
 ########## RUN THE MODEL
 
-
 if (hasnt_run(trial_type)) {
-  
+
   # Run JAGS
   start_time <- proc.time()
   runJagsOut <- runjags::run.jags(method = "parallel",
                                   model = 'TEMPmodel.txt',
                                   monitor = c("beta", "zbeta", "tau", "zVar", "pred"),
                                   data = dataList,
-                                  inits = initsList ,
+                                  inits = initsList,
                                   n.chains = nChains,
                                   adapt = adaptSteps,
-                                  burnin = burnInSteps ,
-                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
-                                  thin = thinningSteps ,
-                                  summarise = F,
-                                  plots = F)
-  
+                                  burnin = burnInSteps,
+                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains),
+                                  thin = thinningSteps,
+                                  summarise = FALSE,
+                                  plots = FALSE)
+
   time <- proc.time() - start_time
   trial_info$duration <- time[3]
   saveRDS(runJagsOut, glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
   write_csv(trial_info, glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
-  
+
   # TODO: why is this commented out?
   # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
-  
+
   coda_samples <- coda::as.mcmc.list(runJagsOut)
-  
+
   
   # Prepare subdirection for image capture
   subDir <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_type),"/")
   dir.create(subDir)
-  
+
   # Capture diagMCMC
   prediction_indices <- 1:nrow(xPred)
   create_diags(coda_samples, prediction_indices, subDir)
   plotMCMC_HD(codaSamples = coda_samples,  data = subsample_data, xName = colnames(dataList$x), 
               yName = 'pm10', compVal = compVal, saveName = trial_type, 
               number_predictions = prediction_indices, binded_intercept = zero_intercept)
-  
+
   
   # Close diags
   graphics.off()
-  
+
   # Capture summary dataframes
   summaryInfo <- smryMCMC_HD(coda_samples, compVal, saveName = trial_type)
   summaryInfo_df <- as.data.frame(summaryInfo)
-  
-  
-  # Test ground truths
+
+  # Test ground truths aka target variable
   pred_vis <- predictions_visual(summaryInfo_df, trial_type)
   pred_vis
-  
+
   p_sub <- prediction_density_overlay(summaryInfo_df, x_data, y_data, trial_type, 'subsample') # Actual values from subsample compared to model values
   p_sub
-  
+
   # Test model on full dataset 
   x_data_fullsample <- fullsample_data[, features] %>% select(-predictor) %>% as.matrix()
   y_data_fullsample <- fullsample_data[[predictor]]
@@ -198,9 +178,9 @@ if (hasnt_run(trial_type)) {
   p_full
 
 } else {
-  
+
   stop('Trial has been run!')
-  
+
 }
 
 
