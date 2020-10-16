@@ -33,8 +33,6 @@ subsample_data <- subsample_data %>% mutate(dow = case_when(dow == 7 ~ 0, TRUE ~
 fullsample_data$pm10 <- fullsample_data$pm10 + 0.01
 subsample_data$pm10 <- subsample_data$pm10 + 0.01
 
-predictor <- 'pm10'
-
 # SEED SET FOR PREDICTION VALUES
 set.seed(1234)
 prediction_indices <- c(sample(1:nrow(subsample_data), 10, replace = FALSE))
@@ -91,7 +89,6 @@ dataList <- list(
 # Zero intercept?:
 zero_intercept = TRUE
 
-
 ########## RUN PARAM SETTING
 
 # Prepare JAGS model
@@ -100,20 +97,16 @@ prepare_JAGS_model(mu_list = mus,
                    num_predictions = nrow(xPred),
                    zero_intercept = zero_intercept)
 
-# Set up monitoring parameters
-parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred")
-
-if (zero_intercept == T) {
+if (zero_intercept == TRUE) {
   parameters <- parameters[!parameters %in% c('beta0', 'zbeta0')]
 }
-
 
 # Set up BLANK comparison values
 compVal <- data.frame("beta0" = NA)
 for(beta in 1:dim(x_data)[2]){ compVal[paste0("beta[",beta,"]")] <- NA }
 compVal[paste0("tau")] <- NA
 
-if (zero_intercept == T) {
+if (zero_intercept == TRUE) {
   compVal <- compVal %>% select(-beta0)
 }
 
@@ -150,8 +143,8 @@ if (hasnt_run(trial_type)) {
                                   burnin = burnInSteps ,
                                   sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
                                   thin = thinningSteps ,
-                                  summarise = F,
-                                  plots = F)
+                                  summarise = FALSE,
+                                  plots = FALSE)
   
   time <- proc.time() - start_time
   trial_info$duration <- time[3]
