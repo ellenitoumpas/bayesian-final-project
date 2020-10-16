@@ -90,7 +90,7 @@ prepare_JAGS_model <- function(mu_list,
 
   # Write predictions
   for(pred in 1:num_predictions){
-    modelString <- paste0(modelString, "\n  pred[",pred,"] <- ", if(zero_intercept == T) {"0"} else {"beta + "})
+    modelString <- paste0(modelString, "\n  pred[",pred,"] <- ", if(zero_intercept == T) {"0"} else {"beta0"})
     for(mu in 1:length(mu_list)){
       modelString <- paste0(modelString, " + beta[",mu,"] * xPred[",pred,", ",mu,"] ")
     }
