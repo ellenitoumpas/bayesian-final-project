@@ -42,10 +42,10 @@ subsample_data <- subsample_data[-c(prediction_indices), features]
 # Split independant and dependant variables
 
 # training dataset:
-x_data <- subsample_data %>% select(-predictor) %>% as.matrix()
+x_data <- subsample_data %>% select(select(all_of(-predictor)) %>% as.matrix()
 
 # testing dataset:
-xPred <- subsample_data[c(prediction_indices), features] %>% select(-predictor) %>% as.matrix()
+xPred <- subsample_data[c(prediction_indices), features] %>% select(select(all_of(-predictor)) %>% as.matrix()
 colnames(xPred) <- NULL
 
 # target variable:
@@ -109,7 +109,7 @@ if (zero_intercept == TRUE) {
   # remove beta0 and zbeta0
   parameters <- parameters[!parameters %in% c('beta0', 'zbeta0')]
   # remove beta0 from compVal
-  compVal <- compVal %>% select(-beta0)
+  compVal <- compVal %>% select(select(all_of(-beta0))
   # remove beta0 from initial
   initsList$zbeta0 <- NULL
 }
@@ -170,7 +170,7 @@ if (hasnt_run(trial_type)) {
   p_sub
 
   # Test model on full dataset 
-  x_data_fullsample <- fullsample_data[, features] %>% select(-predictor) %>% as.matrix()
+  x_data_fullsample <- fullsample_data[, features] %>% select(select(all_of(-predictor)) %>% as.matrix()
   y_data_fullsample <- fullsample_data[[predictor]]
   p_full <- prediction_density_overlay(summaryInfo_df, x_data_fullsample, y_data_fullsample, trial_type, 'fullsample') # Actual values from fullsample compared to model values
   p_full
