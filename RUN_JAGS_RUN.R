@@ -3,7 +3,6 @@
 if (!requireNamespace('here'))
   install.packages('here')
 library('here')
-here()
 library('ggplot2')
 source(here('functions', 'functions_packages.R'))
 source(here('functions', 'functions_generic.R'))
@@ -30,25 +29,32 @@ fullsample_data <- fullsample_data %>% mutate(dow = case_when(dow == 7 ~ 0, TRUE
 subsample_data <- subsample_data %>% mutate(dow = case_when(dow == 7 ~ 0, TRUE ~ as.double(dow)))
 
 # Add 0.01
+# TODO: Include reason for 0.01 in comments here
 fullsample_data$pm10 <- fullsample_data$pm10 + 0.01
 subsample_data$pm10 <- subsample_data$pm10 + 0.01
 
 # SEED SET FOR PREDICTION VALUES
 set.seed(1234)
+# remove prediction indices
 prediction_indices <- c(sample(1:nrow(subsample_data), 10, replace = FALSE))
-training_data <- subsample_data[-c(prediction_indices), features]
-prediction_data <- subsample_data[c(prediction_indices), features] %>% select(-predictor)
-ground_truths <- subsample_data[c(prediction_indices), ] %>% select(predictor)
+subsample_data <- subsample_data[-c(prediction_indices), features]
 
-#------------------------------------------------------------------------------#
+# Split independant and dependant variables
 
+# training dataset:
+x_data <- subsample_data %>% select(-predictor) %>% as.matrix()
+
+# testing dataset:
+xPred <- subsample_data[c(prediction_indices), features] %>% select(-predictor) %>% as.matrix()
+colnames(xPred) <- NULL
+
+# target variable:
+y_data <- subsample_data[[predictor]]
 
 trial_type <- glue::glue('{model_name}_gamma_gamma_c{nChains}_b{burnInSteps}_a{adaptSteps}_t{thinningSteps}')
 
 # Create Init values list:
-initial_values <- get_initial_values(training_data, method = "likelihood-mean", pred = "pm10")
-
-# TODO: later: initial_values should be output as a constant, to avoid change
+initial_values <- get_initial_values(subsample_data, method = "likelihood-mean", pred = "pm10")
 
 # Setting up and saving trial data frame info
 trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))
@@ -65,13 +71,6 @@ trial_info$thinning_steps <- thinningSteps
 
 for(i in 1:length(initial_values))(trial_info[[paste0('initial_values_',stringr::str_pad(as.character(i), width = 2, side = "left", pad = "0"))]] <- initial_values[i])
 trial_info$duration = 0
-
-# Split independant and dependant variables
-# TODO: we still need to only split the data once here, not in two places
-y_data <- training_data[[predictor]]
-x_data <- as.matrix(training_data %>% select(-predictor))
-xPred <- as.matrix(prediction_data)
-colnames(xPred) <- NULL
 
 # Specify data list for JAGS
 dataList <- list(
@@ -139,12 +138,11 @@ if (hasnt_run(trial_type)) {
   saveRDS(runJagsOut, glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
   write_csv(trial_info, glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
 
-  # TODO: why is this commented out?
-  # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
+  # uncomment to read in runJagsOut
+  # runJagsOut <- readRDS(glue::glue('OUTPUTS/RData/{trial_type}.RDS')
 
   coda_samples <- coda::as.mcmc.list(runJagsOut)
 
-  
   # Prepare subdirection for image capture
   subDir <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_type),"/")
   dir.create(subDir)
