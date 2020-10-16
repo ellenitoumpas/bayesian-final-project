@@ -78,7 +78,7 @@ dataList <- list(
   x = x_data,
   y = y_data,
   xPred = xPred,
-  Nx = dim(x_data)[2] ,
+  Nx = dim(x_data)[2],
   Ntotal = dim(x_data)[1]
 )
 
@@ -125,65 +125,62 @@ if (zero_intercept == TRUE) {
   initsList$zbeta0 <- NULL
 }
 
-
 ########## RUN THE MODEL
 
-
 if (hasnt_run(trial_type)) {
-  
+
   # Run JAGS
   start_time <- proc.time()
   runJagsOut <- runjags::run.jags(method = "parallel",
                                   model = 'TEMPmodel.txt',
                                   monitor = c("beta", "zbeta", "tau", "zVar", "pred"),
                                   data = dataList,
-                                  inits = initsList ,
+                                  inits = initsList,
                                   n.chains = nChains,
                                   adapt = adaptSteps,
-                                  burnin = burnInSteps ,
-                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains) ,
-                                  thin = thinningSteps ,
+                                  burnin = burnInSteps,
+                                  sample = ceiling((burnInSteps * thinningSteps)/ nChains),
+                                  thin = thinningSteps,
                                   summarise = FALSE,
                                   plots = FALSE)
-  
+
   time <- proc.time() - start_time
   trial_info$duration <- time[3]
   saveRDS(runJagsOut, glue::glue('OUTPUTS/RData/{trial_type}.RDS'))
   write_csv(trial_info, glue::glue('OUTPUTS/TRIAL_INFO/{trial_type}.csv'))
-  
+
   # TODO: why is this commented out?
   # runJagsOut <- readRDS('OUTPUTS/RData/model0inf2_003_gamma_gamma_c3_b500_a500_t5.RDS')
-  
+
   coda_samples <- coda::as.mcmc.list(runJagsOut)
-  
+
   
   # Prepare subdirection for image capture
   subDir <- paste0(here(),'/OUTPUTS/IMAGES/BETA_DIAGNOSTICS/',toupper(trial_type),"/")
   dir.create(subDir)
-  
+
   # Capture diagMCMC
   prediction_indices <- 1:nrow(xPred)
   create_diags(coda_samples, prediction_indices, subDir)
   plotMCMC_HD(codaSamples = coda_samples,  data = subsample_data, xName = colnames(dataList$x), 
               yName = 'pm10', compVal = compVal, saveName = trial_type, 
               number_predictions = prediction_indices, binded_intercept = zero_intercept)
-  
+
   
   # Close diags
   graphics.off()
-  
+
   # Capture summary dataframes
   summaryInfo <- smryMCMC_HD(coda_samples, compVal, saveName = trial_type)
   summaryInfo_df <- as.data.frame(summaryInfo)
-  
-  
-  # Test ground truths
+
+  # Test ground truths aka target variable
   pred_vis <- predictions_visual(summaryInfo_df, trial_type)
   pred_vis
-  
+
   p_sub <- prediction_density_overlay(summaryInfo_df, x_data, y_data, trial_type, 'subsample') # Actual values from subsample compared to model values
   p_sub
-  
+
   # Test model on full dataset 
   x_data_fullsample <- fullsample_data[, features] %>% select(-predictor) %>% as.matrix()
   y_data_fullsample <- fullsample_data[[predictor]]
@@ -191,9 +188,9 @@ if (hasnt_run(trial_type)) {
   p_full
 
 } else {
-  
+
   stop('Trial has been run!')
-  
+
 }
 
 
