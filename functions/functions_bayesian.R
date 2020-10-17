@@ -29,7 +29,8 @@ create_diags <- function(coda_samples, pred_list, subDir){
 prepare_JAGS_model <- function(mu_list, 
                                var_list, 
                                num_predictions,
-                               zero_intercept = F){
+                               zero_intercept = F,
+                               suffix = ''){
   
   modelString <- paste0("
   
@@ -100,7 +101,7 @@ prepare_JAGS_model <- function(mu_list,
   modelString <- paste0(modelString,"\n\n}")
   
   # Write to file
-  writeLines(modelString, con = "TEMPmodel.txt") 
+  writeLines(modelString, con = paste0("TEMPmodel", suffix,".txt"))
 
 }
 
