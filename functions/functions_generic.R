@@ -375,7 +375,8 @@ setup_run_JAGS_trial <- function(data,
   prepare_JAGS_model(mu_list = mu_list,
                      var_list = var_list,
                      num_predictions = num_predictions,
-                     zero_intercept = zero_intercept)
+                     zero_intercept = zero_intercept,
+                     suffix = '_interactionv5')
   
   # Set up monitoring parameters
   parameters <- c("beta0", "beta", "zbeta0", "zbeta", "tau", "zVar", "pred")

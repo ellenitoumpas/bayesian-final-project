@@ -37,10 +37,12 @@ subsample_data$pm10 <- subsample_data$pm10 + 0.01
 set.seed(1234)
 # remove prediction indices
 prediction_indices <- c(sample(1:nrow(subsample_data), 20, replace = FALSE))
-subsample_data <- subsample_data %>% select(-hour)
+subsample_data <- subsample_data %>% select(features, pm10)
+
+# set up interactions
+source(here('interactions_setup.R'))
 
 # Split independant and dependant variables
-
 # training dataset:
 x_data <- subsample_data %>% select(-c(predictor)) %>% as.matrix()
 
@@ -88,7 +90,8 @@ dataList <- list(
 prepare_JAGS_model(mu_list = mus,
                    var_list = vars,
                    num_predictions = nrow(xPred),
-                   zero_intercept = zero_intercept)
+                   zero_intercept = zero_intercept,
+                   suffix = '_interactionv5')
 
 # Set up BLANK comparison values
 compVal <- data.frame("beta0" = NA)
@@ -122,7 +125,7 @@ if (hasnt_run(trial_type)) {
   # Run JAGS
   start_time <- proc.time()
   runJagsOut <- runjags::run.jags(method = "parallel",
-                                  model = 'TEMPmodel_interactions_v4.txt',
+                                  model = 'TEMPmodel_interactionv5.txt',
                                   monitor = parameters,
                                   data = dataList,
                                   inits = initsList,
