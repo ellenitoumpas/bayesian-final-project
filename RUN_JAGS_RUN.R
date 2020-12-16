@@ -54,7 +54,12 @@ y_data <- subsample_data[[predictor]]
 trial_type <- glue::glue('{model_name}_gamma_gamma_c{nChains}_b{burnInSteps}_a{adaptSteps}_t{thinningSteps}')
 
 # Create Init values list:
-initial_values <- get_initial_values(subsample_data, method = "likelihood-mean", pred = "pm10")
+# initial_values <- get_initial_values(subsample_data, method = "likelihood-mean", pred = "pm10")
+# output: 
+# [1] 0.1000000 0.4941515 2.6739331 1.4063048 1.5836989 0.5933827 0.0100000
+# initial_values <- c(0.1000000, 0.4941515, 2.6739331, 1.4063048, 1.5836989, 0.5933827, 0.0100000) # based on likelihood-mean
+# initial_values <- c(1/2, 1/2, 1/1000, 1/2, 1/1000, 1/10, 1/10) # Optimal Vars 1
+# initial_values <- c(10, 10, 1/100, 10, 1/100, 1/10, 1/10) # Optimal Vars 2
 
 # Setting up and saving trial data frame info
 trial_info <- as.data.frame(matrix(ncol = 0, nrow = 1))

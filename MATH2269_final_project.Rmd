@@ -86,14 +86,14 @@ data_cleaned <- data_cleaned %>%
 
 data.frame(columns = integer(), rows = integer()) %>%
   add_row(columns = dim(data_cleaned)[2], rows = dim(data_cleaned)[1]) %>%
-  format_table(p_caption = "Dimenions")
+  format_table(p_caption = "Dimensions")
 
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, size = 'tiny', out.extra='angle=90', size = 'tiny'}
 
 ## TODO: Find a way to hack the landscape() function so that forced page breaks dont occur. It would be good to have all preview tables
-## printed in landscape so there is extra real estate in the width of the table but all header previews still contained to one page?s
+## printed in landscape so there isx extra real estate in the width of the table but all header previews still contained to one page?s
 
 source(here('src', 'data', 'inspect_data.R'))
 inspect_data(data_cleaned)
